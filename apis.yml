@@ -39,3 +39,40 @@ maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
 specificationVersion: '0.19'
+common:
+  - name: About Redocly documentation
+    description: 'null'
+    url: https://redocly.com/docs
+    type: Documentation
+  - name: Customers
+    description: 'null'
+    url: https://redocly.com/customers
+    type: Customers
+  - name: Pricing
+    description: 'null'
+    url: https://redocly.com/pricing
+    type: Pricing
+  - name: Redocly
+    description: 'null'
+    url: https://redocly.com/blog
+    type: Blog
+  - name: Webinars
+    description: 'null'
+    url: https://redocly.com/webinars
+    type: Webinars
+  - name: Security at Redocly
+    description: 'null'
+    url: https://redocly.com/security
+    type: Security
+  - name: Redocly status page
+    description: 'null'
+    url: https://status.redocly.com/
+    type: Status
+  - name: Service Level Agreement
+    description: 'null'
+    url: https://redocly.com/sla
+    type: ServiceLevelAgreement
+  - name: Redocly CLI
+    description: 'null'
+    url: https://redocly.com/redocly-cli
+    type: CLI
