@@ -24,6 +24,8 @@ access: 3rd-Party
 created: '2026-01-05'
 modified: '2026-01-04'
 position: Consumer
+segments:
+  - Documentation
 description: >-
   Redocly is a company that specializes in building tools and solutions for API
   documentation and governance. They help organizations create, manage, and
