@@ -13,7 +13,123 @@ apis:
         type: Documentation
     description: >-
       Redocly helps companies at any level of API maturity win integrations and
-      foster innovation 
+      foster innovation
+  - aid: redocly:redocly-reunite
+    name: Redocly Reunite
+    tags:
+      - Documentation
+      - Collaboration
+      - Deployment
+    humanURL: https://redocly.com/docs/realm
+    properties:
+      - url: https://redocly.com/docs/realm
+        type: Documentation
+    description: >-
+      Redocly Reunite is a collaboration and deployment tool that prepares,
+      deploys, and hosts documentation projects and mock servers in a
+      Git-connected way. It provides a visual review tool for uncommitted
+      work-in-progress with Webview, committed work-in-progress with branch
+      Previews, and automated GitOps production releases. Reunite integrates
+      with GitHub, GitLab, and Azure DevOps for source control.
+  - aid: redocly:redocly-realm
+    name: Redocly Realm
+    tags:
+      - Documentation
+      - API Catalog
+      - Developer Portal
+    humanURL: https://redocly.com/realm
+    properties:
+      - url: https://redocly.com/realm
+        type: Documentation
+      - url: https://redocly.com/docs/realm/changelog
+        type: Changelog
+    description: >-
+      Redocly Realm is a comprehensive API lifecycle management platform that
+      combines Redoc, Revel, and Reef into a single integrated product. Realm
+      includes API documentation, mock servers, linting, catalog, scorecard,
+      API functions, markdown docs, API Scout for discovering hidden or
+      duplicate APIs, and dynamic client registration features.
+  - aid: redocly:redocly-redoc
+    name: Redocly Redoc
+    tags:
+      - Documentation
+      - OpenAPI
+      - Reference
+    humanURL: https://redocly.com/redoc
+    properties:
+      - url: https://redocly.com/redoc
+        type: Documentation
+      - url: https://redocly.com/docs/redoc
+        type: Reference
+      - url: https://github.com/Redocly/redoc
+        type: GitHubOrg
+    description: >-
+      Redoc is the open-source engine that renders API reference documentation
+      from OpenAPI definitions with unmatched clarity and usability. It supports
+      OpenAPI 3.2, 3.1, 3.0 and OpenAPI 2.0 (legacy Swagger), and is provided
+      as a CLI tool, HTML tag, React component, and Docker image. Redoc has
+      over 23,000 stars on GitHub and has become a standard for three-panel
+      OpenAPI powered documentation.
+  - aid: redocly:redocly-revel
+    name: Redocly Revel
+    tags:
+      - Documentation
+      - Developer Portal
+      - Localization
+    humanURL: https://redocly.com/docs/realm
+    properties:
+      - url: https://redocly.com/docs/realm
+        type: Documentation
+    description: >-
+      Redocly Revel is an external developer showcase that renders Markdown,
+      Markdoc, and React pages. It provides multi-product and localization
+      capabilities, enabling organizations to create polished developer-facing
+      portals and documentation experiences for external consumers of their
+      APIs.
+  - aid: redocly:redocly-reef
+    name: Redocly Reef
+    tags:
+      - API Catalog
+      - Governance
+      - Scorecard
+    humanURL: https://redocly.com/reef
+    properties:
+      - url: https://redocly.com/reef
+        type: Documentation
+      - url: https://redocly.com/docs/realm/config/scorecard
+        type: Reference
+    description: >-
+      Redocly Reef is an internal service catalog and API governance platform
+      that organizes, aids discovery, and monitors APIs throughout their
+      lifecycle. Reef includes Catalog for organizing and searching APIs,
+      Scorecard for running multiple sets of linting rules against APIs, API
+      Scout for discovering hidden or underused APIs, producer API onboarding,
+      and consumer developer onboarding with dynamic client registration.
+  - aid: redocly:redocly-cli
+    name: Redocly CLI
+    tags:
+      - CLI
+      - Linting
+      - OpenAPI
+      - Governance
+    humanURL: https://redocly.com/redocly-cli
+    properties:
+      - url: https://redocly.com/docs/cli
+        type: Documentation
+      - url: https://redocly.com/docs/cli/commands/lint
+        type: Reference
+      - url: https://redocly.com/docs/cli/changelog
+        type: Changelog
+      - url: https://github.com/Redocly/redocly-cli
+        type: GitHubOrg
+    description: >-
+      Redocly CLI is an open-source command-line tool for working with OpenAPI
+      descriptions, developer portals, and other API lifecycle operations. It
+      supports linting, validation, bundling, splitting, and decorating OpenAPI
+      files. The CLI supports OpenAPI 3.2, 3.1, 3.0 and OpenAPI 2.0, AsyncAPI
+      3.0 and 2.6, and Arazzo 1.0 specifications. It provides built-in
+      rulesets including spec, recommended, minimal, and recommended-strict
+      for API governance and standards enforcement.
 name: Redocly
 tags:
   - Documentation
@@ -22,7 +138,7 @@ type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2026-01-05'
-modified: '2026-01-04'
+modified: '2026-03-03'
 position: Consumer
 segments:
   - Documentation
@@ -39,7 +155,7 @@ description: >-
   processes and improve the overall developer experience.
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
 specificationVersion: '0.19'
 common:
   - name: About Redocly documentation
@@ -78,3 +194,71 @@ common:
     description: 'null'
     url: https://redocly.com/redocly-cli
     type: CLI
+  - name: About Redocly
+    description: 'null'
+    url: https://redocly.com/about
+    type: About
+  - name: Contact Redocly
+    description: 'null'
+    url: https://redocly.com/contact-us
+    type: Support
+  - name: Redocly Products
+    description: 'null'
+    url: https://redocly.com/products
+    type: Products
+  - name: Redocly Login
+    description: 'null'
+    url: https://auth.cloud.redocly.com/login
+    type: Login
+  - name: Redocly Sign Up
+    description: 'null'
+    url: https://redocly.com/billing/signup
+    type: SignUp
+  - name: Redocly Privacy Notice
+    description: 'null'
+    url: https://redocly.com/privacy-notice
+    type: PrivacyPolicy
+  - name: Redocly Subscription Agreement
+    description: 'null'
+    url: https://redocly.com/subscription-agreement
+    type: TermsOfService
+  - name: Redocly Careers
+    description: 'null'
+    url: https://redocly.com/careers
+    type: Careers
+  - name: Redocly on GitHub
+    description: 'null'
+    url: https://github.com/Redocly
+    type: GitHubOrg
+  - name: Redocly on X
+    description: 'null'
+    url: https://twitter.com/Redocly
+    type: X
+  - name: Redocly on LinkedIn
+    description: 'null'
+    url: https://www.linkedin.com/company/redocly
+    type: LinkedIn
+  - name: Redocly API Governance
+    description: 'null'
+    url: https://redocly.com/api-governance
+    type: Governance
+  - name: Redocly Changelog
+    description: 'null'
+    url: https://redocly.com/docs/realm/changelog
+    type: Changelog
+  - name: Redocly Vulnerability Disclosure Policy
+    description: 'null'
+    url: https://redocly.com/vulnerability-disclosure-policy
+    type: VulnerabilityDisclosure
+  - name: Redocly Data Processing Addendum
+    description: 'null'
+    url: https://redocly.com/dpa
+    type: DataProcessingAddendum
+  - name: Redocly Startup Discount
+    description: 'null'
+    url: https://redocly.com/startup-discount
+    type: Pricing
+  - name: Redocly OpenAPI Reference Docs
+    description: 'null'
+    url: https://redocly.com/reference
+    type: Reference
