@@ -12,8 +12,8 @@ apis:
       - url: https://redocly.com/
         type: Documentation
     description: >-
-      Redocly helps companies at any level of API maturity win integrations and
-      foster innovation
+      Redocly helps companies at any level of API maturity win integrations and foster
+      innovation.
   - aid: redocly:redocly-reunite
     name: Redocly Reunite
     tags:
@@ -143,16 +143,12 @@ position: Consumer
 segments:
   - Documentation
 description: >-
-  Redocly is a company that specializes in building tools and solutions for API
-  documentation and governance. They help organizations create, manage, and
-  publish API documentation in a streamlined and efficient manner. Redocly
-  offers a suite of products, including their flagship API documentation
-  platform, that helps developers and technical writers collaborate on creating
-  high-quality documentation that is easy to navigate and understand.
-  Additionally, Redocly provides solutions for API governance, ensuring
-  consistency and compliance across all API documentation within an
-  organization. With Redocly, companies can streamline their API documentation
-  processes and improve the overall developer experience.
+  Redocly is a company that specializes in building tools and solutions for API documentation
+  and governance. They help organizations create, manage, and publish API documentation
+  in a streamlined and efficient manner. Redocly offers a suite of products, including
+  their flagship API documentation platform, that helps developers and technical writers
+  collaborate on creating high-quality documentation that is easy to navigate and
+  understand.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
