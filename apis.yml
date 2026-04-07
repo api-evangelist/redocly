@@ -17,9 +17,9 @@ apis:
   - aid: redocly:redocly-reunite
     name: Redocly Reunite
     tags:
-      - Documentation
       - Collaboration
       - Deployment
+      - Documentation
     humanURL: https://redocly.com/docs/realm
     properties:
       - url: https://redocly.com/docs/realm
@@ -34,9 +34,9 @@ apis:
   - aid: redocly:redocly-realm
     name: Redocly Realm
     tags:
-      - Documentation
       - API Catalog
       - Developer Portal
+      - Documentation
     humanURL: https://redocly.com/realm
     properties:
       - url: https://redocly.com/realm
@@ -73,8 +73,8 @@ apis:
   - aid: redocly:redocly-revel
     name: Redocly Revel
     tags:
-      - Documentation
       - Developer Portal
+      - Documentation
       - Localization
     humanURL: https://redocly.com/docs/realm
     properties:
@@ -109,9 +109,9 @@ apis:
     name: Redocly CLI
     tags:
       - CLI
+      - Governance
       - Linting
       - OpenAPI
-      - Governance
     humanURL: https://redocly.com/redocly-cli
     properties:
       - url: https://redocly.com/docs/cli
