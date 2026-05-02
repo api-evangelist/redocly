@@ -1,0 +1,76 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "redocly": "https://redocly.com/ns/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "RedoclyConfig": {
+      "@id": "redocly:Configuration",
+      "@context": {
+        "apis": {
+          "@id": "redocly:apis",
+          "@container": "@index"
+        },
+        "extends": "redocly:extends",
+        "rules": {
+          "@id": "redocly:rules",
+          "@container": "@index"
+        },
+        "plugins": {
+          "@id": "redocly:plugins",
+          "@container": "@set"
+        },
+        "theme": "redocly:theme"
+      }
+    },
+
+    "ApiDefinition": {
+      "@id": "redocly:ApiDefinition",
+      "@context": {
+        "root": {
+          "@id": "redocly:rootFile",
+          "@type": "xsd:string"
+        },
+        "extends": "redocly:extends",
+        "rules": {
+          "@id": "redocly:rules",
+          "@container": "@index"
+        },
+        "labels": {
+          "@id": "redocly:labels",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "LintResult": {
+      "@id": "redocly:LintResult",
+      "@context": {
+        "totals": "redocly:totals",
+        "problems": {
+          "@id": "redocly:problems",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "LintProblem": {
+      "@id": "redocly:LintProblem",
+      "@context": {
+        "message": "schema:description",
+        "severity": "redocly:severity",
+        "ruleId": "redocly:ruleId",
+        "location": {
+          "@id": "redocly:location",
+          "@container": "@set"
+        },
+        "suggest": {
+          "@id": "redocly:suggest",
+          "@container": "@set"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "description": "Example output from 'redocly lint openapi/petstore.yaml --format json'",
+  "command": "redocly lint openapi/petstore.yaml --format json",
+  "output": {
+    "totals": {
+      "errors": 2,
+      "warnings": 1,
+      "ignored": 0
+    },
+    "fileTotals": {
+      "openapi/petstore.yaml": {
+        "errors": 2,
+        "warnings": 1,
+        "ignored": 0
+      }
+    },
+    "problems": [
+      {
+        "message": "Operation must have a non-empty 'summary' field.",
+        "severity": "error",
+        "ruleId": "operation-summary",
+        "location": [
+          {
+            "source": "openapi/petstore.yaml",
+            "pointer": "#/paths/~1pets~1{petId}/get",
+            "line": 34,
+            "col": 5
+          }
+        ]
+      },
+      {
+        "message": "Operation must have a non-empty 'operationId' field.",
+        "severity": "error",
+        "ruleId": "operation-operationId",
+        "location": [
+          {
+            "source": "openapi/petstore.yaml",
+            "pointer": "#/paths/~1pets~1{petId}/delete",
+            "line": 56,
+            "col": 5
+          }
+        ]
+      },
+      {
+        "message": "Operation 'description' is recommended.",
+        "severity": "warn",
+        "ruleId": "operation-description",
+        "location": [
+          {
+            "source": "openapi/petstore.yaml",
+            "pointer": "#/paths/~1pets/get",
+            "line": 12,
+            "col": 5
+          }
+        ]
+      }
+    ]
+  }
+}

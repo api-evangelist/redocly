@@ -1,122 +1,95 @@
 # Redocly (redocly)
-Redocly is a company that specializes in building tools and solutions for API documentation and governance. They help organizations create, manage, and publish API documentation in a streamlined and efficient manner. Redocly offers a suite of products, including their flagship API documentation platform, that helps developers and technical writers collaborate on creating high-quality documentation that is easy to navigate and understand. Additionally, Redocly provides solutions for API governance, ensuring consistency and compliance across all API documentation within an organization. With Redocly, companies can streamline their API documentation processes and improve the overall developer experience.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/redocly/refs/heads/main/apis.yml)
+Redocly is a company that specializes in API documentation and governance tools. Their platform helps organizations create, manage, and publish API documentation through Realm (integrated lifecycle platform), Revel (developer portal), Reef (internal catalog and scorecard), and Redoc (open-source OpenAPI renderer). The Redocly CLI provides linting, bundling, splitting, decoration, and documentation generation for OpenAPI, AsyncAPI, and Arazzo specifications.
+
+**URL:** [https://raw.githubusercontent.com/api-evangelist/redocly/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/redocly/refs/heads/main/apis.yml)
 
 ## Scope
 
-- **Type:** Index 
-- **Position:** Consuming 
-- **Access:** 3rd-Party 
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
 
-## Tags:
+## Tags
 
- - Documentation, Governance
+API Catalog, API Documentation, Developer Portal, Governance, Linting, OpenAPI
 
 ## Timestamps
 
-- **Created:** 2026-01-05 
-- **Modified:** 2026-03-16 
+- **Created:** 2026-01-05
+- **Modified:** 2026-05-02
 
 ## APIs
 
-### Redocly
-Redocly helps companies at any level of API maturity win integrations and foster innovation
-
-**Human URL:** [https://redocly.com/](https://redocly.com/)
-
-
-#### Tags:
-
- - Documentation, Governance
-
-#### Properties
-
-- [Documentation](https://redocly.com/)
-
-### Redocly Reunite
-Redocly Reunite is a collaboration and deployment tool that prepares, deploys, and hosts documentation projects and mock servers in a Git-connected way. It provides a visual review tool for uncommitted work-in-progress with Webview, committed work-in-progress with branch Previews, and automated GitOps production releases. Reunite integrates with GitHub, GitLab, and Azure DevOps for source control.
-
-**Human URL:** [https://redocly.com/docs/realm](https://redocly.com/docs/realm)
-
-
-#### Tags:
-
- - Documentation, Collaboration, Deployment
-
-#### Properties
-
-- [Documentation](https://redocly.com/docs/realm)
-
 ### Redocly Realm
-Redocly Realm is a comprehensive API lifecycle management platform that combines Redoc, Revel, and Reef into a single integrated product. Realm includes API documentation, mock servers, linting, catalog, scorecard, API functions, markdown docs, API Scout for discovering hidden or duplicate APIs, and dynamic client registration features.
+
+Comprehensive API lifecycle management platform combining Redoc, Revel, and Reef. Includes API documentation, mock servers, linting, catalog, scorecard, API Scout for discovering hidden APIs, and dynamic client registration.
 
 **Human URL:** [https://redocly.com/realm](https://redocly.com/realm)
 
+#### Tags
 
-#### Tags:
+API Catalog, Developer Portal, Documentation
 
- - Documentation, API Catalog, Developer Portal
+---
 
-#### Properties
+### Redocly Reunite
 
-- [Documentation](https://redocly.com/realm)
-- [Changelog](https://redocly.com/docs/realm/changelog)
-
-### Redocly Redoc
-Redoc is the open-source engine that renders API reference documentation from OpenAPI definitions with unmatched clarity and usability. It supports OpenAPI 3.2, 3.1, 3.0 and OpenAPI 2.0 (legacy Swagger), and is provided as a CLI tool, HTML tag, React component, and Docker image. Redoc has over 23,000 stars on GitHub and has become a standard for three-panel OpenAPI powered documentation.
-
-**Human URL:** [https://redocly.com/redoc](https://redocly.com/redoc)
-
-
-#### Tags:
-
- - Documentation, OpenAPI, Reference
-
-#### Properties
-
-- [Documentation](https://redocly.com/redoc)
-- [Reference](https://redocly.com/docs/redoc)
-- [GitHubOrg](https://github.com/Redocly/redoc)
-
-### Redocly Revel
-Redocly Revel is an external developer showcase that renders Markdown, Markdoc, and React pages. It provides multi-product and localization capabilities, enabling organizations to create polished developer-facing portals and documentation experiences for external consumers of their APIs.
+Collaboration and deployment tool for Git-connected documentation projects. Provides Webview for uncommitted previews, Branch Previews, and GitOps production releases. Integrates with GitHub, GitLab, and Azure DevOps.
 
 **Human URL:** [https://redocly.com/docs/realm](https://redocly.com/docs/realm)
 
+#### Tags
 
-#### Tags:
+Collaboration, Deployment, Documentation, GitOps
 
- - Documentation, Developer Portal, Localization
+---
 
-#### Properties
+### Redocly Revel
 
-- [Documentation](https://redocly.com/docs/realm)
+External developer showcase rendering Markdown, Markdoc, and React pages with multi-product and localization support. Creates polished, public-facing developer portals.
+
+**Human URL:** [https://redocly.com/docs/realm](https://redocly.com/docs/realm)
+
+#### Tags
+
+Developer Portal, Documentation, Localization
+
+---
 
 ### Redocly Reef
-Redocly Reef is an internal service catalog and API governance platform that organizes, aids discovery, and monitors APIs throughout their lifecycle. Reef includes Catalog for organizing and searching APIs, Scorecard for running multiple sets of linting rules against APIs, API Scout for discovering hidden or underused APIs, producer API onboarding, and consumer developer onboarding with dynamic client registration.
+
+Internal service catalog and API governance platform with catalog organization, Scorecard linting rules, API Scout for hidden API discovery, and developer onboarding with dynamic client registration.
 
 **Human URL:** [https://redocly.com/reef](https://redocly.com/reef)
 
+#### Tags
 
-#### Tags:
+API Catalog, Governance, Scorecard
 
- - API Catalog, Governance, Scorecard
+---
 
-#### Properties
+### Redocly Redoc
 
-- [Documentation](https://redocly.com/reef)
-- [Reference](https://redocly.com/docs/realm/config/scorecard)
+Open-source OpenAPI documentation renderer with a three-panel layout. Supports OpenAPI 3.2, 3.1, 3.0, and Swagger 2.0. Available as React component, HTML tag, CLI, and Docker image with over 23,000 GitHub stars.
+
+**Human URL:** [https://redocly.com/redoc](https://redocly.com/redoc)
+
+#### Tags
+
+Documentation, OpenAPI, Reference
+
+---
 
 ### Redocly CLI
-Redocly CLI is an open-source command-line tool for working with OpenAPI descriptions, developer portals, and other API lifecycle operations. It supports linting, validation, bundling, splitting, and decorating OpenAPI files. The CLI supports OpenAPI 3.2, 3.1, 3.0 and OpenAPI 2.0, AsyncAPI 3.0 and 2.6, and Arazzo 1.0 specifications. It provides built-in rulesets including spec, recommended, minimal, and recommended-strict for API governance and standards enforcement.
+
+Open-source CLI for linting, bundling, splitting, decorating, and building documentation from OpenAPI, AsyncAPI, and Arazzo definitions. Built-in rulesets: spec, recommended, recommended-strict, minimal.
 
 **Human URL:** [https://redocly.com/redocly-cli](https://redocly.com/redocly-cli)
 
+#### Tags
 
-#### Tags:
-
- - CLI, Linting, OpenAPI, Governance
+CLI, Governance, Linting, OpenAPI
 
 #### Properties
 
@@ -124,38 +97,40 @@ Redocly CLI is an open-source command-line tool for working with OpenAPI descrip
 - [Reference](https://redocly.com/docs/cli/commands/lint)
 - [Changelog](https://redocly.com/docs/cli/changelog)
 - [GitHubOrg](https://github.com/Redocly/redocly-cli)
+- [JSONSchema](json-schema/redocly-config-schema.json)
+- [JSONSchema](json-schema/redocly-lint-result-schema.json)
+- [JSONStructure](json-structure/redocly-config-structure.json)
+- [JSONStructure](json-structure/redocly-lint-result-structure.json)
+- [JSON-LD](json-ld/redocly-context.jsonld)
+- [Vocabulary](vocabulary/redocly-vocabulary.yml)
+
+---
+
+## Examples
+
+| File | Description |
+|---|---|
+| [examples/redocly-config-example.json](examples/redocly-config-example.json) | Example redocly.yaml configuration with multi-API setup |
+| [examples/redocly-lint-result-example.json](examples/redocly-lint-result-example.json) | Example lint output with errors and warnings |
+| [examples/redocly-cli-commands-example.json](examples/redocly-cli-commands-example.json) | Common CLI commands: lint, bundle, build-docs, split, push |
 
 ## Common Properties
 
 - [Documentation](https://redocly.com/docs)
-- [Customers](https://redocly.com/customers)
-- [Pricing](https://redocly.com/pricing)
 - [Blog](https://redocly.com/blog)
-- [Webinars](https://redocly.com/webinars)
-- [Security](https://redocly.com/security)
+- [Pricing](https://redocly.com/pricing)
 - [Status](https://status.redocly.com/)
-- [ServiceLevelAgreement](https://redocly.com/sla)
-- [CLI](https://redocly.com/redocly-cli)
-- [About](https://redocly.com/about)
 - [Support](https://redocly.com/contact-us)
-- [Products](https://redocly.com/products)
 - [Login](https://auth.cloud.redocly.com/login)
-- [SignUp](https://redocly.com/billing/signup)
 - [PrivacyPolicy](https://redocly.com/privacy-notice)
 - [TermsOfService](https://redocly.com/subscription-agreement)
-- [Careers](https://redocly.com/careers)
 - [GitHubOrg](https://github.com/Redocly)
 - [X](https://twitter.com/Redocly)
 - [LinkedIn](https://www.linkedin.com/company/redocly)
 - [Governance](https://redocly.com/api-governance)
 - [Changelog](https://redocly.com/docs/realm/changelog)
-- [VulnerabilityDisclosure](https://redocly.com/vulnerability-disclosure-policy)
-- [DataProcessingAddendum](https://redocly.com/dpa)
-- [Pricing](https://redocly.com/startup-discount)
-- [Reference](https://redocly.com/reference)
 
 ## Maintainers
 
 **FN:** Kin Lane
-
 **Email:** kin@apievangelist.com

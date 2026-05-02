@@ -1,0 +1,34 @@
+{
+  "title": "Redocly Lint Result Structure",
+  "description": "JSON structure for the output of redocly lint, describing aggregate totals and individual problem details.",
+  "type": "object",
+  "fields": [
+    {
+      "name": "totals",
+      "type": "object",
+      "required": false,
+      "description": "Aggregate lint finding counts.",
+      "fields": [
+        { "name": "errors", "type": "integer", "description": "Number of error-severity violations." },
+        { "name": "warnings", "type": "integer", "description": "Number of warning-severity violations." },
+        { "name": "ignored", "type": "integer", "description": "Number of suppressed violations." }
+      ]
+    },
+    {
+      "name": "problems",
+      "type": "array",
+      "required": false,
+      "description": "List of individual lint violations.",
+      "items": {
+        "type": "object",
+        "fields": [
+          { "name": "message", "type": "string", "description": "Violation description." },
+          { "name": "severity", "type": "string", "description": "error or warn.", "enum": ["error", "warn"] },
+          { "name": "ruleId", "type": "string", "description": "Rule identifier." },
+          { "name": "location", "type": "array", "description": "File path, JSON pointer, line, and column." },
+          { "name": "suggest", "type": "array", "description": "Suggested fixes." }
+        ]
+      }
+    }
+  ]
+}

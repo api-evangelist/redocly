@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://redocly.com/schemas/redocly.yaml",
+  "title": "Redocly Configuration",
+  "description": "Schema for the redocly.yaml configuration file used by the Redocly CLI, Realm, and other Redocly tools.",
+  "type": "object",
+  "properties": {
+    "apis": {
+      "type": "object",
+      "description": "Map of named API definitions. Each key is an API name, each value is an API configuration.",
+      "additionalProperties": {
+        "$ref": "#/$defs/ApiDefinition"
+      }
+    },
+    "extends": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ],
+      "description": "Base ruleset(s) to extend. Built-in values: spec, recommended, recommended-strict, minimal."
+    },
+    "rules": {
+      "type": "object",
+      "description": "Rule configuration map. Keys are rule names, values are off/warn/error or rule config objects.",
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "string", "enum": ["off", "warn", "error"] },
+          {
+            "type": "object",
+            "properties": {
+              "severity": { "type": "string", "enum": ["off", "warn", "error"] }
+            }
+          }
+        ]
+      }
+    },
+    "theme": {
+      "type": "object",
+      "description": "Theming configuration for Realm/Revel portals.",
+      "properties": {
+        "openapi": {
+          "type": "object",
+          "description": "OpenAPI reference documentation theming."
+        },
+        "logo": {
+          "type": "object",
+          "description": "Logo configuration."
+        }
+      }
+    },
+    "plugins": {
+      "type": "array",
+      "description": "List of Redocly CLI plugin paths.",
+      "items": { "type": "string" }
+    },
+    "decorators": {
+      "type": "object",
+      "description": "Decorator configuration for transforming OpenAPI during bundling."
+    },
+    "preprocessors": {
+      "type": "object",
+      "description": "Preprocessor configuration applied before rules."
+    }
+  },
+  "$defs": {
+    "ApiDefinition": {
+      "type": "object",
+      "required": ["root"],
+      "properties": {
+        "root": {
+          "type": "string",
+          "description": "Path to the root OpenAPI definition file."
+        },
+        "extends": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "type": "string" } }
+          ],
+          "description": "Override base ruleset for this specific API."
+        },
+        "rules": {
+          "type": "object",
+          "description": "Per-API rule overrides."
+        },
+        "labels": {
+          "type": "array",
+          "description": "Labels for organizing APIs in Realm catalog.",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

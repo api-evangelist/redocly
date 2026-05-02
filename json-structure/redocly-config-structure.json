@@ -1,0 +1,28 @@
+{
+  "title": "Redocly Configuration Structure",
+  "description": "JSON structure documentation for the redocly.yaml configuration file.",
+  "type": "object",
+  "fields": [
+    {
+      "name": "apis",
+      "type": "object",
+      "required": false,
+      "description": "Named API definitions. Each key is an API name used to reference it in CLI commands.",
+      "additionalProperties": {
+        "type": "object",
+        "fields": [
+          { "name": "root", "type": "string", "required": true, "description": "Path to root OpenAPI definition." },
+          { "name": "extends", "type": "string or array", "required": false, "description": "Ruleset(s) to extend for this API." },
+          { "name": "rules", "type": "object", "required": false, "description": "Per-API rule overrides." },
+          { "name": "labels", "type": "array", "required": false, "description": "Labels for Realm catalog organization." }
+        ]
+      }
+    },
+    { "name": "extends", "type": "string or array", "required": false, "description": "Base ruleset(s) to extend (spec, recommended, recommended-strict, minimal)." },
+    { "name": "rules", "type": "object", "required": false, "description": "Global rule configuration. Values: off, warn, error." },
+    { "name": "theme", "type": "object", "required": false, "description": "Theming for Realm/Revel portals." },
+    { "name": "plugins", "type": "array", "required": false, "description": "Paths to Redocly CLI plugins." },
+    { "name": "decorators", "type": "object", "required": false, "description": "Decorator configuration for OpenAPI transformation." },
+    { "name": "preprocessors", "type": "object", "required": false, "description": "Preprocessor configuration." }
+  ]
+}

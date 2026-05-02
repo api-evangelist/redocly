@@ -1,0 +1,49 @@
+{
+  "description": "Common Redocly CLI command examples",
+  "commands": [
+    {
+      "command": "redocly lint openapi/petstore.yaml",
+      "description": "Lint an OpenAPI file using the configured ruleset.",
+      "output_sample": "No errors or warnings found.\nDone in 0.3s."
+    },
+    {
+      "command": "redocly bundle openapi/petstore.yaml -o dist/petstore.bundled.yaml",
+      "description": "Bundle a multi-file OpenAPI definition into a single file.",
+      "output_sample": "bundled successfully in: dist/petstore.bundled.yaml"
+    },
+    {
+      "command": "redocly build-docs openapi/petstore.yaml -o docs/index.html",
+      "description": "Generate a standalone HTML documentation file using Redoc.",
+      "output_sample": "🎉 bundled successfully in: docs/index.html (1.23 MB)"
+    },
+    {
+      "command": "redocly split openapi/petstore.bundled.yaml -o openapi/",
+      "description": "Split a bundled OpenAPI file into multiple files organized by path.",
+      "output_sample": "Document successfully split."
+    },
+    {
+      "command": "redocly login",
+      "description": "Authenticate with Redocly Reunite/Realm for deployment.",
+      "output_sample": "Logged in as user@example.com"
+    },
+    {
+      "command": "redocly push openapi/petstore.yaml --organization my-org --api petstore@v1",
+      "description": "Push an API definition to Redocly Reunite.",
+      "output_sample": "Successfully pushed petstore@v1"
+    },
+    {
+      "command": "redocly stats openapi/petstore.yaml",
+      "description": "Display statistics about an OpenAPI definition.",
+      "output_sample": {
+        "paths": 12,
+        "operations": 24,
+        "schemas": 8,
+        "parameters": 18,
+        "links": 0,
+        "requestBodies": 6,
+        "responses": 36,
+        "tags": 4
+      }
+    }
+  ]
+}

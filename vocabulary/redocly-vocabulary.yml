@@ -1,0 +1,156 @@
+vocabulary:
+  name: Redocly Vocabulary
+  description: >-
+    Domain vocabulary for Redocly's API documentation and governance platform.
+    Covers configuration, linting, documentation generation, portal concepts,
+    and API lifecycle terminology.
+  version: "1.0.0"
+  created: "2026-05-02"
+  tags:
+    - API Documentation
+    - API Governance
+    - Developer Portal
+    - Linting
+    - OpenAPI
+
+terms:
+  - term: Realm
+    label: Redocly Realm
+    definition: >-
+      Redocly's comprehensive API lifecycle management platform that integrates
+      Redoc (reference docs), Revel (developer portal), and Reef (internal
+      catalog) into a unified product. Realm includes linting, mock servers,
+      scorecard, API Scout, and dynamic client registration.
+
+  - term: Reunite
+    label: Redocly Reunite
+    definition: >-
+      The collaboration and deployment feature of Redocly Realm that integrates
+      with GitHub, GitLab, and Azure DevOps for GitOps-driven documentation
+      deployments. Provides Webview for uncommitted previews and Branch Previews
+      for committed work-in-progress.
+
+  - term: Revel
+    label: Redocly Revel
+    definition: >-
+      The external developer showcase component of Realm that renders Markdown,
+      Markdoc, and React pages with multi-product and localization capabilities.
+      Used for creating polished, public-facing developer portals.
+
+  - term: Reef
+    label: Redocly Reef
+    definition: >-
+      The internal service catalog and API governance component of Realm.
+      Provides catalog organization, Scorecard linting governance, API Scout
+      for hidden API discovery, and producer/consumer onboarding.
+
+  - term: Redoc
+    label: Redoc (Open Source Renderer)
+    definition: >-
+      The open-source OpenAPI documentation renderer that generates a
+      three-panel layout: navigation sidebar, documentation panel, and
+      code/example panel. Available as a React component, HTML tag, CLI tool,
+      and Docker image. Supports OpenAPI 3.2, 3.1, 3.0, and Swagger 2.0.
+
+  - term: Redocly CLI
+    label: Redocly CLI
+    definition: >-
+      Open-source command-line tool for API lifecycle operations including
+      linting, bundling, splitting, decorating, and building documentation.
+      Supports OpenAPI 3.2/3.1/3.0, AsyncAPI 3.0/2.6, and Arazzo 1.0.
+
+  - term: Lint
+    label: OpenAPI Linting
+    definition: >-
+      The process of validating an OpenAPI definition against a set of rules
+      to enforce quality, consistency, and style standards. Redocly CLI's lint
+      command checks for spec compliance plus configurable style rules.
+      Findings are reported as errors or warnings.
+
+  - term: Bundle
+    label: OpenAPI Bundling
+    definition: >-
+      The process of resolving all $ref references in a multi-file OpenAPI
+      definition and combining them into a single self-contained file.
+      The Redocly CLI bundle command produces either a fully inlined or
+      an optimally dereferenced output.
+
+  - term: Ruleset
+    label: Redocly Ruleset
+    definition: >-
+      A named collection of rule configurations used by Redocly CLI for
+      linting. Built-in rulesets include spec (OpenAPI spec compliance),
+      recommended (best practices), recommended-strict (all recommended rules
+      at error severity), and minimal (essential rules only).
+
+  - term: Rule
+    label: Redocly Lint Rule
+    definition: >-
+      A single validation check applied to an OpenAPI definition during
+      linting. Each rule has an ID (e.g., operation-summary), severity
+      (off/warn/error), and operates on specific OpenAPI locations.
+      Custom rules can be authored as JavaScript functions in plugins.
+
+  - term: Decorator
+    label: OpenAPI Decorator
+    definition: >-
+      A Redocly CLI transform that modifies an OpenAPI definition during
+      bundling or other processing. Decorators can add, remove, or modify
+      elements (e.g., inject x-internal: true for internal-only paths).
+      Applied after linting.
+
+  - term: Scorecard
+    label: Redocly Scorecard
+    definition: >-
+      A governance feature in Redocly Reef that runs multiple rulesets against
+      APIs and produces a score or compliance report. Used for enforcing API
+      standards across an organization's entire API portfolio.
+
+  - term: API Scout
+    label: Redocly API Scout
+    definition: >-
+      A feature in Redocly Realm that crawls connected systems to discover
+      undocumented, duplicate, or shadow APIs (APIs that exist in production
+      but are not in the catalog).
+
+  - term: Mock Server
+    label: Redocly Mock Server
+    definition: >-
+      A server generated from an OpenAPI definition that returns example
+      responses for API requests. Used by developers to prototype against
+      an API before the actual backend is built.
+
+  - term: Split
+    label: OpenAPI Split
+    definition: >-
+      The reverse of bundling — separating a monolithic OpenAPI file into
+      multiple files using $ref references, organized by tag or path.
+      Improves maintainability for large API definitions.
+
+  - term: Arazzo
+    label: Arazzo Specification
+    definition: >-
+      A Redocly-backed specification (IETF draft) for describing API workflows
+      — multi-step sequences of API calls. Redocly CLI supports Arazzo 1.0.
+      Enables documenting and validating API usage patterns.
+
+  - term: redocly.yaml
+    label: Redocly Configuration File
+    definition: >-
+      The main configuration file for Redocly CLI and Realm. Defines named
+      APIs (each with a root file path), ruleset extensions, rule overrides,
+      theme settings, plugins, decorators, and preprocessors.
+
+  - term: Dynamic Client Registration
+    label: Dynamic Client Registration
+    definition: >-
+      An OAuth 2.0 feature supported by Redocly Realm that allows developers
+      to register API clients dynamically from the developer portal, receiving
+      credentials without manual provisioning.
+
+  - term: Build Docs
+    label: Build Docs Command
+    definition: >-
+      A Redocly CLI command that generates a standalone HTML documentation
+      file from an OpenAPI definition using the Redoc renderer. The output
+      is a self-contained HTML file with embedded CSS and JavaScript.

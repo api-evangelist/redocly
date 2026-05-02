@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://redocly.com/schemas/lint-result.json",
+  "title": "Redocly Lint Result",
+  "description": "Schema for the output of the Redocly CLI lint command.",
+  "type": "object",
+  "properties": {
+    "totals": {
+      "type": "object",
+      "description": "Aggregate counts of lint findings.",
+      "properties": {
+        "errors": { "type": "integer", "description": "Number of error-severity violations." },
+        "warnings": { "type": "integer", "description": "Number of warning-severity violations." },
+        "ignored": { "type": "integer", "description": "Number of suppressed violations." }
+      }
+    },
+    "fileTotals": {
+      "type": "object",
+      "description": "Per-file finding counts.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "errors": { "type": "integer" },
+          "warnings": { "type": "integer" },
+          "ignored": { "type": "integer" }
+        }
+      }
+    },
+    "problems": {
+      "type": "array",
+      "description": "List of lint violations.",
+      "items": {
+        "$ref": "#/$defs/LintProblem"
+      }
+    }
+  },
+  "$defs": {
+    "LintProblem": {
+      "type": "object",
+      "required": ["message", "severity", "ruleId"],
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Human-readable description of the violation."
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["error", "warn"],
+          "description": "Severity level of the violation."
+        },
+        "ruleId": {
+          "type": "string",
+          "description": "The identifier of the rule that triggered the violation."
+        },
+        "location": {
+          "type": "array",
+          "description": "Locations in the OpenAPI document where the violation occurred.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": { "type": "string", "description": "File path." },
+              "pointer": { "type": "string", "description": "JSON Pointer to the violating element." },
+              "line": { "type": "integer", "description": "Line number." },
+              "col": { "type": "integer", "description": "Column number." }
+            }
+          }
+        },
+        "suggest": {
+          "type": "array",
+          "description": "Suggested fixes.",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "description": "Example redocly.yaml configuration for a multi-API project with linting rules",
+  "filename": "redocly.yaml",
+  "content_as_json": {
+    "apis": {
+      "petstore@v1": {
+        "root": "openapi/petstore-v1.yaml",
+        "extends": ["recommended"],
+        "rules": {
+          "operation-description": "warn",
+          "tag-description": "off"
+        }
+      },
+      "payments@v2": {
+        "root": "openapi/payments-v2.yaml",
+        "extends": ["recommended-strict"],
+        "labels": ["payments", "billing"]
+      }
+    },
+    "extends": ["recommended"],
+    "rules": {
+      "no-invalid-media-type-examples": "error",
+      "operation-operationId": "error",
+      "operation-summary": "error",
+      "security-defined": "warn"
+    },
+    "theme": {
+      "openapi": {
+        "showExtensions": true,
+        "sortPropsAlphabetically": true
+      }
+    }
+  }
+}
