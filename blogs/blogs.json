@@ -1,0 +1,13 @@
+{
+  "repo": "redocly",
+  "feeds": [
+    {
+      "source": "https://redocly.com/blog",
+      "feed_url": "https://redocly.com/docs/changelog/feed.xml",
+      "saved": 10,
+      "title": "Redocly Changelog"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:34:38Z"
+}
