@@ -4,7 +4,7 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Redocly
 providerId: redocly
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-22'
 tags:
   - API Catalog
   - API Documentation
@@ -12,19 +12,274 @@ tags:
   - Governance
   - Linting
   - OpenAPI
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+  - MCP
+  - Monitoring
+description: >-
+  Machine-readable plans and pricing for Redocly's Realm-family products plus
+  the consumption-based Respect Monitoring add-on. Pricing reflects values
+  published on https://redocly.com/pricing as of 2026-05-22. Per-seat pricing
+  applies to subscription tiers; Respect Monitoring is metered per 1k requests.
 plans:
-  - id: redocly-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Redocly API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+  - id: redocly-pro
+    name: Pro
+    type: paid
+    description: >-
+      Per-seat subscription tier covering Reunite, Redoc, Revel, and Reef.
+      Includes 1 project, 100 pages, and custom-domain hosting.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
+      - label: Pro Seat (Monthly)
+        description: Per-user monthly subscription billed monthly
+        name: pro_seat_monthly
+        type: subscription
+        metric: seat
+        limit: 1
+        timeFrame: month
+        geo: global
+        domains: []
+        unit: 1
+        price: '10.00'
+        currency: USD
+        userMultiplied: true
+      - label: Project Quota
+        description: Number of projects included
+        name: project_quota
+        type: quota
+        metric: projects
+        limit: 1
+        timeFrame: subscription
+        geo: global
+        domains: []
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Page Quota
+        description: Total documentation pages included
+        name: page_quota
+        type: quota
+        metric: pages
+        limit: 100
+        timeFrame: subscription
+        geo: global
+        domains: []
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Reunite
+      - name: Redoc
+      - name: Revel
+      - name: Reef
+      - name: Custom Domain Hosting
+      - name: Redocly CLI
+  - id: redocly-enterprise
+    name: Enterprise
+    type: paid
+    description: >-
+      Per-seat Enterprise tier adding SSO, RBAC, remote content, AI search,
+      Typesense search, analytics, MCP Servers, and 500-page quota.
+    entries:
+      - label: Enterprise Seat (Monthly)
+        description: Per-user monthly subscription billed monthly
+        name: enterprise_seat_monthly
+        type: subscription
+        metric: seat
+        limit: 1
+        timeFrame: month
+        geo: global
+        domains: []
+        unit: 1
+        price: '24.00'
+        currency: USD
+        userMultiplied: true
+      - label: Page Quota
+        description: Total documentation pages included
+        name: page_quota
+        type: quota
+        metric: pages
+        limit: 500
+        timeFrame: subscription
+        geo: global
+        domains: []
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Everything in Pro
+      - name: SSO and Guest SSO
+      - name: RBAC
+      - name: Remote Content
+      - name: AI Search
+      - name: Typesense Search
+      - name: Analytics
+      - name: MCP Servers
+  - id: redocly-enterprise-plus
+    name: Enterprise+
+    type: enterprise
+    description: >-
+      Annually-billed top tier adding data residency, single-tenant hosting,
+      premium support, professional services, and procurement/legal review.
+    entries:
+      - label: Enterprise+ Subscription
+        description: Custom-negotiated annual contract
+        name: enterprise_plus_contract
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: year
+        geo: configurable
+        domains: []
+        unit: 1
+        price: custom
+        currency: USD
+        userMultiplied: false
+    elements:
+      - name: Everything in Enterprise
+      - name: Data Residency Options
+      - name: Single-Tenant Hosting
+      - name: Premium Support
+      - name: Professional Services
+      - name: Procurement Forms and Security Questionnaires
+      - name: Pay-by-Invoice / PO Process
+      - name: Legal Reviews
+      - name: Sales Assistance
+  - id: redocly-revel-addon-pro
+    name: Revel Add-On (Pro)
+    type: addon
+    description: Revel add-on (Markdown docs, React pages, component ejections, localization) for Pro customers.
+    entries:
+      - label: Revel Pro Add-On Seat
+        description: Per-user monthly add-on price on the Pro tier
+        name: revel_pro_addon
+        type: subscription
+        metric: seat
+        limit: 1
+        timeFrame: month
+        geo: global
+        domains: []
+        unit: 1
+        price: '10.00'
+        currency: USD
+        userMultiplied: true
+    elements:
+      - name: Markdown Docs
+      - name: React Pages
+      - name: Component Ejections
+      - name: Localization
+  - id: redocly-revel-addon-enterprise
+    name: Revel Add-On (Enterprise)
+    type: addon
+    description: Revel add-on for Enterprise customers.
+    entries:
+      - label: Revel Enterprise Add-On Seat
+        description: Per-user monthly add-on price on the Enterprise tier
+        name: revel_enterprise_addon
+        type: subscription
+        metric: seat
+        limit: 1
+        timeFrame: month
+        geo: global
+        domains: []
+        unit: 1
+        price: '24.00'
+        currency: USD
+        userMultiplied: true
+    elements:
+      - name: Markdown Docs
+      - name: React Pages
+      - name: Component Ejections
+      - name: Localization
+  - id: redocly-reef-addon-pro
+    name: Reef Add-On (Pro)
+    type: addon
+    description: Reef add-on (API catalog, governance scorecard, API functions) for Pro customers.
+    entries:
+      - label: Reef Pro Add-On Seat
+        description: Per-user monthly add-on price on the Pro tier
+        name: reef_pro_addon
+        type: subscription
+        metric: seat
+        limit: 1
+        timeFrame: month
+        geo: global
+        domains: []
+        unit: 1
+        price: '10.00'
+        currency: USD
+        userMultiplied: true
+    elements:
+      - name: API Catalog
+      - name: Governance Scorecard
+      - name: API Functions
+  - id: redocly-reef-addon-enterprise
+    name: Reef Add-On (Enterprise)
+    type: addon
+    description: Reef add-on for Enterprise customers.
+    entries:
+      - label: Reef Enterprise Add-On Seat
+        description: Per-user monthly add-on price on the Enterprise tier
+        name: reef_enterprise_addon
+        type: subscription
+        metric: seat
+        limit: 1
+        timeFrame: month
+        geo: global
+        domains: []
+        unit: 1
+        price: '24.00'
+        currency: USD
+        userMultiplied: true
+    elements:
+      - name: API Catalog
+      - name: Governance Scorecard
+      - name: API Functions
+  - id: redocly-realm-addon-pro
+    name: Realm Add-On (Pro)
+    type: addon
+    description: Realm add-on bundling all Realm products for Pro customers.
+    entries:
+      - label: Realm Pro Add-On Seat
+        description: Per-user monthly add-on price on the Pro tier
+        name: realm_pro_addon
+        type: subscription
+        metric: seat
+        limit: 1
+        timeFrame: month
+        geo: global
+        domains: []
+        unit: 1
+        price: '18.00'
+        currency: USD
+        userMultiplied: true
+    elements:
+      - name: All Realm Products
+  - id: redocly-realm-addon-enterprise
+    name: Realm Add-On (Enterprise)
+    type: addon
+    description: Realm add-on bundling all Realm products for Enterprise customers.
+    entries:
+      - label: Realm Enterprise Add-On Seat
+        description: Per-user monthly add-on price on the Enterprise tier
+        name: realm_enterprise_addon
+        type: subscription
+        metric: seat
+        limit: 1
+        timeFrame: month
+        geo: global
+        domains: []
+        unit: 1
+        price: '42.00'
+        currency: USD
+        userMultiplied: true
+    elements:
+      - name: All Realm Products
+  - id: redocly-respect-free
+    name: Respect Monitoring (Free)
+    type: freemium
+    description: Free Respect Monitoring usage tier — first 1,000 requests per month.
+    entries:
+      - label: Free Monthly Requests
+        description: 1,000 free Arazzo workflow requests per month
+        name: respect_free_requests
         type: quota
         metric: requests
         limit: 1000
@@ -33,62 +288,20 @@ plans:
         domains: []
         unit: 1
         price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
+        currency: USD
         userMultiplied: false
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Redocly Realm
-      - name: Redocly Reunite
-      - name: Redocly Revel
-      - name: Redocly Reef
-      - name: Redocly Redoc
-      - name: Redocly CLI
-  - id: redocly-pro
-    name: Professional
-    type: paid
-    description: Production tier for Redocly. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+      - name: Arazzo Workflow Execution
+      - name: Slack and Email Alerts
+      - name: CI/CD Integration
+  - id: redocly-respect-metered
+    name: Respect Monitoring (Metered)
+    type: metered
+    description: Pay-as-you-go Respect Monitoring at $10 per 1k requests above the free tier.
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: Respect Metered Requests
+        description: Per-1k-request usage price for Respect Monitoring
+        name: respect_metered_requests
         type: metered
         metric: requests
         limit: -1
@@ -96,62 +309,77 @@ plans:
         geo: global
         domains: []
         unit: 1000
-        price: TBD
+        price: '10.00'
+        currency: USD
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Redocly Realm
-      - name: Redocly Reunite
-      - name: Redocly Revel
-      - name: Redocly Reef
-      - name: Redocly Redoc
-      - name: Redocly CLI
-  - id: redocly-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Redocly. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
+      - name: Pay-as-You-Go Arazzo Monitoring
+  - id: redocly-respect-commitment-20k
+    name: Respect Monitoring (20k Commitment)
+    type: paid
+    description: Monthly commitment plan including 20,000 requests with reduced overage rates.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
+      - label: Respect 20k Commitment
+        description: Monthly commitment fee for 20,000 included requests
+        name: respect_commit_20k
+        type: subscription
+        metric: requests
+        limit: 20000
+        timeFrame: month
+        geo: global
+        domains: []
+        unit: 1
+        price: '100.00'
+        currency: USD
+        userMultiplied: false
+      - label: Overage Rate
+        description: Per-1k-request overage on this commitment tier
+        name: respect_commit_20k_overage
+        type: metered
         metric: requests
         limit: -1
         timeFrame: month
-        geo: configurable
+        geo: global
         domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
+        unit: 1000
+        price: '5.00'
+        currency: USD
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Redocly Realm
-      - name: Redocly Reunite
-      - name: Redocly Revel
-      - name: Redocly Reef
-      - name: Redocly Redoc
-      - name: Redocly CLI
+      - name: Committed Arazzo Monitoring
+  - id: redocly-respect-commitment-500k
+    name: Respect Monitoring (500k Commitment)
+    type: paid
+    description: Monthly commitment plan including 500,000 requests with deepest discount on overages.
+    entries:
+      - label: Respect 500k Commitment
+        description: Monthly commitment fee for 500,000 included requests
+        name: respect_commit_500k
+        type: subscription
+        metric: requests
+        limit: 500000
+        timeFrame: month
+        geo: global
+        domains: []
+        unit: 1
+        price: '1000.00'
+        currency: USD
+        userMultiplied: false
+      - label: Overage Rate
+        description: Per-1k-request overage on this commitment tier
+        name: respect_commit_500k_overage
+        type: metered
+        metric: requests
+        limit: -1
+        timeFrame: month
+        geo: global
+        domains: []
+        unit: 1000
+        price: '2.00'
+        currency: USD
+        userMultiplied: false
+    elements:
+      - name: Committed Arazzo Monitoring
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

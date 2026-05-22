@@ -11,19 +11,26 @@ providerId: redocly
 publisherName: Redocly
 serviceCategory: API
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-22'
 tags:
   - API Catalog
   - API Documentation
+  - Arazzo
   - Developer Portal
   - Governance
   - Linting
+  - Monitoring
   - OpenAPI
   - FinOps
   - Cost Management
   - FOCUS
-description: FinOps framework definition for the Redocly API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
+description: >-
+  FinOps framework definition for Redocly. Redocly bills on two cost surfaces:
+  per-seat subscriptions for Realm-family products (Reunite, Redoc, Revel, Reef,
+  CLI tooling) and metered, per-1k-request consumption for Respect Monitoring
+  (Arazzo workflow executions). This document provides a FOCUS-aligned mapping
+  for cost allocation, usage measurement, and unit-economics reporting across
+  the seat-priced and metered surfaces.
 principles:
   - name: Visibility
     description: Make API consumption costs visible to engineering, product, and finance teams in near
@@ -65,10 +72,11 @@ domains:
       - Onboarding Workloads
       - Intersecting Disciplines
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Hybrid (Subscription + Usage-Based)
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
+    - Subscription
     - Usage
     - Purchase
     - Tax
@@ -81,37 +89,44 @@ focusColumns:
   ProviderName: Redocly
   PublisherName: Redocly
   InvoiceIssuerName: Redocly
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  PricingCategory: Hybrid (Subscription + Usage-Based)
+  PricingUnit: seat | 1k_requests
   BillingCurrency: USD
-  ChargeCategory: Usage
+  ChargeCategory: Subscription / Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
+  - name: seats
+    description: Active subscription seats by tier (Pro, Enterprise, Enterprise+)
+    unit: seat
+    aggregation: max
+    dimensions:
+      - tier
+      - workspace
+      - product
+  - name: pages
+    description: Documentation pages consumed against the plan page quota
+    unit: page
+    aggregation: max
+    dimensions:
+      - workspace
+      - project
+      - tier
+  - name: respect_requests
+    description: Arazzo workflow request count metered by Respect Monitoring
     unit: request
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
+      - workspace
+      - environment
+      - workflow
+      - commitment_tier
   - name: data_egress
-    description: Bytes returned over the network in API responses
+    description: Bytes returned over the network in API responses, where billed
     unit: GB
     aggregation: sum
     dimensions:
       - api
       - region
       - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
 apis:
   - name: Redocly Realm
     baseURL: ''
@@ -163,13 +178,28 @@ apis:
       - OpenAPI
     serviceName: Redocly CLI
     serviceCategory: API
+  - name: Redocly Respect Monitoring
+    baseURL: ''
+    tags:
+      - Arazzo
+      - Monitoring
+      - Observability
+      - Testing
+    serviceName: Redocly Respect Monitoring
+    serviceCategory: API
 unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
+  - name: Cost per Seat
+    metric: subscription_cost / active_seats
     target: TBD
+  - name: Cost per 1K Respect Requests
+    metric: respect_billed_cost / (respect_requests / 1000)
+    target: '<= $10 retail; $2-5 on commit tiers'
   - name: Cost per Active Consumer
     metric: billed_cost / active_consumers
     target: TBD
+  - name: Pages Utilized vs Plan Quota
+    metric: pages_used / plan_page_quota
+    target: '< 1.0 to avoid forced tier upgrade'
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
