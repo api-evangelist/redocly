@@ -310,6 +310,8 @@ common:
     url: finops/redocly-finops.yml
     type: FinOps
 
+  - type: LLMsTxt
+    url: https://redocly.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
