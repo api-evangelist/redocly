@@ -2,12 +2,20 @@
   "repo": "redocly",
   "feeds": [
     {
-      "source": "https://redocly.com/blog",
+      "source": "https://redocly.com/blog/feed.xml",
       "feed_url": "https://redocly.com/blog/feed.xml",
-      "title": "Redocly Blog",
-      "saved": 50
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://redocly.com/blog",
+      "feed_url": "https://redocly.com/docs/changelog/feed.xml",
+      "title": "",
+      "saved": 9,
+      "method": "discovered"
     }
   ],
-  "post_count": 60,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 70,
+  "fetched": "2026-06-01T23:35:02Z"
 }
