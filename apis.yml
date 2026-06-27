@@ -263,7 +263,7 @@ common:
     type: Login
   - name: Redocly Sign Up
     url: https://redocly.com/billing/signup
-    type: SignUp
+    type: Signup
   - name: Redocly Privacy Notice
     url: https://redocly.com/privacy-notice
     type: PrivacyPolicy
@@ -310,7 +310,7 @@ common:
     url: finops/redocly-finops.yml
     type: FinOps
 
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://redocly.com/llms.txt
 maintainers:
   - FN: Kin Lane
