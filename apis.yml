@@ -222,6 +222,8 @@ apis:
         url: https://redocly.com/docs/cli/commands/respect
 
 common:
+  - type: DomainSecurity
+    url: security/redocly-domain-security.yml
   - name: About Redocly Documentation
     url: https://redocly.com/docs
     type: Documentation
