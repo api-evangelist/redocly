@@ -1,0 +1,7 @@
+---
+title: "@redocly/theme-experimental 0.19.0"
+url: "https://redocly.com/docs/realm/changelog#%40redocly%2Ftheme-experimental%400.19.0"
+date: "2026-08-13"
+feed_url: "https://redocly.com/docs/changelog/feed.xml"
+---
+New release: @redocly/theme-experimental@0.19.0 · Date: 2026-08-13 · 4 features · 8 fixes Features: • Added `numbered-list` and `numbered-item` Markdoc tags to render step-by-step guides with numbered, icon, or bulleted lists and deep-linkable item headlines. • Added `locale` and `translate` options to the `renderForLlms` tag render context. • Added customizable `ReplayGate` and `ReplayTopBarActions` components to tailor authentication and the top bar in the `Try It` feature.

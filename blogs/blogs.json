@@ -5,14 +5,14 @@
       "source": "https://redocly.com/blog/feed.xml",
       "feed_url": "https://redocly.com/blog/feed.xml",
       "title": "",
-      "saved": 0,
+      "saved": 1,
       "method": "feed"
     },
     {
       "source": "https://redocly.com/docs/changelog/feed.xml",
       "feed_url": "https://redocly.com/docs/changelog/feed.xml",
       "title": "",
-      "saved": 1,
+      "saved": 31,
       "method": "feed"
     },
     {
@@ -23,6 +23,6 @@
       "method": "discovered"
     }
   ],
-  "post_count": 176,
-  "fetched": "2026-08-06T14:08:46Z"
+  "post_count": 208,
+  "fetched": "2026-08-15T12:11:08Z"
 }
