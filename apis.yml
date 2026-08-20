@@ -15,6 +15,17 @@ description: >-
   MCP Servers and AI search for Realm portals — positioning Redocly's catalog
   as an AI substrate for agentic software.
 tags:
+  - Artificial Intelligence
+  - API Catalog
+  - API Documentation
+  - Arazzo
+  - Developer Portal
+  - Governance
+  - Linting
+  - MCP
+  - Monitoring
+  - OpenAPI
+tags_raw:
   - AI
   - API Catalog
   - API Documentation
@@ -60,6 +71,12 @@ apis:
       Docs MCP tools.
     humanURL: https://redocly.com/realm
     tags:
+      - Artificial Intelligence
+      - API Catalog
+      - Developer Portal
+      - Documentation
+      - MCP
+    tags_raw:
       - AI
       - API Catalog
       - Developer Portal
