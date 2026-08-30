@@ -1,0 +1,32 @@
+generated: '2026-08-27'
+method: searched
+source: openapi/redocly-docs-mcp-openapi.yaml OAuth2 flow, plus https://redocly.com/docs/realm/reunite/organization/api-keys
+  (fetched 2026-08-27)
+schemes:
+- name: OAuth2
+  source: openapi/redocly-docs-mcp-openapi.yaml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://{projectHost}/_mcp/oauth2/auth
+    tokenUrl: https://{projectHost}/_mcp/oauth2/token-portal
+scopes: []
+provider: Redocly
+providerId: redocly
+docs: https://redocly.com/docs/realm/reunite/organization/api-keys#api-key-permissions
+description: 'Redocly''s OAuth 2.0 authorization-code flow for the Docs MCP server declares an EMPTY scopes
+  object: authorization is not carried by OAuth scopes at all. Access is decided by Redocly''s RBAC engine
+  — the same teams and roles that gate the portal gate the MCP server and the API descriptions it serves.
+  The nearest thing to a published scope vocabulary is the API-key permission model, which is a UI-selected
+  list of organization and project permissions typed read / write / delete, and Redocly does not publish
+  that list as machine-readable identifiers.'
+authorization_model:
+  type: rbac
+  note: Roles are assigned to teams; API keys either take granular permissions or inherit a team role.
+  feature_flags:
+  - access.rbac.features.mcp
+  - access.rbac.features.aiSearch
+  permission_types:
+  - read
+  - write
+  - delete
+scope_count: 0

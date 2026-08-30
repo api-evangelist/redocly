@@ -1,0 +1,87 @@
+generated: '2026-08-27'
+method: searched
+source: >-
+  https://redocly.com/security (fetched 2026-08-27, HTTP 200),
+  https://redocly.com/sub-processors, https://redocly.com/dpa and
+  https://redocly.com/docs/realm/reunite/organization/access-compliance-reports.
+provider: Redocly
+providerId: redocly
+name: Security at Redocly
+url: https://redocly.com/security
+description: >-
+  Redocly publishes a single security page rather than a hosted trust portal,
+  and it names concrete certifications with concrete dates. The compliance
+  ARTIFACTS themselves — SOC 2 Type II report, penetration test results — are
+  gated behind a Reunite login on the Compliance page, so the claims are
+  public and the evidence is customer-only.
+certifications:
+  - name: SOC 2 Type II
+    status: completed
+    evidence: >-
+      "Redocly has completed the System and Organization Controls (SOC) 2,
+      Type II audit. Log in to download this and other reports."
+    report_access: https://redocly.com/docs/realm/reunite/organization/access-compliance-reports
+    gated: true
+  - name: CSA STAR / CAIQ v4
+    status: certified
+    evidence: >-
+      "Completed the CAIQ version 4 questionnaire and certified under the
+      Cloud Security Alliance's (CSA) STAR program for cybersecurity."
+  - name: PCI DSS
+    status: inherited
+    evidence: >-
+      Redocly does not store or process payment information; it relies on
+      Stripe and Rebilly, both PCI DSS Level 1 service providers.
+  - name: GDPR / CCPA
+    status: addressed-by-dpa
+    evidence: Data Processing Addendum published at https://redocly.com/dpa
+practices:
+  encryption:
+    in_transit: TLS 1.2+
+    at_rest: AES-256
+  identity:
+    sso: [SAML 2.0, OpenID Connect]
+    domain_verification: true
+    rbac: Project-level permissions for groups; IdP-attribute team mapping.
+    audit_trail: Event logging of project updates over time.
+  testing:
+    penetration_testing: Internal and third-party, at least annually.
+    vulnerability_management: >-
+      Daily code and dependency scanning via AWS Elastic Container Registry;
+      critical issues resolved in under one week.
+    malware_protection: Continuous container monitoring via AWS ECR plus device agents.
+  people:
+    background_checks: true
+    security_awareness_training: true
+    least_privilege: true
+  availability:
+    waf: true
+    rpo_minutes: 10
+    rto_minutes: 30
+    dr_last_tested: '2026-06-25'
+    status_page: https://status.redocly.com/
+    sla: https://redocly.com/sla
+  infrastructure:
+    hosting: AWS
+    sub_processors: https://redocly.com/sub-processors
+    named_sub_processors:
+      - name: AWS
+        location: US
+        role: All services, email service provider, storage and processing
+      - name: Google
+        location: US
+        role: LLM provider for AI search and AI assistant features
+      - name: ClickHouse, Inc.
+        location: US
+        role: Analytics data
+      - name: Auth0
+        location: US
+        role: Identity provider for login and registration (Redocly Workflows only)
+data_ownership:
+  statement: >-
+    Redocly states that every code sample, page and asset a customer creates
+    belongs to the customer.
+  privacy_notice: https://redocly.com/privacy-notice
+gaps:
+  - No hosted trust center (Vanta/Drata/SafeBase style) with self-serve document access.
+  - Compliance reports require a Reunite login; there is no NDA-gated public request flow described.

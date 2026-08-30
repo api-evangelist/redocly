@@ -1,0 +1,46 @@
+generated: '2026-08-27'
+method: searched
+source: >-
+  https://redocly.com/.well-known/agent-skills/index.json and
+  https://redocly.com/.well-known/agent-skills/redocly-cli/SKILL.md, both
+  fetched 2026-08-27 (HTTP 200).
+provider: Redocly
+providerId: redocly
+description: >-
+  These skills are PUBLISHED BY REDOCLY, not authored by API Evangelist.
+  Redocly serves an agentskills.io discovery index from its own host and one
+  SKILL.md behind it; the file in this directory is that document saved
+  verbatim. No skill in this index was generated, and none should be — the
+  provenance is the point.
+discovery:
+  index: https://redocly.com/.well-known/agent-skills/index.json
+  schema: https://schemas.agentskills.io/discovery/0.2.0/schema.json
+  index_file: well-known/redocly-agent-skills-index.json
+  also_exposed_as: MCP resource on https://redocly.com/mcp (resources/list)
+skills:
+  - name: redocly-cli
+    type: skill-md
+    file: skills/redocly-cli.md
+    url: https://redocly.com/.well-known/agent-skills/redocly-cli/SKILL.md
+    digest: sha256:89b01d1fd5c2b29cfd04fdcc846d9f18e650fea483513f0f0360e8d61bbaadfa
+    method: searched
+    description: >-
+      Redocly CLI usage for OpenAPI, AsyncAPI, Arazzo, and Overlay
+      descriptions. Use when linting an API description, bundling or splitting
+      multi-file descriptions, joining several APIs into one, transforming a
+      description with decorators, building or previewing API docs, testing a
+      live API with respect to its description, generating a TypeScript client
+      from an OpenAPI description.
+    grounded_in: cli/redocly-cli.yml
+    note: >-
+      Grounds an agent in the CLI, not in a Redocly HTTP API. It instructs the
+      agent to read redocly.yaml first and to prefer redocly.com/docs/cli over
+      training data.
+not_generated:
+  note: >-
+    No API Evangelist skill was authored for Redocly's HTTP surfaces. The
+    Scout and Search contracts describe per-customer deployments with
+    templated hosts, so a skill grounded in them would tell an agent to call a
+    host that does not exist for the reader. If Redocly publishes a contract
+    for the platform API at api.redocly.com, that is the surface a generated
+    skill should be built on.

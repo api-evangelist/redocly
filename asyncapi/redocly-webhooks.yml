@@ -1,0 +1,69 @@
+generated: '2026-08-27'
+method: derived
+source: >-
+  openapi/redocly-scout-agent-openapi.yaml (fetched from
+  https://redocly.com/_spec/docs/realm/scout/agent-api/openapi.yaml on
+  2026-08-27) plus a search of Redocly's docs and GitHub org for a published
+  AsyncAPI document.
+provider: Redocly
+providerId: redocly
+description: >-
+  Redocly publishes NO AsyncAPI description for its own services, and no
+  outbound event or webhook catalog for consumers. The only webhook surface in
+  any published Redocly contract runs the other direction: the self-hosted
+  Scout worker RECEIVES GitHub and GitLab webhooks. This file records that
+  honestly rather than presenting an inbound receiver as an event product.
+asyncapi:
+  published: false
+  searched:
+    - https://redocly.com/asyncapi.yaml
+    - Redocly docs search for "AsyncAPI" via the live Docs MCP server
+    - The four OpenAPI descriptions Realm publishes for redocly.com
+  note: >-
+    Redocly is a leading AsyncAPI TOOLING vendor — Redocly CLI lints and
+    bundles AsyncAPI 3.0 and 2.6, and @redocly/portal-plugin-async-api renders
+    it — but it ships no AsyncAPI for its own platform. Tooling support is
+    recorded in conformance/redocly-conformance.yml, not here.
+webhooks:
+  direction: inbound
+  consumer_facing: false
+  spec: openapi/redocly-scout-agent-openapi.yaml
+  deployment: >-
+    Self-hosted. The Scout agent's server block is {host} with default
+    http://localhost, so the receiver runs inside the customer's own
+    infrastructure (Redocly documents an AWS ECS deployment).
+  endpoints:
+    - path: /webhooks/github
+      method: POST
+      operationId: processGithubWebhook
+      source_system: GitHub
+      auth:
+        scheme: GithubApiKey
+        type: apiKey
+        in: header
+        name: x-hub-signature-256
+      responses: [200, 401, 500]
+    - path: /webhooks/gitlab
+      method: POST
+      operationId: processGitlabWebhook
+      source_system: GitLab
+      auth:
+        scheme: GitlabApiKey
+        type: apiKey
+        in: header
+        name: x-gitlab-token
+      responses: [200, 401, 500]
+  event_types_documented:
+    - name: push
+      evidence: >-
+        The Scout agent's 500 problem document carries an `event` member with
+        example "push". No full event-type catalog is published.
+outbound_notifications:
+  note: >-
+    Respect Monitoring sends Slack and email alerts, and Reunite sends
+    deployment and feedback notifications. Neither is described by a contract:
+    there is no subscription API, no event schema and no delivery/retry
+    documentation, so they are recorded here as product features rather than
+    as a webhook surface.
+  channels: [slack, email]
+  source: https://redocly.com/respect

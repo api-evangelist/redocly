@@ -1,0 +1,136 @@
+generated: '2026-08-27'
+method: derived
+source: >-
+  Derived by binding the live tools/list + describe-tools output of
+  https://redocly.com/mcp against the OpenAPI descriptions saved in openapi/
+  (fetched from https://redocly.com/_spec/... the same day).
+provider: Redocly
+providerId: redocly
+description: >-
+  Redocly's MCP surface is NOT a wrapper over its REST API. The two wire tools
+  (`execute`, `describe-tools`) are a JavaScript sandbox, and the eleven
+  sandbox functions read the OpenAPI descriptions a Realm project has already
+  built. Only one sandbox function — `search` — has a public REST twin: the
+  Realm Search API. Everything else is catalog introspection over build
+  artifacts with no HTTP operation behind it, and the whole Redocly platform
+  REST API (api.redocly.com) publishes no anonymous contract, so no operation
+  from it can be bound here.
+surfaces:
+  openapi:
+    - file: openapi/redocly-search-api-openapi.yaml
+      title: Search
+      gated: false
+      note: Public projects need no authentication; protected projects use session cookies.
+    - file: openapi/redocly-docs-mcp-openapi.yaml
+      title: Docs MCP
+      gated: false
+      note: Describes the MCP endpoint itself; declares no paths.
+    - file: openapi/redocly-scout-openapi.yaml
+      title: Redocly Scout
+      gated: true
+      note: Cookie or bearer API key; templated host.
+    - file: openapi/redocly-scout-agent-openapi.yaml
+      title: Redocly Scout agent
+      gated: true
+      note: Self-hosted worker; signature-header auth.
+  graphql: null
+  mcp:
+    url: https://redocly.com/mcp
+    gated: false
+  rest_api_without_contract:
+    host: https://api.redocly.com
+    note: >-
+      Live AWS API Gateway; every anonymous path returns 403 "Missing
+      Authentication Token". Redocly's docs reference "the Redocly API" for
+      API keys but publish no OpenAPI for it, so its operations cannot be
+      crosswalked.
+crosswalk:
+  - tool: search
+    category: search
+    rest:
+      - search
+      - searchFacets
+    binding: sandbox-function
+    confidence: high
+    note: >-
+      tools.search({query}) is the sandbox twin of the Realm Search API's
+      POST /_search (operationId search) and POST /_search-facets
+      (operationId searchFacets) in
+      openapi/redocly-search-api-openapi.yaml. Same content index, same
+      project host; the MCP tool returns rendered markdown rather than the
+      REST JSON envelope.
+mcp_only:
+  - tool: execute
+    reason: >-
+      Sandbox code runner. Not an API operation — it evaluates JavaScript that
+      calls the sandbox functions, so it has no single backing REST operation.
+  - tool: describe-tools
+    reason: >-
+      Schema introspection over the sandbox function signatures. The MCP
+      equivalent of reading an OpenAPI document, with no HTTP operation behind
+      it.
+  - tool: listApis
+    reason: >-
+      Reads the API registry of the built Realm project. No public REST
+      operation exposes it.
+  - tool: getEndpoints
+    reason: Reads paths[] out of a built OpenAPI description; no REST twin.
+  - tool: getEndpointInfo
+    reason: Reads one operation object out of a built OpenAPI description; no REST twin.
+  - tool: getSecuritySchemes
+    reason: Reads components.securitySchemes out of a built description; no REST twin.
+  - tool: getFullApiDescription
+    reason: >-
+      Returns a whole OpenAPI document. The nearest public equivalent is the
+      undocumented static route https://redocly.com/_spec/<filePath>, which
+      is not described in any published contract.
+  - tool: contactSupport
+    reason: Auth-gated; no anonymous schema, no published REST operation.
+  - tool: getProjectBuild
+    reason: Auth-gated Reunite platform read; the platform API has no public contract.
+  - tool: getProjectInfo
+    reason: Auth-gated Reunite platform read; the platform API has no public contract.
+  - tool: getSubscriptionDetails
+    reason: Auth-gated billing read; the platform API has no public contract.
+  - tool: listOrgMembers
+    reason: Auth-gated organization read; the platform API has no public contract.
+rest_only:
+  - operationId: searchFacets
+    file: openapi/redocly-search-api-openapi.yaml
+    note: >-
+      Facet aggregation has no dedicated tool; the sandbox `search` function
+      exposes only the query path.
+  - operationId: upsertRemote
+    file: openapi/redocly-scout-openapi.yaml
+  - operationId: pushToRemote
+    file: openapi/redocly-scout-openapi.yaml
+  - operationId: createTodo
+    file: openapi/redocly-scout-openapi.yaml
+  - operationId: getAllTodos
+    file: openapi/redocly-scout-openapi.yaml
+  - operationId: startNextJob
+    file: openapi/redocly-scout-openapi.yaml
+  - operationId: getAllTasks
+    file: openapi/redocly-scout-openapi.yaml
+  - operationId: getJobById
+    file: openapi/redocly-scout-openapi.yaml
+  - operationId: updateJob
+    file: openapi/redocly-scout-openapi.yaml
+  - operationId: reportStatus
+    file: openapi/redocly-scout-openapi.yaml
+  - operationId: validateMetadata
+    file: openapi/redocly-scout-openapi.yaml
+  - operationId: health
+    file: openapi/redocly-scout-agent-openapi.yaml
+  - operationId: processGithubWebhook
+    file: openapi/redocly-scout-agent-openapi.yaml
+  - operationId: processGitlabWebhook
+    file: openapi/redocly-scout-agent-openapi.yaml
+coverage:
+  mcp_wire_tools: 2
+  mcp_sandbox_functions: 11
+  sandbox_functions_described_anonymously: 6
+  rest_operations_in_repo: 15
+  tools_bound_to_rest: 1
+  tools_unbound: 12
+  rest_operations_unbound: 14

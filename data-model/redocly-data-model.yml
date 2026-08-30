@@ -1,0 +1,163 @@
+generated: '2026-08-27'
+method: derived
+source: >-
+  Derived from $ref links and id-reference fields in
+  openapi/redocly-scout-openapi.yaml,
+  openapi/redocly-scout-agent-openapi.yaml and
+  openapi/redocly-search-api-openapi.yaml (all fetched 2026-08-27).
+provider: Redocly
+providerId: redocly
+description: >-
+  Redocly's published contracts describe one substantive entity graph — Scout,
+  the API-discovery worker — plus a flat search result model. The Realm/Reunite
+  platform objects an integrator would actually want (organization, project,
+  branch, deployment, API description, scorecard, team, API key) are named
+  throughout the docs but appear in NO published contract, so they cannot be
+  modelled here without invention. They are listed under `undescribed` rather
+  than guessed at.
+entities:
+  - name: Remote
+    api: Redocly Scout
+    id_field: id
+    id_format: prefixed ULID (rem_01h1s5z6vf2mm1mz3hevnn9va7)
+    description: A connection between a Redocly project and a Git repository location.
+    extends: CreateRemote
+    relationships:
+      - type: belongs_to
+        target: Organization
+        via: path parameter orgId
+      - type: belongs_to
+        target: Project
+        via: path parameter projectId
+      - type: belongs_to
+        target: GitProvider
+        via: field providerId / type GitProviderType
+      - type: belongs_to
+        target: GitNamespace
+        via: field namespaceId
+      - type: belongs_to
+        target: GitRepository
+        via: field repositoryId
+      - type: belongs_to
+        target: Credential
+        via: field credentialId
+      - type: has_many
+        target: RemotePush
+        via: POST .../remotes/{remoteId}/push
+  - name: RemotePush
+    api: Redocly Scout
+    description: The result of pushing content to a remote.
+    relationships:
+      - type: has_one
+        target: Job
+        via: field jobId
+  - name: Job
+    api: Redocly Scout
+    id_field: id
+    description: >-
+      A unit of Scout work against a repository or pull request. The central
+      entity of the Scout model — every other Scout object hangs off it.
+    relationships:
+      - type: belongs_to
+        target: Organization
+        via: field organizationId
+      - type: belongs_to
+        target: Project
+        via: field projectId
+      - type: belongs_to
+        target: GitProvider
+        via: field providerId
+      - type: belongs_to
+        target: GitNamespace
+        via: field namespaceId
+      - type: belongs_to
+        target: GitRepository
+        via: field repositoryId
+      - type: belongs_to
+        target: PullRequest
+        via: field prId
+      - type: belongs_to
+        target: Job
+        via: field parentJobId
+        note: Self-reference — jobs form a parent/child tree.
+      - type: has_one
+        target: JobMetadata
+        via: $ref
+      - type: has_one
+        target: GitCommitCheck
+        via: $ref
+  - name: JobList
+    api: Redocly Scout
+    description: Paginated collection envelope.
+    relationships:
+      - type: has_many
+        target: Job
+        via: $ref
+      - type: has_one
+        target: Page
+        via: $ref
+  - name: PatchJob
+    api: Redocly Scout
+    description: Partial-update payload for a Job.
+    relationships:
+      - type: has_one
+        target: JobMetadata
+        via: $ref
+  - name: PullRequest
+    api: Redocly Scout
+    description: A pull request Scout is tracking.
+    relationships:
+      - type: belongs_to
+        target: Organization
+        via: field organizationId
+      - type: belongs_to
+        target: Project
+        via: field projectId
+      - type: belongs_to
+        target: User
+        via: field mergedById
+      - type: belongs_to
+        target: User
+        via: field closedById
+  - name: Page
+    api: Redocly Scout
+    description: >-
+      Cursor pagination envelope — endCursor, startCursor, hasNextPage,
+      hasPrevPage, limit, totalItems. Cursors are declared opaque.
+  - name: Metadata / MetadataValidationResult
+    api: Redocly Scout
+    description: >-
+      Repository metadata submitted for validation via
+      POST .../scout/metadata/validate, and the validation verdict returned.
+  - name: Status
+    api: Redocly Scout
+    description: Worker status report posted by the Scout agent.
+  - name: Problem
+    api: Redocly Scout
+    description: >-
+      RFC 9457 problem document; shared by every 4xx/5xx response. See
+      errors/redocly-problem-types.yml.
+  - name: SearchResult
+    api: Search
+    description: >-
+      Flat document/page result with a title and an offset scoped to its
+      result group. No entity references; the search index is not part of the
+      Scout graph.
+implicit_entities:
+  note: >-
+    Named only as path parameters or id fields inside Scout — never given a
+    schema of their own in any published contract.
+  entities: [Organization, Project, GitProvider, GitNamespace, GitRepository, Credential, User]
+undescribed:
+  note: >-
+    Central to Redocly's product and documented in prose, but absent from
+    every published contract. Not modelled here.
+  entities:
+    - Reunite project / branch / deployment
+    - API description registry entry (the "apis" registry)
+    - Scorecard and scorecard rule result
+    - Team and role (RBAC)
+    - API key and permission set
+    - Subscription / seat / plan
+    - Respect Monitoring run and alert
+render: null

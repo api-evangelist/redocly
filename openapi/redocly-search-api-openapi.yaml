@@ -1,0 +1,438 @@
+openapi: 3.1.0
+info:
+  title: Search
+  version: 1.0.0
+  termsOfService: https://redocly.com/subscription-agreement
+  license:
+    name: Redocly
+    url: https://redocly.com/subscription-agreement
+  description: >
+    Query your project's documentation and API reference content from external
+    tools, scripts, or integrations (for example, MCP servers or custom search
+    UIs).
+
+
+    **Path prefix:** If your project is deployed with a path prefix (for
+    example, `https://docs.example.com/docs/`), prepend that prefix to the API
+    paths (for example, `/docs/_search`).
+
+
+    {% admonition type="info" %}
+
+    For path prefix configuration, see [custom domain
+    configuration](../../reunite/project/custom-domain.md#serve-from-a-subdirectory).
+
+    {% /admonition %}
+
+
+    ## Authentication
+
+
+    This API uses the same authentication as the project. Public projects (when
+    `access.requiresLogin` is not set or is `false`), don't require
+    authentication when you call the API. 
+
+    If the project is protected, (`access.requiresLogin: true` or has
+    [RBAC](../../access/rbac.md) configuration), you must send the same
+    cookie-based session that the browser uses after users logs in. 
+
+
+    The API does not support API keys or bearer tokens; authentication is
+    session (cookie) only. For unauthenticated requests to protected projects,
+    both endpoints return empty results instead of errors.
+
+    {% admonition type="info" %}
+
+    To learn more about access and authentication options, see [Access
+    control](../../access/index.md).
+
+    {% /admonition %}
+
+
+    ## CORS and credentials
+
+
+    When calling from a browser (for example, a custom search UI on another
+    origin), the project must allow your origin in CORS. Send credentials
+    (cookies) with `fetch(..., { credentials: 'include' })` so that session
+    cookies are sent for protected projects.
+servers:
+  - url: https://{projectUrl}
+    description: Project server
+    variables:
+      projectUrl:
+        default: redocly.com
+        description: Project URL (prepend your path prefix if applicable).
+security: []
+tags:
+  - name: Search
+    description: Full-text search and facet operations.
+paths:
+  /_search:
+    post:
+      tags:
+        - Search
+      summary: Get search results
+      description: >
+        Run a full-text search and get results grouped by category (for example,
+        Documentation, API Reference).
+      operationId: search
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+            example:
+              query: getting started
+              filter: []
+              locale: default_locale
+      responses:
+        '200':
+          description: Search results grouped by category.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+              example:
+                facets:
+                  redocly_category:
+                    - value: Documentation
+                      count: 2
+                    - value: API Reference
+                      count: 0
+                  redocly_product: []
+                  redocly_version: []
+                  redocly_teams: []
+                  httpMethod: []
+                  httpPath: []
+                  apiTitle: []
+                  apiVersion: []
+                documents:
+                  Documentation:
+                    - document:
+                        id: doc-1
+                        url: /guides/getting-started
+                        title: Getting started
+                        text: This guide walks you through the initial setup.
+                        path: []
+                        redocly_category: Documentation
+                        redocly_product: ''
+                        redocly_teams: []
+                        redocly_version:
+                          isDefault: true
+                      highlight:
+                        id: doc-1
+                        title: Getting started
+                        url: /guides/getting-started
+                        text: >-
+                          This guide walks you through the <mark>getting</mark>
+                          <mark>started</mark> setup.
+                        redocly_category: Documentation
+                        redocly_product: ''
+                        parameters: []
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /_search-facets:
+    post:
+      operationId: searchFacets
+      tags:
+        - Search
+      summary: Get search facets
+      description: >
+        Get facet definitions and counts for building filter UIs or refining
+        search. Facet counts are optionally computed in the context of a search
+        query and applied filters. Facet `type` can be: `multi-select`,
+        `select`, `tags`, and so on, as configured in search filters.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchFacetsRequest'
+            examples:
+              allFacets:
+                summary: All facets
+                value:
+                  locale: en
+              singleFacetWithQuery:
+                summary: One facet with query and filter
+                value:
+                  locale: en
+                  field: redocly_category
+                  query: api
+                  filter:
+                    - field: redocly_version
+                      values:
+                        - v1
+      responses:
+        '200':
+          description: >-
+            Facet definitions with values and counts. If `field` is set in the
+            request, returns an array with a single facet object; otherwise
+            returns all configured facets.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchFacetsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  schemas:
+    FacetFilter:
+      type: object
+      required:
+        - field
+        - values
+      properties:
+        field:
+          type: string
+          description: >
+            Facet field name (for example: `redocly_category`,
+            `redocly_version`).
+        values:
+          type: array
+          items:
+            type: string
+          description: Selected facet values.
+    SearchRequest:
+      type: object
+      required:
+        - query
+        - locale
+      properties:
+        query:
+          type: string
+          description: Full-text search query.
+        locale:
+          type: string
+          description: >
+            Locale code for the content to search (for example, `en`,
+            `default_locale`).
+
+            Must match a locale configured in your project. Locales are set in
+            `redocly.yaml` under the [l10n](../../config/l10n.md) option.
+        filter:
+          type: array
+          description: List of facet filters. Omit or use [] for no filters.
+          items:
+            $ref: '#/components/schemas/FacetFilter'
+        loadMore:
+          type: object
+          description: For pagination within a result group.
+          properties:
+            groupKey:
+              type: string
+              description: Category key to load more results for.
+            offset:
+              type: integer
+              description: Offset for pagination within the group.
+    FacetValueCount:
+      type: object
+      properties:
+        value:
+          type: string
+          description: |
+            Facet value (for example: a category or product name).
+        count:
+          type: integer
+          description: Number of search results that match this facet value.
+    SearchDocument:
+      description: Indexed document returned in search results.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the indexed document.
+        url:
+          type: string
+          description: URL of the document or API operation.
+        title:
+          type: string
+          description: Document or page title.
+        text:
+          type: string
+          description: Indexed text content used for search matching.
+        path:
+          type: array
+          description: >
+            Breadcrumb path (for example: section titles) leading to this
+            document.
+          items:
+            type: string
+        redocly_category:
+          type: string
+          description: |
+            Documentation category (for example: Documentation, API Reference).
+        redocly_product:
+          type: string
+          description: Product name when content is scoped by product.
+        redocly_teams:
+          type: array
+          description: Team names when content is scoped by team.
+          items:
+            type: string
+        redocly_version:
+          oneOf:
+            - type: object
+              properties:
+                isDefault:
+                  type: boolean
+                  description: Whether this is the default version.
+            - type: string
+          description: Version label or version object for versioned content.
+        httpMethod:
+          type: string
+          description: |
+            HTTP method (for example: GET, POST) for API reference items.
+        httpPath:
+          type: string
+          description: HTTP path pattern for API reference items.
+        apiTitle:
+          type: string
+          description: Title of the API for API reference items.
+        apiVersion:
+          type: string
+          description: API version for API reference items.
+    SearchHighlight:
+      description: Highlighted snippets; matched terms are wrapped in `<mark>` tags.
+      properties:
+        id:
+          type: string
+          description: Document ID matching the result document.
+        title:
+          type: string
+          description: Highlighted title snippet with matched terms in `<mark>` tags.
+        url:
+          type: string
+          description: URL of the result (no highlighting).
+        text:
+          type: string
+          description: Highlighted content snippet with matched terms in `<mark>` tags.
+        redocly_category:
+          type: string
+          description: >
+            Category value for this result (for example: Documentation, API
+            Reference).
+        redocly_product:
+          type: string
+          description: Product value for this result when applicable.
+        parameters:
+          type: array
+          description: Present in API reference items.
+    SearchItem:
+      type: object
+      properties:
+        document:
+          type: object
+          description: The indexed document (metadata and content fields).
+          $ref: '#/components/schemas/SearchDocument'
+        highlight:
+          type: object
+          description: Highlighted snippets for this result.
+          $ref: '#/components/schemas/SearchHighlight'
+    SearchResponse:
+      type: object
+      properties:
+        facets:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/FacetValueCount'
+          description: >
+            Facet field names to arrays of value and count. Keys may include:
+            `redocly_category`, `redocly_product`, `redocly_version`,
+            `redocly_teams`, `httpMethod`, `httpPath`, `apiTitle`, `apiVersion`,
+            and any custom facet fields.
+        documents:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/SearchItem'
+          description: >-
+            Category names (e.g. Documentation, API Reference) to arrays of
+            search items.
+    SearchFacetsRequest:
+      type: object
+      required:
+        - locale
+      properties:
+        locale:
+          type: string
+          description: Locale code (same as search).
+        field:
+          type: string
+          description: >-
+            If set, returns only the facet for this field (with values and
+            counts). If omitted, returns all configured facets.
+        query:
+          type: string
+          description: >-
+            Search query; facet counts are computed in the context of this
+            query.
+        filter:
+          type: array
+          items:
+            $ref: '#/components/schemas/FacetFilter'
+          description: Counts are computed with these filters applied.
+        facetQuery:
+          type: string
+          description: >-
+            Filter facet values using this string (for type-ahead in facet
+            controls).
+    FacetObject:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Display name of the facet as shown in the UI.
+        field:
+          type: string
+          description: >
+            Facet field name (for example: `redocly_category`,
+            `redocly_product`).
+        type:
+          type: string
+          description: >
+            Facet type (for example: multi-select, select, tags) as configured
+            in search filters.
+        values:
+          type: array
+          description: Available facet values with their result counts.
+          items:
+            $ref: '#/components/schemas/FacetValueCount'
+    SearchFacetsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/FacetObject'
+      description: >
+        If the request includes `field`: array with a single facet. Otherwise
+        all facet objects with their values.
+  responses:
+    BadRequest:
+      description: |
+        Facet field name (for example: `redocly_category`, `redocly_version`).
+      content:
+        application/problem+json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: URI reference that identifies the problem type.
+                example: about:blank
+              title:
+                type: string
+                description: Error title.
+                example: Bad Request
+              status:
+                type: integer
+                description: HTTP status code.
+                example: 400
+              detail:
+                type: string
+                description: Human-readable message with additional error details.
+                example: Invalid or missing required body fields.
+            required:
+              - detail
