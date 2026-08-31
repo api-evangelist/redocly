@@ -318,6 +318,10 @@ apis:
   baseURL: http://{host}
   tags:
   - Discovery
+  - Webhook
+  - Self-Hosted
+  tags_raw:
+  - Discovery
   - Webhooks
   - Self-Hosted
   properties:
