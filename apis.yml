@@ -20,7 +20,6 @@ tags:
 - MCP
 - Monitoring
 - OpenAPI
-- Developer Tools
 tags_raw:
 - AI
 - API Catalog
@@ -501,6 +500,8 @@ common:
 - name: List of sub-processors
   url: https://redocly.com/sub-processors
   type: SubProcessors
+- type: Contact
+  url: mailto:team@redocly.com
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
