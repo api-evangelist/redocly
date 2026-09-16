@@ -58,7 +58,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/redocly.png
 access: 3rd-Party
 created: '2026-01-05'
-modified: '2026-08-27'
+modified: '2026-09-16'
 position: Consuming
 segments:
 - Documentation
@@ -225,117 +225,241 @@ apis:
   properties:
   - type: Documentation
     url: https://redocly.com/docs/cli/commands/respect
-- aid: redocly:redocly-search-api
-  name: Redocly Realm Search API
-  description: 'The Search API is the machine-readable query surface of any Realm project: POST /_search
-    returns documentation and API-reference matches and POST /_search-facets returns facet aggregations.
-    It is the REST twin of the `search` tool on the Docs MCP server. Authentication is session-cookie
-    only — the API accepts no API key or bearer token — and public projects need none at all, which is
-    why Redocly''s own project answers anonymously. Errors are RFC 9457 problem documents. The server
-    block is templated on {projectUrl} because every Realm customer serves their own copy; the default
-    is redocly.com, Redocly''s own deployment.'
-  humanURL: https://redocly.com/docs/realm/customization/search-api/openapi
+- aid: redocly:redocly-health-api
+  name: Redocly Health API
+  description: Operations related to health checks.
+  humanURL: https://redocly.com/realm
   baseURL: https://redocly.com
   tags:
-  - API Documentation
-  - Developer Portal
-  - Search
+  - Health
   properties:
   - type: OpenAPI
-    url: openapi/redocly-search-api-openapi.yaml
-  - type: Overlay
-    url: overlays/redocly-search-api-overlay.yaml
+    url: openapi/redocly-health-api-openapi.yml
   - type: Documentation
     url: https://redocly.com/docs/realm/customization/search-api/openapi
   - type: ErrorCatalog
     url: errors/redocly-problem-types.yml
-- aid: redocly:redocly-docs-mcp
-  name: Redocly Docs MCP Server
-  description: 'The Docs MCP server is Realm''s Model Context Protocol endpoint, generated automatically
-    from a project''s documentation and OpenAPI descriptions and served at /mcp on the project root. Redocly
-    runs it on its own site: an anonymous tools/list against https://redocly.com/mcp returns two tools
-    — a JavaScript sandbox `execute` and a `describe-tools` introspection call — behind which sit eleven
-    sandbox functions including listApis, getEndpoints, getEndpointInfo, getSecuritySchemes, getFullApiDescription
-    and search. Access is decided by the same RBAC engine that protects the portal; OAuth 2.0 authorization
-    code is available per project, and the server validates a bearer token''s aud claim against the organization
-    ID.'
-  humanURL: https://redocly.com/docs/realm/customization/mcp-server
-  baseURL: https://redocly.com/mcp
-  tags:
-  - Artificial Intelligence
-  - API Documentation
-  - MCP
-  properties:
-  - type: OpenAPI
-    url: openapi/redocly-docs-mcp-openapi.yaml
-  - type: Overlay
-    url: overlays/redocly-docs-mcp-overlay.yaml
-  - type: MCPServer
-    url: mcp/redocly-mcp.yml
   - type: ToolCrosswalk
     url: mcp/redocly-tool-crosswalk.yml
   - type: Documentation
     url: https://redocly.com/docs/realm/customization/mcp-server
   - type: Reference
     url: https://redocly.com/docs/realm/customization/mcp-server/openapi
-  - type: AgentSkill
-    url: skills/_index.yml
-- aid: redocly:redocly-scout
-  name: Redocly Scout API
-  description: 'Scout is Redocly''s API-discovery service: it crawls connected Git remotes, tracks pull
-    requests and runs jobs that find hidden, duplicate and undocumented APIs, then pushes what it finds
-    into a Reunite project. The REST API is scoped /orgs/{orgId}/projects/{projectId}/ and covers remotes,
-    jobs, todos, status reporting and metadata validation, with opaque-cursor pagination and RFC 9457
-    errors. Authentication is a bearer API key issued from the Reunite organization, or the browser session
-    cookie. The server block is templated on {host} because Scout is deployed per customer.'
-  humanURL: https://redocly.com/docs/realm/scout
-  baseURL: https://{host}/api
-  tags:
-  - API Catalog
-  - Discovery
-  - Governance
-  properties:
-  - type: OpenAPI
-    url: openapi/redocly-scout-openapi.yaml
-  - type: Overlay
-    url: overlays/redocly-scout-overlay.yaml
   - type: Documentation
     url: https://redocly.com/docs/realm/scout
   - type: Authentication
     url: authentication/redocly-authentication.yml
   - type: DataModel
     url: data-model/redocly-data-model.yml
-  - type: ErrorCatalog
-    url: errors/redocly-problem-types.yml
-- aid: redocly:redocly-scout-agent
-  name: Redocly Scout Agent API
-  description: 'The Scout agent is the self-hosted worker half of Scout, deployed inside the customer''s
-    own infrastructure (Redocly documents an AWS ECS task definition). Its API is small and operational:
-    a health check plus two webhook receivers that accept GitHub and GitLab events, authenticated by the
-    x-hub-signature-256 and x-gitlab-token signature headers respectively. Errors are RFC 9457 problem
-    documents and the 500 problem carries an `event` member naming the incoming webhook event.'
-  humanURL: https://redocly.com/docs/realm/scout
-  baseURL: http://{host}
-  tags:
-  - Discovery
-  - Webhook
-  - Self-Hosted
-  tags_raw:
-  - Discovery
-  - Webhooks
-  - Self-Hosted
-  properties:
-  - type: OpenAPI
-    url: openapi/redocly-scout-agent-openapi.yaml
-  - type: Overlay
-    url: overlays/redocly-scout-agent-overlay.yaml
   - type: Webhooks
     url: asyncapi/redocly-webhooks.yml
+- aid: redocly:redocly-metadata-api
+  name: Redocly Metadata API
+  description: Operations related to metadata.
+  humanURL: https://redocly.com/realm
+  baseURL: https://redocly.com
+  tags:
+  - Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/redocly-metadata-api-openapi.yml
   - type: Documentation
-    url: https://redocly.com/docs/realm/scout
+    url: https://redocly.com/docs/realm/customization/search-api/openapi
   - type: ErrorCatalog
     url: errors/redocly-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/redocly-tool-crosswalk.yml
+  - type: Documentation
+    url: https://redocly.com/docs/realm/customization/mcp-server
+  - type: Reference
+    url: https://redocly.com/docs/realm/customization/mcp-server/openapi
+  - type: Documentation
+    url: https://redocly.com/docs/realm/scout
+  - type: Authentication
+    url: authentication/redocly-authentication.yml
+  - type: DataModel
+    url: data-model/redocly-data-model.yml
+  - type: Webhooks
+    url: asyncapi/redocly-webhooks.yml
+- aid: redocly:redocly-remotes-api
+  name: Redocly Remotes API
+  description: Operations related to remotes.
+  humanURL: https://redocly.com/realm
+  baseURL: https://redocly.com
+  tags:
+  - Remotes
+  properties:
+  - type: OpenAPI
+    url: openapi/redocly-remotes-api-openapi.yml
+  - type: Documentation
+    url: https://redocly.com/docs/realm/customization/search-api/openapi
+  - type: ErrorCatalog
+    url: errors/redocly-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/redocly-tool-crosswalk.yml
+  - type: Documentation
+    url: https://redocly.com/docs/realm/customization/mcp-server
+  - type: Reference
+    url: https://redocly.com/docs/realm/customization/mcp-server/openapi
+  - type: Documentation
+    url: https://redocly.com/docs/realm/scout
+  - type: Authentication
+    url: authentication/redocly-authentication.yml
+  - type: DataModel
+    url: data-model/redocly-data-model.yml
+  - type: Webhooks
+    url: asyncapi/redocly-webhooks.yml
+- aid: redocly:redocly-search-api
+  name: Redocly Search API
+  description: Full-text search and facet operations.
+  humanURL: https://redocly.com/realm
+  baseURL: https://redocly.com
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/redocly-search-api-openapi.yml
+  - type: Documentation
+    url: https://redocly.com/docs/realm/customization/search-api/openapi
+  - type: ErrorCatalog
+    url: errors/redocly-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/redocly-tool-crosswalk.yml
+  - type: Documentation
+    url: https://redocly.com/docs/realm/customization/mcp-server
+  - type: Reference
+    url: https://redocly.com/docs/realm/customization/mcp-server/openapi
+  - type: Documentation
+    url: https://redocly.com/docs/realm/scout
+  - type: Authentication
+    url: authentication/redocly-authentication.yml
+  - type: DataModel
+    url: data-model/redocly-data-model.yml
+  - type: Webhooks
+    url: asyncapi/redocly-webhooks.yml
+- aid: redocly:redocly-status-api
+  name: Redocly Status API
+  description: Operations related to status.
+  humanURL: https://redocly.com/realm
+  baseURL: https://redocly.com
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/redocly-status-api-openapi.yml
+  - type: Documentation
+    url: https://redocly.com/docs/realm/customization/search-api/openapi
+  - type: ErrorCatalog
+    url: errors/redocly-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/redocly-tool-crosswalk.yml
+  - type: Documentation
+    url: https://redocly.com/docs/realm/customization/mcp-server
+  - type: Reference
+    url: https://redocly.com/docs/realm/customization/mcp-server/openapi
+  - type: Documentation
+    url: https://redocly.com/docs/realm/scout
+  - type: Authentication
+    url: authentication/redocly-authentication.yml
+  - type: DataModel
+    url: data-model/redocly-data-model.yml
+  - type: Webhooks
+    url: asyncapi/redocly-webhooks.yml
+- aid: redocly:redocly-tasks-api
+  name: Redocly Tasks API
+  description: Operations related to tasks.
+  humanURL: https://redocly.com/realm
+  baseURL: https://redocly.com
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/redocly-tasks-api-openapi.yml
+  - type: Documentation
+    url: https://redocly.com/docs/realm/customization/search-api/openapi
+  - type: ErrorCatalog
+    url: errors/redocly-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/redocly-tool-crosswalk.yml
+  - type: Documentation
+    url: https://redocly.com/docs/realm/customization/mcp-server
+  - type: Reference
+    url: https://redocly.com/docs/realm/customization/mcp-server/openapi
+  - type: Documentation
+    url: https://redocly.com/docs/realm/scout
+  - type: Authentication
+    url: authentication/redocly-authentication.yml
+  - type: DataModel
+    url: data-model/redocly-data-model.yml
+  - type: Webhooks
+    url: asyncapi/redocly-webhooks.yml
+- aid: redocly:redocly-todos-api
+  name: Redocly Todos API
+  description: Operations related to todos.
+  humanURL: https://redocly.com/realm
+  baseURL: https://redocly.com
+  tags:
+  - Todos
+  properties:
+  - type: OpenAPI
+    url: openapi/redocly-todos-api-openapi.yml
+  - type: Documentation
+    url: https://redocly.com/docs/realm/customization/search-api/openapi
+  - type: ErrorCatalog
+    url: errors/redocly-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/redocly-tool-crosswalk.yml
+  - type: Documentation
+    url: https://redocly.com/docs/realm/customization/mcp-server
+  - type: Reference
+    url: https://redocly.com/docs/realm/customization/mcp-server/openapi
+  - type: Documentation
+    url: https://redocly.com/docs/realm/scout
+  - type: Authentication
+    url: authentication/redocly-authentication.yml
+  - type: DataModel
+    url: data-model/redocly-data-model.yml
+  - type: Webhooks
+    url: asyncapi/redocly-webhooks.yml
+- aid: redocly:redocly-webhooks-api
+  name: Redocly Webhooks API
+  description: Operations related to incoming git webhooks.
+  humanURL: https://redocly.com/realm
+  baseURL: https://redocly.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/redocly-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://redocly.com/docs/realm/customization/search-api/openapi
+  - type: ErrorCatalog
+    url: errors/redocly-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/redocly-tool-crosswalk.yml
+  - type: Documentation
+    url: https://redocly.com/docs/realm/customization/mcp-server
+  - type: Reference
+    url: https://redocly.com/docs/realm/customization/mcp-server/openapi
+  - type: Documentation
+    url: https://redocly.com/docs/realm/scout
+  - type: Authentication
+    url: authentication/redocly-authentication.yml
+  - type: DataModel
+    url: data-model/redocly-data-model.yml
+  - type: Webhooks
+    url: asyncapi/redocly-webhooks.yml
 common:
+- type: Website
+  url: https://redocly.com
+- type: Overlay
+  url: overlays/redocly-search-api-overlay.yaml
+- type: Overlay
+  url: overlays/redocly-docs-mcp-overlay.yaml
+- type: Overlay
+  url: overlays/redocly-scout-overlay.yaml
+- type: Overlay
+  url: overlays/redocly-scout-agent-overlay.yaml
 - type: OAuthScopes
   url: scopes/redocly-scopes.yml
 - type: Authentication
