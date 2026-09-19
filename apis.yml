@@ -134,6 +134,10 @@ apis:
   tags:
   - API Catalog
   - Governance
+  - Scorecards
+  tags_raw:
+  - API Catalog
+  - Governance
   - Scorecard
   properties:
   - type: Documentation
@@ -378,6 +382,8 @@ apis:
   humanURL: https://redocly.com/realm
   baseURL: https://redocly.com
   tags:
+  - Task
+  tags_raw:
   - Tasks
   properties:
   - type: OpenAPI
@@ -406,6 +412,8 @@ apis:
   humanURL: https://redocly.com/realm
   baseURL: https://redocly.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
@@ -434,6 +442,8 @@ apis:
   humanURL: https://redocly.com/realm
   baseURL: https://redocly.com
   tags:
+  - To-Dos
+  tags_raw:
   - To Dos
   properties:
   - type: OpenAPI
