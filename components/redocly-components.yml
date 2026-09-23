@@ -1,0 +1,105 @@
+generated: '2026-08-27'
+method: searched
+source: >-
+  https://redocly.com/docs/realm/ai-ready,
+  https://redocly.com/docs/realm/customization/eject-components,
+  https://redocly.com/redoc and https://redocly.com/docs/redoc — fetched or
+  searched through the live Docs MCP server on 2026-08-27.
+provider: Redocly
+providerId: redocly
+description: >-
+  Redocly's client-side surface is unusually large for a documentation vendor:
+  the Redoc renderer ships as a custom HTML element, a React component and a
+  Docker image, and Realm exposes an AI-assistant web component plus an
+  ejectable React component library that customers can copy into their own
+  project. These are rendering and embedding components, not API SDKs — the
+  SDK question is answered in packages/redocly-packages.yml.
+families:
+  - name: Redoc
+    kind: renderer
+    description: >-
+      Open-source three-panel OpenAPI reference renderer. Supports OpenAPI 3.2,
+      3.1, 3.0 and OpenAPI 2.0 (Swagger).
+    docs: https://redocly.com/docs/redoc
+    distributions:
+      - form: html-custom-element
+        note: A <redoc> tag plus the redoc.standalone.js bundle.
+        registry: cdn
+        version: null
+        version_note: >-
+          The documented script tag points at an unpinned CDN path, so a
+          consumer cannot tell which build they load. The npm package `redoc`
+          is the pinnable form — 2.5.3, published 2026-05-29.
+      - form: react-component
+        package: redoc
+        registry: npm
+        version: 2.5.3
+        published: '2026-05-29'
+      - form: cli
+        package: '@redocly/cli'
+        command: redocly build-docs
+        version: 2.49.0
+        published: '2026-08-27'
+        note: Renders a zero-dependency standalone HTML page.
+      - form: docker
+        package: redocly/redoc
+        version: v2.5.3
+        published: '2026-05-29'
+  - name: AI assistant web component
+    kind: embeddable-widget
+    description: >-
+      Embeds Realm's documentation AI assistant into applications outside the
+      docs site, so the same grounded answers appear in a customer's own
+      product.
+    docs: https://redocly.com/docs/realm/ai-assistant-web-component/ai-assistant-web-component
+    registry: null
+    version: null
+    version_note: >-
+      No public npm package and no jsDelivr entry was found on 2026-08-27
+      (@redocly/ai-assistant-web-component returns 404 on both registry.npmjs.org
+      and data.jsdelivr.com). The component appears to be delivered from the
+      customer's own Realm project rather than from a public registry, so
+      there is no version to record.
+  - name: Ejectable Realm components
+    kind: react-component-library
+    description: >-
+      Realm's own UI components can be identified in the browser dev tools and
+      "ejected" into the customer's project as source, where they can be
+      modified and rebuilt.
+    docs: https://redocly.com/docs/realm/customization/eject-components
+    registry: npm
+    packages:
+      - name: '@redocly/theme'
+        version: 0.68.2
+        published: '2026-08-25'
+      - name: '@redocly/openapi-docs'
+        version: 3.24.2
+        published: '2026-08-25'
+      - name: '@redocly/graphql-docs'
+        version: 1.13.2
+        published: '2026-08-25'
+      - name: '@redocly/api-docs'
+        version: 0.1.2
+        published: '2026-08-25'
+      - name: '@redocly/replay'
+        version: 0.27.2
+        published: '2026-08-25'
+      - name: '@redocly/theme-experimental'
+        version: 0.19.2
+        published: '2026-08-25'
+    version_source: >-
+      https://redocly.com/docs/changelog/feed.xml, release train 2026-08-25.
+      These are commercial packages shipped as part of a Realm build.
+  - name: Portal plugins
+    kind: build-plugin
+    description: Renderers wired into a Realm build for non-OpenAPI surfaces and mock servers.
+    packages:
+      - name: '@redocly/portal-plugin-async-api'
+        version: 1.19.2
+        published: '2026-08-25'
+      - name: '@redocly/portal-plugin-mock-server'
+        version: 0.21.2
+        published: '2026-08-25'
+loaders:
+  - name: redoc.standalone.js
+    note: Single-file bundle that upgrades the <redoc> element in place.

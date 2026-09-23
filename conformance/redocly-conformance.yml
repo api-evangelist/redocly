@@ -1,0 +1,174 @@
+generated: '2026-08-27'
+method: searched
+source: >-
+  The OpenAPI descriptions in openapi/, the live agent card
+  (a2a/redocly-agent-card.json), the MCP server card
+  (mcp/redocly-mcp-server-card.json), the agent-skills index
+  (well-known/redocly-agent-skills-index.json), and
+  https://redocly.com/security — all fetched 2026-08-27.
+provider: Redocly
+providerId: redocly
+description: >-
+  Redocly's market IS API specification tooling, so its domain standards are
+  the specification standards themselves — and unusually, the conformance is
+  visible in the contracts and discovery documents Redocly serves rather than
+  only in marketing copy. Three separate agent-ecosystem schemas are declared
+  by $schema or protocolVersion on live documents: the A2A agent card, the MCP
+  server card, and the agentskills.io discovery schema.
+conformance:
+  - id: openapi-3.1
+    conforms: true
+    evidence:
+      - >-
+        All four published descriptions declare openapi: 3.1.0 —
+        openapi/redocly-search-api-openapi.yaml,
+        openapi/redocly-docs-mcp-openapi.yaml,
+        openapi/redocly-scout-openapi.yaml,
+        openapi/redocly-scout-agent-openapi.yaml.
+  - id: rfc9457
+    conforms: true
+    evidence:
+      - >-
+        Every 4xx/5xx response in every published description uses
+        application/problem+json with type/title/status/detail members. See
+        errors/redocly-problem-types.yml.
+      - >-
+        Documented deviation: Scout states its `type` is unique only within
+        that API and is not expected to dereference.
+  - id: oauth2
+    conforms: true
+    evidence:
+      - >-
+        openapi/redocly-docs-mcp-openapi.yaml declares an OAuth2 securityScheme
+        with an authorizationCode flow (authorizationUrl
+        https://{projectHost}/_mcp/oauth2/auth, tokenUrl
+        .../_mcp/oauth2/token-portal).
+      - >-
+        The scopes object is empty; authorization is decided by Redocly's RBAC
+        engine, not by OAuth scopes. See scopes/redocly-scopes.yml.
+  - id: oidc
+    conforms: true
+    evidence:
+      - >-
+        https://redocly.com/security lists Enterprise SSO over SAML 2 or
+        OpenID Connect with domain verification and IdP team mapping.
+      - >-
+        No /.well-known/openid-configuration is served on redocly.com (404 on
+        2026-08-27); OIDC is a customer-facing SSO capability, not a discovery
+        surface on the marketing host.
+  - id: pagination
+    conforms: partial
+    evidence:
+      - >-
+        Cursor pagination in Scout (after/before/endCursor/startCursor),
+        page-number in Docs MCP listApis, offset in Search. Three styles across
+        three contracts — see conventions/redocly-conventions.yml.
+  - id: idempotency
+    conforms: false
+    evidence:
+      - >-
+        No Idempotency-Key header is declared in any published contract. The
+        generated client can send one for customers' APIs; Redocly's own
+        endpoints make no idempotency commitment.
+  - id: rate-limit-headers
+    conforms: false
+    evidence:
+      - No RateLimit-*, X-RateLimit-* or Retry-After header is declared in any published contract.
+  - id: soc2-type-ii
+    conforms: true
+    evidence:
+      - >-
+        https://redocly.com/security — "Redocly has completed the System and
+        Organization Controls (SOC) 2, Type II audit"; reports downloadable
+        from the Reunite Compliance page.
+  - id: csa-star
+    conforms: true
+    evidence:
+      - >-
+        https://redocly.com/security — CAIQ version 4 questionnaire completed
+        and certified under the Cloud Security Alliance STAR program.
+  - id: pci-dss
+    conforms: not-applicable
+    evidence:
+      - >-
+        https://redocly.com/security — Redocly does not store or process
+        payment information; it relies on Stripe and Rebilly, both PCI DSS
+        Level 1 service providers. Compliance is inherited, not held.
+  - id: gdpr
+    conforms: true
+    evidence:
+      - >-
+        https://redocly.com/dpa — Data Processing Addendum offered to enable
+        GDPR and CCPA compliance; sub-processor list published at
+        https://redocly.com/sub-processors.
+domain_standards:
+  note: >-
+    REWARD-ONLY. These are declared by the contracts and discovery documents
+    themselves, not asserted from marketing prose.
+  standards:
+    - id: a2a
+      name: Agent2Agent Protocol
+      declared: true
+      version: 0.3.0
+      location: a2a/redocly-agent-card.json — protocolVersion "0.3.0"
+      served_at: https://redocly.com/.well-known/agent-card.json
+      grade: conformant
+      see: a2a/redocly-a2a.yml
+    - id: mcp
+      name: Model Context Protocol
+      declared: true
+      version: '2025-11-25'
+      location: >-
+        mcp/redocly-mcp-server-card.json — $schema
+        https://static.modelcontextprotocol.io/schemas/mcp-server-card/v1.json,
+        protocolVersion 2025-11-25
+      served_at: https://redocly.com/.well-known/mcp/server-card.json
+      live_endpoint: https://redocly.com/mcp
+      note: >-
+        Anonymous tools/list returned HTTP 200 with a real tools array on
+        2026-08-27 — the declaration is exercisable, not just published.
+    - id: agentskills.io
+      name: Agent Skills discovery
+      declared: true
+      version: 0.2.0
+      location: >-
+        well-known/redocly-agent-skills-index.json — $schema
+        https://schemas.agentskills.io/discovery/0.2.0/schema.json
+      served_at: https://redocly.com/.well-known/agent-skills/index.json
+      note: One published skill with a sha256 digest for change detection.
+    - id: llmstxt
+      name: llms.txt
+      declared: true
+      location: llms/redocly-llms.txt — 980 lines, llmstxt.org format
+      served_at: https://redocly.com/llms.txt
+    - id: arazzo
+      name: Arazzo Specification
+      declared: true
+      versions: ['1.0', '1.1']
+      location: >-
+        Product support rather than a declaration in Redocly's own contract:
+        Redocly CLI `respect` and `generate-arazzo` implement Arazzo, and
+        Respect Monitoring runs Arazzo workflows. Recorded here because Arazzo
+        is a domain standard of the API-tooling market and Redocly is a
+        primary implementer.
+      see: cli/redocly-cli.yml
+    - id: openapi-overlay
+      name: OpenAPI Overlay
+      declared: true
+      version: '1.0'
+      location: Redocly CLI lints and applies Overlay documents; see cli/redocly-cli.yml.
+    - id: asyncapi
+      name: AsyncAPI
+      declared: true
+      versions: ['3.0', '2.6']
+      location: >-
+        Redocly CLI lints and bundles AsyncAPI; @redocly/portal-plugin-async-api
+        renders it. Redocly publishes no AsyncAPI for its own services — see
+        asyncapi/redocly-webhooks.yml.
+absent:
+  checked: [fhir, fapi, scim, odata, psd2, "json:api", openrtb, sparkplug, activitypub, lti, oai-pmh, hl7v2, x12, iso-20022]
+  result: none-claimed
+  note: >-
+    None of these belong to Redocly's market and none is claimed by any
+    Redocly contract or docs page. Recorded as checked-and-absent so the gap
+    is not read as an unexamined one.

@@ -1,0 +1,169 @@
+generated: '2026-08-27'
+method: derived
+source: >-
+  Derived from the OpenAPI descriptions in openapi/ (fetched from
+  https://redocly.com/_spec/ 2026-08-27), enriched from
+  https://redocly.com/docs/realm/reunite/organization/api-keys,
+  https://redocly.com/docs/realm/customization/mcp-server and
+  https://redocly.com/docs/cli/guides/use-generated-client.
+provider: Redocly
+providerId: redocly
+description: >-
+  Cross-cutting runtime semantics for Redocly's published contracts. The
+  striking thing about Redocly is the asymmetry: the conventions it TEACHES —
+  idempotency keys, cursor pagination, RFC 9457 problems, retry policy — are
+  implemented in the client generator it ships for other people's APIs, and
+  only some of them appear in its own published contracts. This document
+  records what Redocly's own contracts do, and marks the gap where the
+  convention exists as a product feature rather than as a commitment on
+  Redocly's own surface.
+auth:
+  style: mixed
+  see: authentication/redocly-authentication.yml
+  summary: >-
+    API key (bearer) for the platform API and Scout; session cookie for the
+    Search API on protected projects; OAuth 2.0 authorization code for the Docs
+    MCP server; signature headers for inbound Scout webhooks. Public Realm
+    projects, including redocly.com itself, serve Search and MCP anonymously.
+idempotency:
+  supported: not-documented
+  header: null
+  scope: null
+  retention: null
+  note: >-
+    No Redocly contract declares an Idempotency-Key header and no docs page
+    states an idempotency guarantee for a Redocly API. Redocly's GENERATED
+    CLIENT can send Idempotency-Key on POST/PATCH when configured
+    (`idempotencyKey: true`, per
+    https://redocly.com/docs/cli/guides/use-generated-client), and cites the
+    IETF idempotency-key-header draft — but that is a feature for the APIs
+    its customers describe, not a promise about Redocly's own endpoints.
+    Scout's write operations (upsertRemote, createTodo, startNextJob,
+    reportStatus) carry no idempotency contract.
+retries:
+  documented_for: generated client
+  default_policy: >-
+    The generated client retries only idempotent methods (GET, HEAD, PUT,
+    DELETE, OPTIONS) on a network error or a transient status (408, 429, 500,
+    502, 503, 504). POST and PATCH are not retried by default because a
+    repeated send can duplicate side effects.
+  note: A client-side default, opt-in per call; not a server-side guarantee.
+pagination:
+  styles:
+    - api: Redocly Scout
+      style: cursor
+      request_params: [after, before, limit, sort, filter]
+      response_object: page
+      response_fields: [endCursor, startCursor, hasNextPage, hasPrevPage, limit, totalItems]
+      note: >-
+        Cursors are explicitly opaque — "the cursor is opaque and internal
+        structure is subject to change". Default sort is -id; the list is not
+        sortable by other properties.
+    - api: Docs MCP (listApis)
+      style: page-number
+      request_params: [page, limit]
+      response_fields: [limit, total, page, totalPages]
+      note: Default limit 300.
+    - api: Search
+      style: offset
+      request_params: [offset]
+      note: Offset is scoped to a result group rather than the whole result set.
+  consistency: >-
+    Three different pagination styles across three contracts. An agent cannot
+    carry one paging loop across Redocly's surfaces.
+filtering_and_sorting:
+  filter: >-
+    Scout exposes a `filter` query parameter with a documented special format;
+    the docs page it points at is the authority.
+  sort: Scout `sort` accepts id or -id only.
+field_expansion: not-documented
+sparse_fieldsets: not-documented
+metadata: not-documented
+request_id_tracing:
+  header: not-documented
+  note: >-
+    No published contract declares a request-id or correlation header on
+    responses. Scout accepts an optional x-redocly-scout-version request
+    header, which identifies the client build rather than the request.
+versioning:
+  see: lifecycle/redocly-lifecycle.yml
+  in_transport: none
+  note: info.version only; no path, header or media-type version.
+error_envelope:
+  format: rfc9457
+  media_type: application/problem+json
+  required_member: detail
+  see: errors/redocly-problem-types.yml
+rate_limit_signaling:
+  headers: none declared
+  status_on_exhaustion: not declared
+  see: rate-limits/redocly-rate-limits.yml
+  note: >-
+    No published Redocly contract declares 429 or any RateLimit-* /
+    X-RateLimit-* / Retry-After header. Redocly writes extensively about rate
+    limiting as a governance topic and publishes none for its own APIs.
+identifiers:
+  ulid:
+    example: rem_01h1s5z6vf2mm1mz3hevnn9va7
+    note: Scout remote IDs are prefixed ULIDs (rem_).
+  org_project:
+    note: Scout paths are scoped /orgs/{orgId}/projects/{projectId}/...; both are slugs, not opaque IDs (examples acme-inc, my-project).
+reversibility:
+  state: none-documented
+  grade: undocumented
+  write_surface: true
+  note: >-
+    Redocly's published contracts DO have a write surface — ten Scout
+    operations create, update and push — but not one reversal operation is
+    described and no docs page states a window in which a write can be undone.
+    There is no cancel, refund, void, reverse, undo, rollback or restore
+    operation in any of the four published descriptions. This is recorded as
+    an absence, not as `na`: `na` would be wrong because writes exist.
+  write_operations_without_a_reversal:
+    - operationId: upsertRemote
+      method: POST
+      path: /orgs/{orgId}/projects/{projectId}/remotes
+      reversal: none documented
+    - operationId: pushToRemote
+      method: POST
+      path: /orgs/{orgId}/projects/{projectId}/remotes/{remoteId}/push
+      reversal: none documented
+      note: >-
+        Pushes content to a remote destination. A push is the highest-blast-radius
+        operation in the set and has no documented undo.
+    - operationId: createTodo
+      method: POST
+      path: /orgs/{orgId}/projects/{projectId}/scout/todos
+      reversal: none documented
+    - operationId: startNextJob
+      method: POST
+      path: /orgs/{orgId}/projects/{projectId}/scout/tasks
+      reversal: none documented
+    - operationId: updateJob
+      method: PATCH
+      path: /orgs/{orgId}/projects/{projectId}/scout/tasks/{jobId}
+      reversal: none documented
+      note: PATCH with no documented prior-state read-back or revert.
+    - operationId: reportStatus
+      method: POST
+      path: /orgs/{orgId}/projects/{projectId}/scout/status
+      reversal: none documented
+  adjacent_platform_behaviour:
+    - action: Revoke an API key
+      note: >-
+        Reunite lets an organization revoke an API key at any time, and a key
+        created without an expiry stays valid until revoked. This is a
+        credential control, not a reversal of a data write, and it is a UI
+        action rather than a described API operation.
+    - action: Git-backed content
+      note: >-
+        Reunite deploys documentation from Git, so content changes are
+        revertible through the underlying repository. Redocly does not
+        describe that as an API operation or state a window for it, so it is
+        not counted as a documented reversal.
+dry_run_mode:
+  supported: partial
+  note: >-
+    validateMetadata (POST /orgs/{orgId}/projects/{projectId}/scout/metadata/validate)
+    validates without committing, which is a genuine rehearsal operation for
+    one input. No other write operation has a dry-run form.

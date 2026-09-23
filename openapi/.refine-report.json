@@ -1,0 +1,43 @@
+{
+  "provider": "redocly",
+  "sources": [
+    "_original/redocly-docs-mcp-openapi.yaml",
+    "_original/redocly-scout-agent-openapi.yaml",
+    "_original/redocly-scout-openapi.yaml",
+    "_original/redocly-search-api-openapi.yaml"
+  ],
+  "outputs": [
+    "redocly-health-api-openapi.yml",
+    "redocly-webhooks-api-openapi.yml",
+    "redocly-metadata-api-openapi.yml",
+    "redocly-remotes-api-openapi.yml",
+    "redocly-status-api-openapi.yml",
+    "redocly-tasks-api-openapi.yml",
+    "redocly-todos-api-openapi.yml",
+    "redocly-search-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (4 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "redocly-docs-mcp-openapi.yaml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "redocly-scout-agent-openapi.yaml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "redocly-scout-openapi.yaml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "redocly-search-api-openapi.yaml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: redocly-to-dos-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 16 total)"
+  ],
+  "skipped": [
+    "redocly-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "redocly-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "redocly-remotes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "redocly-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "redocly-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "redocly-tasks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "redocly-to-dos-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "redocly-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

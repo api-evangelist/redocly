@@ -1,0 +1,79 @@
+generated: '2026-08-27'
+method: searched
+source: >-
+  https://redocly.com/sla, https://redocly.com/docs/cli/changelog,
+  https://redocly.com/docs/changelog/feed.xml, https://status.redocly.com/ and
+  the OpenAPI descriptions in openapi/ (all fetched 2026-08-27).
+provider: Redocly
+providerId: redocly
+description: >-
+  Redocly versions its products with semantic versioning driven by changesets,
+  publishes two dated changelogs (CLI and Realm platform) with an RSS feed, and
+  backs the Cloud Products with a published SLA. What it does NOT publish is an
+  API deprecation policy: no Sunset or Deprecation header contract, no
+  documented removal window, and no operation in any published spec is marked
+  deprecated.
+versioning:
+  scheme: semver
+  mechanism: changesets
+  current:
+    - product: Redocly CLI
+      version: 2.49.0
+      released: '2026-08-27'
+    - product: Realm / Revel / Reef / Redoc (platform)
+      version: 0.136.2
+      released: '2026-08-25'
+    - product: Redoc (open source)
+      version: 2.5.3
+      released: '2026-05-29'
+      note: A 3.0.0-rc.0 pre-release exists on Docker Hub (2025-10-24); latest still tracks 2.x.
+  api_versioning:
+    note: >-
+      Redocly's own published contracts carry info.version only (Search 1.0.0,
+      Docs MCP 1.0.0, Scout 1.0, Scout agent 1.0). No version is carried in a
+      path, header or media type. Realm supports multi-version API descriptions
+      as a product feature for customers.
+status_page:
+  url: https://status.redocly.com/
+  type: StatusPage
+sla:
+  url: https://redocly.com/sla
+  last_updated: '2024-12-16'
+  uptime_commitment: 99.9% monthly uptime percentage for Cloud Products
+  response_time_commitment: 24 hours or less
+  remedy: >-
+    Customer may request a Corrective Action Plan, delivered within seven days
+    of the request; requests must be made within seven days after the end of
+    the month the commitment was missed. Redocly implements the plan at no cost.
+  note: >-
+    The remedy is a corrective action plan, not a service credit — an SLA
+    without a financial penalty clause.
+resilience:
+  rpo: 10 minutes
+  rto: 30 minutes
+  last_tested: '2026-06-25'
+  source: https://redocly.com/security
+changelogs:
+  - name: Redocly CLI changelog
+    url: https://redocly.com/docs/cli/changelog
+    scheme: semver
+    breaking_marker: Major / Minor / Patch Changes sections per release
+  - name: Realm platform changelog
+    url: https://redocly.com/docs/realm/changelog
+    feed: https://redocly.com/docs/changelog/feed.xml
+    note: Per-package entries; 50 items in the current feed.
+deprecation:
+  policy_published: false
+  sunset_header: not documented
+  deprecation_header: not documented
+  rfc8594: not implemented
+  deprecated_operations: []
+  note: >-
+    No operation in any of the four published Redocly OpenAPI descriptions
+    carries deprecated: true, and no docs page states a removal window for a
+    Redocly API. The only dated deprecation evidence in this repo is the npm
+    package redoc-cli, last published 2023-03-06 and superseded by
+    @redocly/cli — a product deprecation, not an API one.
+support:
+  url: https://redocly.com/contact-us
+  trial: 30-day free trial

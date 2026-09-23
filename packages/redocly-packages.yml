@@ -1,0 +1,156 @@
+generated: '2026-08-27'
+method: searched
+source: >-
+  registry.npmjs.org and hub.docker.com metadata endpoints, queried
+  unauthenticated 2026-08-27, cross-checked against
+  https://redocly.com/.well-known/agent-skills/redocly-cli/SKILL.md and
+  https://redocly.com/docs/cli.
+provider: Redocly
+providerId: redocly
+description: >-
+  Redocly's distributed artifacts are tooling, not API client SDKs: the
+  open-source Redocly CLI family and the Redoc renderer on npm plus Docker
+  Hub, and the commercial Realm/Revel/Reef packages on npm. Redocly publishes
+  no client library for its own platform API. Versions and dates read from
+  registry metadata on 2026-08-27; the CLI family shipped the same day, so the
+  toolchain is actively released.
+packages:
+  - name: '@redocly/cli'
+    registry: npm
+    url: https://www.npmjs.com/package/@redocly/cli
+    official: true
+    language: javascript
+    version: 2.49.0
+    published: '2026-08-27'
+    license: MIT
+    repository: https://github.com/Redocly/redocly-cli
+    description: All-in-one API documentation utility — lint, bundle, split, join, preview, respect.
+  - name: '@redocly/openapi-core'
+    registry: npm
+    url: https://www.npmjs.com/package/@redocly/openapi-core
+    official: true
+    language: javascript
+    version: 2.49.0
+    published: '2026-08-27'
+    license: MIT
+    repository: https://github.com/Redocly/redocly-cli
+    description: Programmatic core of Redocly CLI — resolver, linter, bundler.
+  - name: '@redocly/respect-core'
+    registry: npm
+    url: https://www.npmjs.com/package/@redocly/respect-core
+    official: true
+    language: javascript
+    version: 2.49.0
+    published: '2026-08-27'
+    license: MIT
+    repository: https://github.com/Redocly/redocly-cli
+    description: Arazzo-driven API testing framework core behind the respect command.
+  - name: redoc
+    registry: npm
+    url: https://www.npmjs.com/package/redoc
+    official: true
+    language: javascript
+    version: 2.5.3
+    published: '2026-05-29'
+    license: MIT
+    repository: https://github.com/Redocly/redoc
+    description: >-
+      Open-source OpenAPI reference renderer, distributed as an npm package,
+      an HTML custom element and a React component.
+  - name: redoc-cli
+    registry: npm
+    url: https://www.npmjs.com/package/redoc-cli
+    official: true
+    language: javascript
+    version: 0.13.21
+    published: '2023-03-06'
+    license: MIT
+    repository: https://github.com/Redocly/redoc
+    deprecated: true
+    description: >-
+      Superseded by @redocly/cli. Last publish 2023-03-06 — kept here as the
+      dated evidence that the migration to @redocly/cli is complete rather
+      than as a live artifact.
+  - name: '@redocly/realm'
+    registry: npm
+    url: https://www.npmjs.com/package/@redocly/realm
+    official: true
+    language: javascript
+    version: 0.136.2
+    published: '2026-08-25'
+    license: SEE LICENSE IN LICENSE
+    description: Realm — Redoc, Revel and Reef combined into one lifecycle platform. Commercial licence.
+  - name: '@redocly/revel'
+    registry: npm
+    url: https://www.npmjs.com/package/@redocly/revel
+    official: true
+    language: javascript
+    version: 0.136.2
+    published: '2026-08-25'
+    license: SEE LICENSE IN LICENSE
+    description: Revel — external developer showcase platform. Commercial licence.
+  - name: '@redocly/reef'
+    registry: npm
+    url: https://www.npmjs.com/package/@redocly/reef
+    official: true
+    language: javascript
+    version: 0.136.2
+    published: '2026-08-25'
+    license: SEE LICENSE IN LICENSE
+    description: Reef — internal API catalog, scorecard and service catalog. Commercial licence.
+  - name: '@redocly/config'
+    registry: npm
+    url: https://www.npmjs.com/package/@redocly/config
+    official: true
+    language: javascript
+    version: 0.53.1
+    published: '2026-07-30'
+    license: MIT
+    description: JSON Schema for the redocly.yaml configuration file.
+  - name: redocly/cli
+    registry: docker
+    url: https://hub.docker.com/r/redocly/cli
+    official: true
+    version: 2.49.0
+    published: '2026-08-27'
+    tag_count: 267
+    description: Docker distribution of Redocly CLI; the latest tag tracks 2.49.0.
+  - name: redocly/redoc
+    registry: docker
+    url: https://hub.docker.com/r/redocly/redoc
+    official: true
+    version: v2.5.3
+    published: '2026-05-29'
+    tag_count: 79
+    description: >-
+      Docker distribution of the Redoc renderer. A 3.0.0-rc.0 tag exists
+      (2025-10-24) but latest still points at the 2.x line.
+absent:
+  - registry: pypi
+    checked: '2026-08-27'
+    result: >-
+      No first-party Redocly package. pypi.org/project/redoc exists at 0.2.3
+      but is unrelated to Redocly and is not listed here.
+  - registry: rubygems
+    checked: '2026-08-27'
+    result: No first-party package found.
+  - registry: crates.io
+    checked: '2026-08-27'
+    result: No first-party package found.
+  - registry: maven-central
+    checked: '2026-08-27'
+    result: No first-party package found.
+  - registry: nuget
+    checked: '2026-08-27'
+    result: No first-party package found.
+  - registry: pkg.go.dev
+    checked: '2026-08-27'
+    result: No first-party module found.
+notes:
+  - >-
+    Redocly ships no client SDK for its own platform API. That is consistent
+    with api.redocly.com publishing no anonymous contract.
+  - >-
+    Redocly CLI 2.48.0 (2026-08-25) added client generators for python, go,
+    php and cli alongside TypeScript — Redocly generates SDKs for its
+    customers' APIs rather than publishing one for its own.

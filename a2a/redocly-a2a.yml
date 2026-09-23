@@ -1,0 +1,59 @@
+generated: '2026-08-27'
+method: probed
+source: https://redocly.com/.well-known/agent-card.json
+provider: Redocly
+providerId: redocly
+name: Redocly A2A Agent Card
+description: Redocly serves an A2A agent card from its own host. Redocly runs redocly.com on Realm, the product it sells, so this card is Realm's agent-discovery feature exercised on the vendor's own site. The card names one published agent skill (redocly-cli) and, in capabilities.extensions, points at the Model Context Protocol server at https://redocly.com/mcp.
+card:
+  file: a2a/redocly-agent-card.json
+discovery:
+  path: /.well-known/agent-card.json
+  canonical: true
+  host: redocly.com
+x-evidence:
+  fetched: '2026-08-27'
+  url: https://redocly.com/.well-known/agent-card.json
+  http_status: 200
+  content_type: application/json
+agent:
+  name: Redocly
+  url: https://redocly.com/a2a
+  documentationUrl: https://redocly.com/
+  version: 0.0.1
+  protocolVersion: 0.3.0
+  preferredTransport: HTTP+JSON
+  skills:
+  - id: redocly-cli
+    name: redocly-cli
+    url: https://redocly.com/.well-known/agent-skills/redocly-cli/SKILL.md
+grade:
+  against: A2A 1.0.0
+  result: conformant
+  checks:
+  - check: capabilities is an object
+    pass: true
+  - check: protocolVersion present
+    pass: true
+    value: 0.3.0
+  - check: skills is an array
+    pass: true
+    count: 1
+  - check: preferredTransport present (optional)
+    pass: true
+    value: HTTP+JSON
+  - check: defaultInputModes present (optional)
+    pass: true
+    value:
+    - text/plain
+  - check: defaultOutputModes present (optional)
+    pass: true
+    value:
+    - text/plain
+deviations:
+- field: capabilities.extensions[0].uri
+  note: The MCP endpoint is advertised through an A2A capability extension (uri https://modelcontextprotocol.io, params.url https://redocly.com/mcp) rather than as an A2A transport. This is a legitimate use of the extension slot, not a deviation from the schema, but it means an A2A-only client gets a discovery pointer rather than a callable A2A surface.
+- field: agent.url
+  note: url is https://redocly.com/a2a. That path was probed on 2026-08-27 and returned the Realm SPA HTML shell rather than an A2A JSON-RPC endpoint, so the declared A2A transport could not be exercised anonymously.
+- field: skills[0].tags
+  note: Empty array; the card carries no skill tags.

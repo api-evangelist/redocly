@@ -1,0 +1,102 @@
+generated: '2026-08-27'
+method: searched
+source: >-
+  https://redocly.com/.well-known/agent-skills/redocly-cli/SKILL.md (the
+  provider's own published Agent Skill, saved verbatim to skills/) plus
+  https://redocly.com/docs/cli and the npm/Docker registry metadata in
+  packages/. Fetched 2026-08-27.
+provider: Redocly
+providerId: redocly
+name: Redocly CLI
+version: 2.49.0
+released: '2026-08-27'
+license: MIT
+repository: https://github.com/Redocly/redocly-cli
+docs: https://redocly.com/docs/cli
+changelog: https://redocly.com/docs/cli/changelog
+description: >-
+  Redocly CLI is the open-source command line for the whole API description
+  lifecycle — lint, bundle, transform, document and test — across OpenAPI,
+  AsyncAPI, Arazzo and Overlay. It is unusual in this catalog in that the CLI
+  is not a wrapper over the vendor's own API; the only commands that talk to
+  Redocly's platform are login/logout/push/push-status.
+install:
+  - method: npm
+    command: npm i @redocly/cli@latest
+  - method: npx
+    command: npx @redocly/cli@latest <command>
+  - method: docker
+    command: docker run redocly/cli
+config:
+  file: redocly.yaml
+  role: >-
+    The control plane. Every command reads it; rulesets, per-API settings,
+    decorators and plugins all live there. `--config <path>` points at another.
+  keys: [extends, apis, rules, preprocessors, decorators, theme, plugins]
+  rulesets: [spec, minimal, recommended, recommended-strict]
+  severities: [error, warn, off]
+  configurable_rules: >-
+    Declare `rule/<name>` with a `subject` (node type + property) and
+    `assertions` when no built-in rule covers a governance requirement.
+  json_schema: https://www.npmjs.com/package/@redocly/config
+exit_codes:
+  0: success
+  1: problems found or execution failed
+  2: configuration error
+commands:
+  - group: Validate
+    items:
+      - name: lint
+        purpose: Validate an API description against the configured rules.
+      - name: check-config
+        purpose: Lint redocly.yaml itself.
+      - name: stats
+        purpose: Count operations, schemas, refs and other metrics.
+      - name: score
+        purpose: Score an OpenAPI description for AI-agent readiness.
+  - group: Transform
+    items:
+      - name: bundle
+        purpose: Resolve all $refs into a single self-contained file.
+      - name: split
+        purpose: Break a single-file description into a multi-file structure.
+      - name: join
+        purpose: Merge several API descriptions into one.
+  - group: Document
+    items:
+      - name: build-docs
+        purpose: Render an API description to a zero-dependency HTML page (Redoc).
+      - name: preview
+        purpose: Local preview of a Redocly project.
+  - group: Test
+    items:
+      - name: respect
+        purpose: Run API tests described in an Arazzo description against a live API.
+      - name: generate-arazzo
+        purpose: Scaffold an Arazzo description from an OpenAPI description.
+      - name: proxy
+        purpose: Record real HTTP traffic for later comparison against the description.
+      - name: drift
+        purpose: Report where a live API and its OpenAPI description disagree.
+  - group: Generate
+    items:
+      - name: generate-client
+        purpose: >-
+          Generate a typed, zero-dependency client. TypeScript, plus python,
+          go, php and cli generators added in 2.48.0 (2026-08-25).
+        status: experimental
+      - name: eject-generator
+        purpose: Copy a client generator into your own repository for modification.
+  - group: Platform
+    items:
+      - name: login
+      - name: logout
+      - name: push
+      - name: push-status
+    note: The only commands that authenticate against Redocly's platform (Reunite).
+specifications_supported:
+  openapi: ['3.2', '3.1', '3.0', '2.0 (Swagger)']
+  asyncapi: ['3.0', '2.6']
+  arazzo: ['1.1', '1.0']
+  overlay: ['1.0']
+agent_skill: skills/redocly-cli.md

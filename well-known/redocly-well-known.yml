@@ -1,0 +1,90 @@
+generated: '2026-08-27'
+method: probed
+source: Direct unauthenticated HTTPS probes of /.well-known/* on every host named in apis.yml and in the
+  OpenAPI servers[] blocks, 2026-08-27.
+provider: Redocly
+providerId: redocly
+description: 'Redocly serves its documentation site on its own Realm platform, so the agent-discovery
+  surface Realm ships for customers is live on redocly.com itself: an A2A agent card, an agentskills.io
+  skills index, and an MCP server card. The classic operational /.well-known documents (security.txt,
+  openid-configuration, api-catalog, ai-plugin.json) are not served.'
+hosts:
+- host: redocly.com
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 200
+    file: a2a/redocly-agent-card.json
+    content_type: application/json
+    note: A2A agent card, protocolVersion 0.3.0. Saved verbatim.
+  - path: /.well-known/agent-skills/index.json
+    status: 200
+    file: redocly-agent-skills-index.json
+    content_type: application/json
+    note: agentskills.io discovery schema 0.2.0; lists one published skill (redocly-cli) with a sha256
+      digest.
+  - path: /.well-known/mcp/server-card.json
+    status: 200
+    file: mcp/redocly-mcp-server-card.json
+    content_type: application/json
+    note: MCP server card v1, protocolVersion 2025-11-25, streamable-http transport at /mcp.
+  - path: /.well-known/agent-skills/redocly-cli/SKILL.md
+    status: 200
+    file: skills/redocly-cli.md
+    content_type: text/markdown
+    note: Provider-authored Agent Skill, saved verbatim.
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    note: Returns JSON {"error":"not_found"} rather than the SPA 404 page.
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+    note: Legacy pre-0.3 A2A path; not served (the canonical path is).
+- host: api.redocly.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+  note: Every path returns the AWS API Gateway body {"message":"Missing Authentication Token"} — the host
+    is a live, wholly authenticated API gateway with no anonymous discovery surface.
+- host: auth.cloud.redocly.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+  - path: /.well-known/openid-configuration
+    status: 200
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+  - path: /.well-known/api-catalog
+    status: 200
+  - path: /.well-known/ai-plugin.json
+    status: 200
+  - path: /.well-known/agent-card.json
+    status: 200
+  - path: /.well-known/agent.json
+    status: 200
+  note: TREAT ALL SEVEN AS MISSES. This host is a single-page app whose catch-all route answers 200 with
+    the same HTML shell for every /.well-known/* path, including nonsense ones. No document was served;
+    no pointer is emitted for this host.
+- host: cloud.redocly.com
+  documents: []
+  note: No response to any probe (curl exit 000); recorded as unreachable, not as absent.

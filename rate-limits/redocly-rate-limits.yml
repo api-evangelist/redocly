@@ -4,129 +4,154 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Redocly
 providerId: redocly
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-22'
+method: searched
+modified: '2026-08-27'
 tags:
-  - API Catalog
-  - API Documentation
-  - Arazzo
-  - Developer Portal
-  - Governance
-  - Linting
-  - Monitoring
-  - OpenAPI
-  - Quotas
-  - Throttling
-description: >-
-  Machine-readable rate-limit and quota definitions for Redocly. Redocly's
-  subscription products (Realm, Reunite, Revel, Reef, Redoc, Redocly CLI) are
-  bounded by per-seat plan quotas (projects, pages) rather than per-minute API
-  rate limits. The Respect Monitoring product exposes explicit usage tiers
-  (1k/20k/500k requests per month) which are captured here as monthly quotas
-  with associated overage behavior.
+- API Catalog
+- API Documentation
+- Arazzo
+- Developer Portal
+- Governance
+- Linting
+- Monitoring
+- OpenAPI
+- Quotas
+- Throttling
+description: Redocly publishes PLAN QUOTAS but no HTTP rate limits. Seats, projects, pages and Respect
+  Monitoring requests are all bounded and priced; the request-rate behaviour of Redocly's own HTTP APIs
+  is not documented anywhere. No published contract declares a 429 response, and none declares a RateLimit-*,
+  X-RateLimit-* or Retry-After header — so an agent calling a Redocly API has no runtime signal to back
+  off on. This is a notable gap for a vendor that publishes a governance guide on API rate limiting.
 headers:
   limit: null
   remaining: null
   reset: null
-  retryAfter: Retry-After
+  retryAfter: null
   policy: null
 responseCodes:
-  throttled: 429
-  quotaExceeded: 402
-  serviceUnavailable: 503
+  throttled: null
+  quotaExceeded: null
+  serviceUnavailable: null
 limits:
-  - tier: pro
-    name: Pro Plan Project Quota
-    scope: workspace
-    metric: projects
-    limit: 1
-    timeFrame: subscription
-    applies:
-      - Redocly Realm
-      - Redocly Reunite
-      - Redocly Revel
-      - Redocly Reef
-  - tier: pro
-    name: Pro Plan Page Quota
-    scope: workspace
-    metric: pages
-    limit: 100
-    timeFrame: subscription
-    applies:
-      - Redocly Realm
-      - Redocly Reunite
-      - Redocly Revel
-      - Redocly Reef
-  - tier: enterprise
-    name: Enterprise Plan Page Quota
-    scope: workspace
-    metric: pages
-    limit: 500
-    timeFrame: subscription
-    applies:
-      - Redocly Realm
-      - Redocly Reunite
-      - Redocly Revel
-      - Redocly Reef
-  - tier: enterprise-plus
-    name: Enterprise+ Negotiated Capacity
-    scope: contract
-    metric: pages
-    limit: -1
-    timeFrame: subscription
-    applies:
-      - Redocly Realm
-      - Redocly Reunite
-      - Redocly Revel
-      - Redocly Reef
-  - tier: respect-free
-    name: Respect Monitoring Free Tier
-    scope: account
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Redocly Respect Monitoring
-  - tier: respect-commit-20k
-    name: Respect Monitoring 20k Commitment
-    scope: account
-    metric: requests_per_month
-    limit: 20000
-    timeFrame: month
-    applies:
-      - Redocly Respect Monitoring
-  - tier: respect-commit-500k
-    name: Respect Monitoring 500k Commitment
-    scope: account
-    metric: requests_per_month
-    limit: 500000
-    timeFrame: month
-    applies:
-      - Redocly Respect Monitoring
+- tier: enterprise-plus
+  name: Enterprise+ Negotiated Capacity
+  scope: contract
+  metric: pages
+  limit: -1
+  timeFrame: subscription
+  applies:
+  - Redocly Realm
+  - Redocly Reunite
+  - Redocly Revel
+  - Redocly Reef
+- tier: pro
+  name: Pro Plan Page Quota
+  scope: workspace
+  metric: pages
+  limit: 100
+  timeFrame: subscription
+  applies:
+  - Redocly Realm
+  - Redocly Reunite
+  - Redocly Revel
+  - Redocly Reef
+- tier: enterprise
+  name: Enterprise Plan Page Quota
+  scope: workspace
+  metric: pages
+  limit: 500
+  timeFrame: subscription
+  applies:
+  - Redocly Realm
+  - Redocly Reunite
+  - Redocly Revel
+  - Redocly Reef
+- tier: pro
+  name: Pro Plan Project Quota
+  scope: workspace
+  metric: projects
+  limit: 1
+  timeFrame: subscription
+  applies:
+  - Redocly Realm
+  - Redocly Reunite
+  - Redocly Revel
+  - Redocly Reef
+- tier: respect-free
+  name: Respect Monitoring Free Tier
+  scope: account
+  metric: requests_per_month
+  limit: 1000
+  timeFrame: month
+  applies:
+  - Redocly Respect Monitoring
+- tier: respect-commit-20k
+  name: Respect Monitoring 20k Commitment
+  scope: account
+  metric: requests_per_month
+  limit: 20000
+  timeFrame: month
+  applies:
+  - Redocly Respect Monitoring
+- applies:
+  - Redocly Respect Monitoring
+  limit: 50000
+  metric: requests_per_month
+  name: Respect Monitoring 50k Commitment
+  scope: account
+  tier: respect-commit-50k
+  timeFrame: month
+- applies:
+  - Redocly Respect Monitoring
+  limit: 200000
+  metric: requests_per_month
+  name: Respect Monitoring 200k Commitment
+  scope: account
+  tier: respect-commit-200k
+  timeFrame: month
+- tier: respect-commit-500k
+  name: Respect Monitoring 500k Commitment
+  scope: account
+  metric: requests_per_month
+  limit: 500000
+  timeFrame: month
+  applies:
+  - Redocly Respect Monitoring
 policies:
-  - name: Subscription Quotas, Not Request Rates
-    description: >-
-      Realm-family products (Reunite, Redoc, Revel, Reef) bound usage by
-      per-seat subscription quotas (projects, pages) rather than per-second or
-      per-minute API rate limits. There is no public RateLimit-* header
-      specification.
-  - name: Respect Monitoring Metered Overage
-    description: >-
-      Respect Monitoring meters Arazzo workflow request volume per month.
-      Overage past committed volume is billed per 1k requests at rates that
-      decline with commitment size ($5/1k at 20k commit through $2/1k at 500k
-      commit).
-  - name: Fair Use on Enterprise+
-    description: >-
-      Even on negotiated Enterprise+ contracts, sustained usage that materially
-      impacts shared infrastructure may be subject to fair-use throttling.
-  - name: Backoff Strategy
-    description: >-
-      For any 429/503 responses on Redocly-hosted services, clients should
-      implement exponential backoff with jitter and honor the Retry-After
-      header when present.
+- name: Subscription Quotas, Not Request Rates
+  description: Realm-family products (Reunite, Redoc, Revel, Reef) bound usage by per-seat subscription
+    quotas (projects, pages) rather than per-second or per-minute API rate limits. There is no public
+    RateLimit-* header specification.
+- name: Respect Monitoring Metered Overage
+  description: Respect Monitoring meters Arazzo workflow request volume per month. Overage past committed
+    volume is billed per 1k requests at rates that decline with commitment size ($5/1k at 20k commit through
+    $2/1k at 500k commit).
+- name: Fair Use on Enterprise+
+  description: Even on negotiated Enterprise+ contracts, sustained usage that materially impacts shared
+    infrastructure may be subject to fair-use throttling.
+- name: Backoff Strategy
+  description: For any 429/503 responses on Redocly-hosted services, clients should implement exponential
+    backoff with jitter and honor the Retry-After header when present.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+source: https://redocly.com/pricing (plan quotas, verified 2026-08-27, HTTP 200), plus the four published
+  OpenAPI descriptions in openapi/ and a docs search through the live Docs MCP server at https://redocly.com/mcp
+  for any published HTTP rate limit.
+limit_count: 9
+header_evidence: No RateLimit-*, X-RateLimit-* or Retry-After header appears in any of the four published
+  Redocly OpenAPI descriptions. The previous version of this file recorded Retry-After; that was not sourced
+  from a Redocly contract or docs page and has been removed rather than carried forward.
+response_code_evidence: No published Redocly contract declares 429, 402 or 503. The previous version of
+  this file asserted 429/402/503; none is documented by Redocly, so they are now null. The only rate-limit-like
+  behaviour that IS documented is the AWS API Gateway 403 {"message":"Missing Authentication Token"} that
+  api.redocly.com returns to anonymous callers, which is authentication, not throttling.
+budget_controls:
+  documented: true
+  note: A maximum budget can be set on metered items (Respect Monitoring) to prevent over-spending.
+  source: https://redocly.com/pricing
+gaps:
+- No published per-key, per-account or per-endpoint HTTP rate limit for any Redocly API.
+- No 429 response and no rate-limit response headers in any published contract.
+- The Docs MCP server at https://redocly.com/mcp answered anonymous requests on 2026-08-27 with no rate-limit
+  headers on the response.
