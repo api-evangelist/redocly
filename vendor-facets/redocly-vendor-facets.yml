@@ -1,0 +1,496 @@
+# Vendor facets — Redocly. Three products in one file: Redoc CE (the open-source OpenAPI
+# renderer), Realm/Reunite (the hosted developer portal) and Redocly CLI (lint, bundle, decorators,
+# Respect/Arazzo testing). Realm is the only docs platform here whose Agent Skills are written by
+# the provider rather than generated, so its skills and agent card can earn full credit; the CLI's
+# lint rules are the one route in this set into Contract Quality and Contract Governance, but only
+# through fixes and rulesets the provider has to make and publish itself.
+vendor: redocly
+name: Redocly
+website: https://redocly.com
+areas:
+- documentation
+- developer-portal
+registry_keys:
+- redoc
+- redocly
+rubric_schema_version: 0.22.0
+generated: '2026-09-25'
+features_refreshed: '2026-09-25'
+basis: measured
+summary: >-
+  Redocly's lift has two halves. Realm, the hosted portal, ships llms.txt, a docs MCP server (graded `platform`),
+  Replay try-it, a mock server, and it publishes Agent Skills the provider writes, with an A2A agent card
+  generated over them, so those two earn full credit if the provider actually writes the skills. Redocly
+  CLI is the only tool in this documentation set that reaches Contract Quality and Governance: its recommended
+  ruleset flags missing summaries, operationIds, 2xx/4xx responses and empty servers, and a published
+  ruleset earns rules_present. Neither half changes a score on its own; the provider has to fix what the
+  linter flags, write the skills and publish the ruleset.
+features:
+- id: redoc-ce
+  name: Redoc CE renderer
+  description: >-
+    Open-source three-panel reference renderer for OpenAPI 3.1/3.0/2.0 with request and response samples.
+  source: https://redocly.com/docs/redoc
+  tier: open-source
+- id: realm-portal
+  name: Realm hosted developer portal
+  description: >-
+    A hosted portal combining Markdown guides and OpenAPI reference docs, with RBAC, search and an AI
+    assistant.
+  source: https://redocly.com/docs/realm/ai-ready
+  tier: unknown
+- id: replay
+  name: Replay try-it console
+  description: >-
+    A "Try it" client in the reference with environments, history and saved requests, pointed at live
+    servers or the mock server.
+  source: https://redocly.com/docs/end-user/test-apis-replay
+  tier: unknown
+- id: mock-server
+  name: Built-in mock server
+  description: >-
+    Every API description in a project gets a mock server at /_mock/<description>/ returning sample responses.
+  source: https://redocly.com/docs/realm/config/mock-server
+  tier: unknown
+- id: code-snippets
+  name: Generated code snippets
+  description: Code snippets in the OpenAPI reference are generated from the description.
+  source: https://redocly.com/docs/realm/config/code-snippet
+  tier: unknown
+- id: llms-txt
+  name: Generated llms.txt
+  description: >-
+    Realm creates an llms.txt listing each page with a clean Markdown copy, configurable through the seo.llmstxt
+    options.
+  source: https://redocly.com/docs/realm/config/seo
+  tier: unknown
+- id: docs-mcp
+  name: Docs MCP server
+  description: >-
+    Realm generates an MCP server from the docs and OpenAPI descriptions, RBAC-scoped, with a submit-feedback
+    tool and an MCP server card.
+  source: https://redocly.com/docs/realm/customization/mcp-server
+  tier: unknown
+- id: agent-skills
+  name: Provider-authored Agent Skills with discovery
+  description: >-
+    Skills the provider writes under @skills/ are published at /.well-known/agent-skills/ with an agentskills.io
+    index and exposed as MCP resources.
+  source: https://redocly.com/docs/realm/customization/agent-skills
+  tier: unknown
+- id: agent-card
+  name: A2A agent card
+  description: Realm hosts /.well-known/agent-card.json listing the published skills.
+  source: https://redocly.com/docs/realm/customization/agent-skills
+  tier: unknown
+- id: webmcp
+  name: WebMCP tools
+  description: Experimental in-browser tools that let a reader's agent search, read and open pages.
+  source: https://redocly.com/docs/realm/customization/webmcp
+  tier: unknown
+- id: cli-lint
+  name: Redocly CLI lint with recommended ruleset
+  description: >-
+    Lints OpenAPI, AsyncAPI, Arazzo and Overlay; the recommended set errors on missing operation summaries,
+    duplicate operationIds, empty servers and undefined security, and warns on missing operationIds, 2xx
+    and 4xx responses and example.com servers.
+  source: https://redocly.com/docs/cli/rules/recommended
+  tier: open-source
+- id: configurable-rules
+  name: Custom rulesets and ruleset templates
+  description: Configurable rules and plugin rules let a provider write and share its own ruleset.
+  source: https://redocly.com/docs/cli/v1/rules/recommended
+  tier: open-source
+- id: decorators
+  name: Decorators
+  description: Bundle-time transforms that rewrite descriptions, remove endpoints or add elements such
+    as examples.
+  source: https://redocly.com/docs/cli/decorators
+  tier: open-source
+- id: x-mcp
+  name: x-mcp OpenAPI extension
+  description: Experimental root-level extension that documents a provider's MCP servers inside its OpenAPI.
+  source: https://redocly.com/docs/realm/content/api-docs/openapi-extensions/x-mcp
+  tier: unknown
+maps:
+- feature: realm-portal
+  check: portal_present
+  layer: composite
+  provider_must: Declare the portal as a DeveloperPortal pointer.
+  catalog_pass_rate: 0.228
+  facet: developer_ergonomics
+  points: 4
+  baseline_pass_rate: 0.633
+  cohort_pct: 82.6
+  control_pct: 63.1
+  delta_pp: 19.5
+- feature: realm-portal
+  check: documentation_present
+  layer: composite
+  provider_must: Declare the portal as a Documentation pointer.
+  catalog_pass_rate: 0.453
+  facet: developer_ergonomics
+  points: 4
+  baseline_pass_rate: 0.95
+  saturated: true
+  saturated_note: >-
+    95% of providers with a contract, docs and a reference already earn this; the vendor cannot move it
+    for most of its buyers.
+  cohort_pct: 100.0
+  control_pct: 94.9
+  delta_pp: 5.1
+- feature: redoc-ce
+  check: api_reference_present
+  layer: composite
+  provider_must: Host the rendered reference and declare it as an APIReference pointer.
+  catalog_pass_rate: 0.222
+  facet: developer_ergonomics
+  points: 3
+  baseline_pass_rate: 0.942
+  saturated: true
+  saturated_note: >-
+    94% of providers with a contract, docs and a reference already earn this; the vendor cannot move it
+    for most of its buyers.
+  cohort_pct: 97.7
+  control_pct: 94.1
+  delta_pp: 3.6
+- feature: replay
+  check: console_or_sandbox
+  layer: composite
+  provider_must: Declare Replay or the mock server as a Console / Sandbox pointer.
+  catalog_pass_rate: 0.089
+  facet: developer_ergonomics
+  points: 3
+  baseline_pass_rate: 0.332
+  cohort_pct: 43.0
+  control_pct: 33.1
+  delta_pp: 9.9
+- feature: code-snippets
+  check: openapi_examples
+  layer: agent_readiness
+  grade: documented
+  partial: true
+  partial_note: >-
+    The dimension reads examples inside the OpenAPI first; snippets generated for the reference reach
+    only the Examples / Code Samples link fallback.
+  points: 7
+  baseline_pass_rate: 0.36
+  cohort_pct: 58.1
+  control_pct: 35.9
+  delta_pp: 22.2
+- feature: llms-txt
+  check: llms_txt_published
+  layer: composite
+  provider_must: Keep llms.txt on and serve the portal from its own domain.
+  note: >-
+    Generated from the provider's own portal content on the provider's domain, so it reads as the provider's
+    (rule 2's own-content, own-domain case).
+  catalog_pass_rate: 0.351
+  facet: discoverability
+  points: 4
+  baseline_pass_rate: 0.65
+  cohort_pct: 76.7
+  control_pct: 65.0
+  delta_pp: 11.7
+- feature: docs-mcp
+  check: mcp_server
+  layer: agent_readiness
+  grade: platform
+  note: One Realm template on every project; 0.22.0 grades that `platform` (0.25 of 12).
+  points: 12
+  baseline_pass_rate: 0.22
+  cohort_pct: 27.0
+  control_pct: 21.9
+  delta_pp: 5.1
+- feature: agent-skills
+  check: agent_skills
+  layer: agent_readiness
+  credit: 1.0
+  provider_must: >-
+    Write the SKILL.md files under @skills/ (Realm publishes nothing until the provider authors a skill)
+    and serve the portal on its own domain.
+  note: Provider-written and served on the provider's domain, so first-party; Realm is only the publisher.
+  points: 5
+  baseline_pass_rate: 0.236
+  cohort_pct: 24.4
+  control_pct: 23.6
+  delta_pp: 0.8
+- feature: agent-skills
+  check: agent_skill_present
+  layer: composite
+  credit: 1.0
+  provider_must: Declare the skills index as an AgentSkill pointer.
+  note: Same artifact as agent_skills; count the work once.
+  catalog_pass_rate: 0.033
+  facet: developer_ergonomics
+  points: 3
+  baseline_pass_rate: 0.236
+  cohort_pct: 24.4
+  control_pct: 23.6
+  delta_pp: 0.8
+- feature: agent-card
+  check: agent_card
+  layer: agent_readiness
+  grade: conformant
+  provider_must: Publish at least one skill; the card lists skills and is withheld when skills are hidden.
+  note: >-
+    Redocly's own card carries capabilities, protocolVersion 0.3.0, skills and the transport and mode
+    fields, so the harvest grades it conformant. Its url points at an /a2a endpoint the card does not
+    prove exists, which the grader does not test.
+  points: 8
+  baseline_pass_rate: 0.03
+  cohort_pct: 0.0
+  control_pct: 3.1
+  delta_pp: -3.1
+- feature: cli-lint
+  check: operations_summary_coverage
+  layer: composite
+  provider_must: Run the linter in CI and fix the flagged operations, then republish the contract.
+  note: >-
+    The linter finds the gap; the provider writes the summaries. Catalog-wide this check already passes
+    ~88%.
+  catalog_pass_rate: 0.879
+  facet: contract_quality
+  points: 6
+  baseline_pass_rate: 0.933
+  saturated: true
+  saturated_note: >-
+    93% of providers with a contract, docs and a reference already earn this; the vendor cannot move it
+    for most of its buyers.
+  cohort_pct: 95.2
+  control_pct: 93.3
+  delta_pp: 1.9
+- feature: cli-lint
+  check: operations_operation_ids
+  layer: composite
+  provider_must: Fix the flagged operationIds and republish.
+  catalog_pass_rate: 0.827
+  facet: contract_quality
+  points: 4
+  baseline_pass_rate: 0.918
+  saturated: true
+  saturated_note: >-
+    92% of providers with a contract, docs and a reference already earn this; the vendor cannot move it
+    for most of its buyers.
+  cohort_pct: 94.8
+  control_pct: 91.8
+  delta_pp: 3.0
+- feature: cli-lint
+  check: response_coverage
+  layer: composite
+  provider_must: Add the missing 2xx responses and republish.
+  catalog_pass_rate: 0.799
+  facet: contract_quality
+  points: 5
+  baseline_pass_rate: 0.911
+  saturated: true
+  saturated_note: >-
+    91% of providers with a contract, docs and a reference already earn this; the vendor cannot move it
+    for most of its buyers.
+  cohort_pct: 91.4
+  control_pct: 91.1
+  delta_pp: 0.3
+- feature: cli-lint
+  check: error_responses_documented
+  layer: composite
+  provider_must: Add 4xx responses with schemas and republish.
+  note: >-
+    The operation-4xx-response rule wants a 4xx response; the check also wants its schema, so a bare status
+    code still falls short.
+  catalog_pass_rate: 0.367
+  facet: contract_quality
+  points: 4
+  baseline_pass_rate: 0.621
+  cohort_pct: 75.7
+  control_pct: 62.0
+  delta_pp: 13.7
+- feature: cli-lint
+  check: servers_resolvable
+  layer: composite
+  provider_must: Replace empty or example.com servers with the real host and republish.
+  catalog_pass_rate: 0.202
+  facet: contract_quality
+  points: 5
+  baseline_pass_rate: 0.65
+  cohort_pct: 71.4
+  control_pct: 64.9
+  delta_pp: 6.5
+- feature: cli-lint
+  check: security_applied
+  layer: composite
+  conditional: true
+  condition: >-
+    Only if the API actually requires authentication; security-defined flags operations with no security,
+    it cannot give an open API a scheme.
+  catalog_pass_rate: 0.581
+  facet: contract_quality
+  points: 3
+  baseline_pass_rate: 0.723
+  cohort_pct: 68.6
+  control_pct: 72.3
+  delta_pp: -3.7
+- feature: configurable-rules
+  check: rules_present
+  layer: composite
+  provider_must: >-
+    Publish its own ruleset where the harvest can read it (a public repo or URL declared in apis.json).
+    Running the linter privately in CI publishes nothing.
+  note: >-
+    The check is described in Spectral terms and most catalog rulesets are Spectral; a Redocly-format
+    redocly.yaml may need to be published alongside or translated to be read.
+  catalog_pass_rate: 0.006
+  facet: contract_governance
+  points: 10
+  baseline_pass_rate: 0.063
+  cohort_pct: 5.2
+  control_pct: 6.3
+  delta_pp: -1.1
+- feature: configurable-rules
+  check: rules_substantial
+  layer: composite
+  credit: 0.5
+  provider_must: Publish a ruleset with 20 or more effective rules.
+  note: >-
+    Extending the recommended set gives the count only if the harvest resolves `extends`; a provider's
+    own short config alone rarely clears 20 rules, so half credit is the honest expectation.
+  catalog_pass_rate: 0.005
+  facet: contract_governance
+  points: 5
+  baseline_pass_rate: 0.047
+  cohort_pct: 2.3
+  control_pct: 4.7
+  delta_pp: -2.4
+earns_nothing:
+- feature: x-mcp
+  check: mcp_server
+  layer: agent_readiness
+  why: >-
+    The extension documents an MCP server inside the OpenAPI; the dimension reads a deployed, probed server,
+    not a description of one.
+- feature: docs-mcp
+  check: well_known_published
+  why: >-
+    Realm serves an MCP server card and agent-skills index, not an api-catalog, security.txt or protected-resource
+    document (redocly.com returns 404 for /.well-known/api-catalog).
+- feature: decorators
+  check: examples_present
+  why: Decorators can inject examples the provider supplies; the tool writes none of its own.
+out_of_reach:
+  checks:
+  - well_known_catalog
+  - sdk_count_1
+  - sdk_count_3
+  - cli_present
+  - postman_present
+  - change_log_present
+  - status_page_present
+  - contract_present
+  note: >-
+    Redocly lints and renders contracts the provider brings; it does not create one, serve an api-catalog,
+    or generate the provider's SDKs, CLI or collection.
+unscored_practice:
+- feature: x-mcp
+  why: An OpenAPI-native pointer from the contract to the provider's MCP servers; no check reads it.
+- feature: webmcp
+  why: In-browser tool registration; no check reads WebMCP.
+- feature: cli-lint
+  why: >-
+    Arazzo linting, Respect contract testing and generate-arazzo are real contract practice with no scored
+    signal.
+surface:
+  discoverability:
+    reachable: 4.0
+    total: 54
+  contract_quality:
+    reachable: 27.0
+    total: 211
+  contract_governance:
+    reachable: 12.5
+    total: 33
+  developer_ergonomics:
+    reachable: 17.0
+    total: 42
+  agent_readiness:
+    reachable: 17.8
+    total: 139
+hard_rule: >-
+  A model, not a score. Adopting this vendor changes a provider's Kin Score only when the provider publishes
+  the resulting artifacts on its own surface; nothing here writes a score, and no sponsorship or partnership
+  can.
+method: searched
+source:
+- https://redocly.com/docs/cli/decorators
+- https://redocly.com/docs/cli/rules/recommended
+- https://redocly.com/docs/cli/v1/rules/recommended
+- https://redocly.com/docs/end-user/test-apis-replay
+- https://redocly.com/docs/realm/ai-ready
+- https://redocly.com/docs/realm/config/code-snippet
+- https://redocly.com/docs/realm/config/mock-server
+- https://redocly.com/docs/realm/config/seo
+- https://redocly.com/docs/realm/content/api-docs/openapi-extensions/x-mcp
+- https://redocly.com/docs/realm/customization/agent-skills
+- https://redocly.com/docs/realm/customization/mcp-server
+- https://redocly.com/docs/realm/customization/webmcp
+- https://redocly.com/docs/redoc
+measured:
+  cohort:
+    method: vendors-catalog.json detections (CNAME / header / URL shape / markup), never a name match
+    detected: 96
+    in_baseline: 43
+  control:
+    basis: providers earning contract_present + documentation_present + api_reference_present, minus the
+      cohort
+    n: 5173
+  metric: >-
+    cohort_pct / control_pct = mean share of the check's points earned (derived and platform credit weighted),
+    x100
+  measured_on: '2026-09-25'
+  composite_mean:
+    cohort: 49.6
+    control: 48.0
+  agent_readiness_mean:
+    cohort: 37.1
+    control: 32.5
+  status: measured
+  caveat: >-
+    A cohort delta is association, not cause: customers choose a vendor for reasons that also move their
+    score. Read it beside the capability map, never instead of it.
+simulation:
+  simulated_on: '2026-09-25'
+  rubric: 0.23.0
+  population: providers publishing a contract (contract_present earned), replayable exactly
+  providers: 8977
+  providers_unreplayable: 987
+  providers_moved: 8976
+  conditional_rows: excluded (they depend on what the API already does)
+  composite_lift:
+    median: 9.4
+    p75: 10.9
+    p90: 12.3
+    max: 16.7
+    mean_among_movers: 9.3
+  agent_readiness_lift:
+    median: 11.5
+    p75: 12.8
+    p90: 12.8
+    max: 14.8
+    mean_among_movers: 11.2
+  facet_lift_median_among_movers:
+    discoverability: 7.4
+    contract_governance: 37.9
+    developer_ergonomics: 21.5
+    contract_quality: 3.3
+  composite_band_moves:
+    thin -> developing: 2866
+    developing -> strong: 1949
+    strong -> exemplar: 628
+    emerging -> thin: 395
+    emerging -> developing: 30
+    minimal -> emerging: 3
+  agent_readiness_band_moves:
+    agent-aware -> agent-ready: 4685
+    agent-ready -> agent-native: 314
+    agent-aware -> agent-native: 50
+  method: >-
+    each provider's own kin/checks file, the vendor's maps at their stated credit, the scorer's composite
+    formula; from -> to, nothing written

@@ -467,6 +467,8 @@ apis:
   - type: Webhooks
     url: asyncapi/redocly-webhooks.yml
 common:
+- type: VendorFacets
+  url: vendor-facets/redocly-vendor-facets.yml
 - type: Website
   url: https://redocly.com
 - type: Overlay
