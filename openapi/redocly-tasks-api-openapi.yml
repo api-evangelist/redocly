@@ -156,14 +156,27 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-    ProjectId:
-      name: projectId
-      description: Project ID.
-      required: true
-      in: path
+    Filter:
+      name: filter
+      in: query
+      required: false
+      schema:
+        description: 'Filters the collection items. This field requires a special format.
+
+
+          For more information, see
+
+          [Using filter with collections](#section/Using-filter-with-collections).'
+        type: string
+        example: status:approved,pending updatedAt:2020-01-01..2022-01-01
+    After:
+      name: after
+      in: query
+      required: false
       schema:
         type: string
-        example: my-project
+        description: Use the `endCursor` as a value for the `after` parameter to get the next page.
+        example: a25fgaksjf23la==
     Sort:
       name: sort
       in: query
@@ -192,19 +205,6 @@ components:
       schema:
         type: string
         example: acme-inc
-    Filter:
-      name: filter
-      in: query
-      required: false
-      schema:
-        description: 'Filters the collection items. This field requires a special format.
-
-
-          For more information, see
-
-          [Using filter with collections](#section/Using-filter-with-collections).'
-        type: string
-        example: status:approved,pending updatedAt:2020-01-01..2022-01-01
     X-Redocly-Scout-Version:
       name: x-redocly-scout-version
       description: Scout version.
@@ -213,15 +213,89 @@ components:
       schema:
         type: string
         example: 1.0.0
-    After:
-      name: after
-      in: query
-      required: false
+    ProjectId:
+      name: projectId
+      description: Project ID.
+      required: true
+      in: path
       schema:
         type: string
-        description: Use the `endCursor` as a value for the `after` parameter to get the next page.
-        example: a25fgaksjf23la==
+        example: my-project
   schemas:
+    JobList:
+      type: object
+      properties:
+        object:
+          type: string
+          const: list
+        page:
+          $ref: '#/components/schemas/Page'
+        items:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/Job'
+      required:
+      - object
+      - page
+      - items
+    PatchJob:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - COMPLETED
+          - FAILED
+          description: Job status.
+        metadata:
+          $ref: '#/components/schemas/JobMetadata'
+      required:
+      - status
+    Page:
+      type: object
+      properties:
+        endCursor:
+          type:
+          - string
+          - 'null'
+          description: 'Use with the `after` query parameter to load the next page of data.
+
+            When `null`, there is no data.
+
+            The cursor is opaque and internal structure is subject to change.'
+        startCursor:
+          type:
+          - string
+          - 'null'
+          description: 'Use with the `before` query parameter to load the previous page of data.
+
+            When `null`, there is no data.
+
+            The cursor is opaque and internal structure is subject to change.'
+        hasNextPage:
+          type: boolean
+          description: Indicates if there is a next page with items.
+        hasPrevPage:
+          type: boolean
+          description: Indicates if there is a previous page with items.
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+          description: Value showing how many items are in the page limit.
+        total:
+          type: integer
+          description: Count of items across all pages.
+          minimum: 0
+      required:
+      - endCursor
+      - startCursor
+      - hasNextPage
+      - hasPrevPage
+      - limit
+      - total
     JobMetadata:
       type: object
       description: Additional information about job.
@@ -308,80 +382,6 @@ components:
       required:
       - name
       - status
-    PatchJob:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - COMPLETED
-          - FAILED
-          description: Job status.
-        metadata:
-          $ref: '#/components/schemas/JobMetadata'
-      required:
-      - status
-    JobList:
-      type: object
-      properties:
-        object:
-          type: string
-          const: list
-        page:
-          $ref: '#/components/schemas/Page'
-        items:
-          type: array
-          minItems: 0
-          items:
-            $ref: '#/components/schemas/Job'
-      required:
-      - object
-      - page
-      - items
-    Page:
-      type: object
-      properties:
-        endCursor:
-          type:
-          - string
-          - 'null'
-          description: 'Use with the `after` query parameter to load the next page of data.
-
-            When `null`, there is no data.
-
-            The cursor is opaque and internal structure is subject to change.'
-        startCursor:
-          type:
-          - string
-          - 'null'
-          description: 'Use with the `before` query parameter to load the previous page of data.
-
-            When `null`, there is no data.
-
-            The cursor is opaque and internal structure is subject to change.'
-        hasNextPage:
-          type: boolean
-          description: Indicates if there is a next page with items.
-        hasPrevPage:
-          type: boolean
-          description: Indicates if there is a previous page with items.
-        limit:
-          type: integer
-          minimum: 1
-          maximum: 100
-          default: 10
-          description: Value showing how many items are in the page limit.
-        total:
-          type: integer
-          description: Count of items across all pages.
-          minimum: 0
-      required:
-      - endCursor
-      - startCursor
-      - hasNextPage
-      - hasPrevPage
-      - limit
-      - total
     Job:
       type: object
       properties:
@@ -491,18 +491,18 @@ components:
       - createdAt
       - updatedAt
   responses:
+    NotFoundError:
+      description: Resource not found.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
     BadRequestError:
       description: Bad Request.
       content:
         application/problem+json:
           schema:
             description: Invalid credentials.
-            $ref: '#/components/schemas/Problem'
-    NotFoundError:
-      description: Resource not found.
-      content:
-        application/problem+json:
-          schema:
             $ref: '#/components/schemas/Problem'
   securitySchemes:
     UserCookie:

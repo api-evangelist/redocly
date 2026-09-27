@@ -20,6 +20,7 @@ tags:
 - MCP
 - Monitoring
 - OpenAPI
+- A2A
 tags_raw:
 - AI
 - API Catalog
@@ -31,6 +32,7 @@ tags_raw:
 - MCP
 - Monitoring
 - OpenAPI
+- A2A
 type: Index
 deliveryModel:
   model: saas
@@ -240,7 +242,6 @@ apis:
   name: Redocly Health API
   description: Operations related to health checks.
   humanURL: https://redocly.com/realm
-  baseURL: https://redocly.com
   tags:
   - Health
   properties:
@@ -268,7 +269,6 @@ apis:
   name: Redocly Metadata API
   description: Operations related to metadata.
   humanURL: https://redocly.com/realm
-  baseURL: https://redocly.com
   tags:
   - Metadata
   properties:
@@ -296,7 +296,6 @@ apis:
   name: Redocly Remotes API
   description: Operations related to remotes.
   humanURL: https://redocly.com/realm
-  baseURL: https://redocly.com
   tags:
   - Remotes
   properties:
@@ -324,7 +323,6 @@ apis:
   name: Redocly Search API
   description: Full-text search and facet operations.
   humanURL: https://redocly.com/realm
-  baseURL: https://redocly.com
   tags:
   - Search
   properties:
@@ -352,7 +350,6 @@ apis:
   name: Redocly Status API
   description: Operations related to status.
   humanURL: https://redocly.com/realm
-  baseURL: https://redocly.com
   tags:
   - Status
   properties:
@@ -380,7 +377,6 @@ apis:
   name: Redocly Tasks API
   description: Operations related to tasks.
   humanURL: https://redocly.com/realm
-  baseURL: https://redocly.com
   tags:
   - Task
   tags_raw:
@@ -410,7 +406,6 @@ apis:
   name: Redocly Webhooks API
   description: Operations related to incoming git webhooks.
   humanURL: https://redocly.com/realm
-  baseURL: https://redocly.com
   tags:
   - Webhook
   tags_raw:
@@ -440,10 +435,7 @@ apis:
   name: Redocly To Dos API
   description: Operations related to todos.
   humanURL: https://redocly.com/realm
-  baseURL: https://redocly.com
   tags:
-  - To-Dos
-  tags_raw:
   - To Dos
   properties:
   - type: OpenAPI
@@ -488,6 +480,9 @@ common:
 - name: About Redocly Documentation
   url: https://redocly.com/docs
   type: Documentation
+- name: Redocly Developer Portal (built on Realm)
+  url: https://redocly.com/docs
+  type: Portal
 - name: Customers
   url: https://redocly.com/customers
   type: Customers
@@ -653,3 +648,10 @@ x-enrichment:
   status: enriched
   artifacts_added: 31
   pass: local-v1
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://redocly.com/.well-known/agent-card.json"
+  grade: "conformant"
+  protocol_version: "0.3.0"
+  control: 404

@@ -118,55 +118,42 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
+  responses:
+    BadRequest:
+      description: 'Facet field name (for example: `redocly_category`, `redocly_version`).
+
+        '
+      content:
+        application/problem+json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: URI reference that identifies the problem type.
+                example: about:blank
+              title:
+                type: string
+                description: Error title.
+                example: Bad Request
+              status:
+                type: integer
+                description: HTTP status code.
+                example: 400
+              detail:
+                type: string
+                description: Human-readable message with additional error details.
+                example: Invalid or missing required body fields.
+            required:
+            - detail
   schemas:
-    FacetValueCount:
-      type: object
-      properties:
-        value:
-          type: string
-          description: 'Facet value (for example: a category or product name).
+    SearchFacetsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/FacetObject'
+      description: 'If the request includes `field`: array with a single facet. Otherwise all facet objects with their values.
 
-            '
-        count:
-          type: integer
-          description: Number of search results that match this facet value.
-    SearchHighlight:
-      description: Highlighted snippets; matched terms are wrapped in `<mark>` tags.
-      properties:
-        id:
-          type: string
-          description: Document ID matching the result document.
-        title:
-          type: string
-          description: Highlighted title snippet with matched terms in `<mark>` tags.
-        url:
-          type: string
-          description: URL of the result (no highlighting).
-        text:
-          type: string
-          description: Highlighted content snippet with matched terms in `<mark>` tags.
-        redocly_category:
-          type: string
-          description: 'Category value for this result (for example: Documentation, API Reference).
-
-            '
-        redocly_product:
-          type: string
-          description: Product value for this result when applicable.
-        parameters:
-          type: array
-          description: Present in API reference items.
-    SearchItem:
-      type: object
-      properties:
-        document:
-          type: object
-          description: The indexed document (metadata and content fields).
-          $ref: '#/components/schemas/SearchDocument'
-        highlight:
-          type: object
-          description: Highlighted snippets for this result.
-          $ref: '#/components/schemas/SearchHighlight'
+        '
     SearchFacetsRequest:
       type: object
       required:
@@ -189,13 +176,6 @@ components:
         facetQuery:
           type: string
           description: Filter facet values using this string (for type-ahead in facet controls).
-    SearchFacetsResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/FacetObject'
-      description: 'If the request includes `field`: array with a single facet. Otherwise all facet objects with their values.
-
-        '
     FacetObject:
       type: object
       properties:
@@ -294,6 +274,17 @@ components:
         apiVersion:
           type: string
           description: API version for API reference items.
+    FacetValueCount:
+      type: object
+      properties:
+        value:
+          type: string
+          description: 'Facet value (for example: a category or product name).
+
+            '
+        count:
+          type: integer
+          description: Number of search results that match this facet value.
     SearchRequest:
       type: object
       required:
@@ -325,6 +316,43 @@ components:
             offset:
               type: integer
               description: Offset for pagination within the group.
+    SearchHighlight:
+      description: Highlighted snippets; matched terms are wrapped in `<mark>` tags.
+      properties:
+        id:
+          type: string
+          description: Document ID matching the result document.
+        title:
+          type: string
+          description: Highlighted title snippet with matched terms in `<mark>` tags.
+        url:
+          type: string
+          description: URL of the result (no highlighting).
+        text:
+          type: string
+          description: Highlighted content snippet with matched terms in `<mark>` tags.
+        redocly_category:
+          type: string
+          description: 'Category value for this result (for example: Documentation, API Reference).
+
+            '
+        redocly_product:
+          type: string
+          description: Product value for this result when applicable.
+        parameters:
+          type: array
+          description: Present in API reference items.
+    SearchItem:
+      type: object
+      properties:
+        document:
+          type: object
+          description: The indexed document (metadata and content fields).
+          $ref: '#/components/schemas/SearchDocument'
+        highlight:
+          type: object
+          description: Highlighted snippets for this result.
+          $ref: '#/components/schemas/SearchHighlight'
     FacetFilter:
       type: object
       required:
@@ -341,31 +369,3 @@ components:
           items:
             type: string
           description: Selected facet values.
-  responses:
-    BadRequest:
-      description: 'Facet field name (for example: `redocly_category`, `redocly_version`).
-
-        '
-      content:
-        application/problem+json:
-          schema:
-            type: object
-            properties:
-              type:
-                type: string
-                description: URI reference that identifies the problem type.
-                example: about:blank
-              title:
-                type: string
-                description: Error title.
-                example: Bad Request
-              status:
-                type: integer
-                description: HTTP status code.
-                example: 400
-              detail:
-                type: string
-                description: Human-readable message with additional error details.
-                example: Invalid or missing required body fields.
-            required:
-            - detail

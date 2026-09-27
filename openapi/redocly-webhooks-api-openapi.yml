@@ -83,21 +83,178 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    updated-at:
+    user-2:
       type: object
       required:
-      - previous
-      - current
+      - name
+      - username
+      - avatar_url
       properties:
-        previous:
+        name:
           type: string
-          format: date-time
-        current:
+          description: User name.
+          example: John
+        username:
           type: string
-          format: date-time
+          description: User nickname.
+          example: johnDoe47
+        avatar_url:
+          type: string
+          description: User avatar url.
+          example: https://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=40&d=identicon
       additionalProperties: false
-      title: Updated at
-    merge-request-update:
+      title: User
+    pull-request-synchronize:
+      type: object
+      required:
+      - action
+      - number
+      - before
+      - after
+      - pull_request
+      - repository
+      - sender
+      properties:
+        action:
+          type: string
+          enum:
+          - synchronize
+        number:
+          type: integer
+          description: The pull request number.
+        before:
+          type: string
+        after:
+          type: string
+        pull_request:
+          $ref: '#/components/schemas/pull-request'
+        repository:
+          $ref: '#/components/schemas/repository'
+        installation:
+          $ref: '#/components/schemas/installation-lite'
+        organization:
+          $ref: '#/components/schemas/organization'
+        sender:
+          $ref: '#/components/schemas/user'
+      additionalProperties: false
+      title: pull_request synchronize event
+    author-association:
+      type: string
+      description: How the author is associated with the repository.
+      enum:
+      - COLLABORATOR
+      - CONTRIBUTOR
+      - FIRST_TIMER
+      - FIRST_TIME_CONTRIBUTOR
+      - MANNEQUIN
+      - MEMBER
+      - NONE
+      - OWNER
+      title: AuthorAssociation
+    label-2:
+      description: GitLab label details.
+      type: object
+      required:
+      - id
+      - title
+      - color
+      - project_id
+      - created_at
+      - updated_at
+      - template
+      - description
+      - type
+      - group_id
+      properties:
+        id:
+          type: integer
+          description: Label id.
+          example: 202
+        title:
+          type: string
+          description: Label title.
+          example: transport-label
+        color:
+          type: string
+          description: Label color specified using hexadecimal value.
+          example: '#ffffff'
+        project_id:
+          type: integer
+          description: Project id.
+          example: 43
+        created_at:
+          type: string
+          description: Label creation date.
+          format: date-time
+        updated_at:
+          type: string
+          description: Label last update date.
+          format: date-time
+        description:
+          type: string
+          description: Label description.
+          example: Transport related issues
+        type:
+          type: string
+          description: Label type.
+          example: ProjectLabel
+        group_id:
+          type: integer
+          description: Group id the label is created for.
+          example: 41
+      additionalProperties: false
+      title: Label
+    pull-request-reopened:
+      type: object
+      required:
+      - action
+      - number
+      - pull_request
+      - repository
+      - sender
+      properties:
+        action:
+          type: string
+          enum:
+          - reopened
+        number:
+          type: integer
+          description: The pull request number.
+        pull_request:
+          allOf:
+          - $ref: '#/components/schemas/pull-request'
+          - type: object
+            required:
+            - state
+            - closed_at
+            - merged_at
+            - merged
+            - merged_by
+            properties:
+              state:
+                type: string
+                enum:
+                - open
+              closed_at:
+                type: 'null'
+              merged_at:
+                type: 'null'
+              merged:
+                type: boolean
+              merged_by:
+                type: 'null'
+            additionalProperties: false
+        repository:
+          $ref: '#/components/schemas/repository'
+        installation:
+          $ref: '#/components/schemas/installation-lite'
+        organization:
+          $ref: '#/components/schemas/organization'
+        sender:
+          $ref: '#/components/schemas/user'
+      additionalProperties: false
+      title: pull_request reopened event
+    merge-request-open:
       type: object
       required:
       - object_kind
@@ -111,7 +268,7 @@ components:
         object_kind:
           type: string
           enum:
-          - update
+          - open
           description: Type of webhook event data.
         user:
           description: Merge request creator details.
@@ -129,7 +286,232 @@ components:
         changes:
           $ref: '#/components/schemas/changes'
       additionalProperties: false
-      title: Merge request update event
+      title: Merge request open event
+    link:
+      required:
+      - href
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri-template
+      additionalProperties: false
+      title: Link
+    push:
+      type: object
+      required:
+      - ref
+      - before
+      - after
+      - created
+      - deleted
+      - forced
+      - base_ref
+      - compare
+      - commits
+      - head_commit
+      - repository
+      - pusher
+      - sender
+      properties:
+        ref:
+          type: string
+          description: 'The full git ref that is pushed. Example: `refs/heads/main` or `refs/tags/v3.14.1`.'
+        before:
+          type: string
+          description: The SHA of the most recent commit on `ref` before the push.
+        after:
+          type: string
+          description: The SHA of the most recent commit on `ref` after the push.
+        created:
+          type: boolean
+          description: Whether this push created the `ref`.
+        deleted:
+          type: boolean
+          description: Whether this push deleted the `ref`.
+        forced:
+          type: boolean
+          description: Whether this push is a force push of the `ref`.
+        base_ref:
+          type:
+          - string
+          - 'null'
+        compare:
+          type: string
+          description: URL that shows the changes in this `ref` update, from the `before` commit to the `after` commit. For a newly created `ref` that is directly based on the default branch, this is the comparison between the head of the default branch and the `after` commit. Otherwise, this shows all commits until the `after` commit.
+        commits:
+          type: array
+          description: An array of commit objects describing the pushed commits. (Pushed commits are all commits that are included in the `compare` between the `before` commit and the `after` commit.) The array includes a maximum of 20 commits. If necessary, you can use the [Commits API](https://docs.github.com/en/rest/reference/repos#commits) to fetch additional commits. This limit is applied to timeline events only and isn't applied to webhook deliveries.
+          items:
+            $ref: '#/components/schemas/commit'
+        head_commit:
+          oneOf:
+          - $ref: '#/components/schemas/commit'
+          - type: 'null'
+          description: For pushes where `after` is or points to a commit object, an expanded representation of that commit. For pushes where `after` refers to an annotated tag object, an expanded representation of the commit pointed to by the annotated tag.
+        repository:
+          $ref: '#/components/schemas/repository'
+        pusher:
+          $ref: '#/components/schemas/committer'
+        sender:
+          $ref: '#/components/schemas/user'
+        installation:
+          $ref: '#/components/schemas/installation-lite'
+        organization:
+          $ref: '#/components/schemas/organization'
+      additionalProperties: false
+      title: push event
+    installation-lite:
+      description: Installation.
+      type: object
+      required:
+      - id
+      - node_id
+      properties:
+        id:
+          type: integer
+          description: The ID of the installation.
+        node_id:
+          type: string
+      additionalProperties: false
+      title: InstallationLite
+    organization:
+      type: object
+      required:
+      - login
+      - id
+      - node_id
+      - url
+      - repos_url
+      - events_url
+      - hooks_url
+      - issues_url
+      - members_url
+      - public_members_url
+      - avatar_url
+      - description
+      properties:
+        login:
+          type: string
+        id:
+          type: integer
+        node_id:
+          type: string
+        url:
+          type: string
+          format: uri
+        html_url:
+          type: string
+          format: uri
+        repos_url:
+          type: string
+          format: uri
+        events_url:
+          type: string
+          format: uri
+        hooks_url:
+          type: string
+          format: uri
+        issues_url:
+          type: string
+          format: uri
+        members_url:
+          type: string
+          format: uri-template
+        public_members_url:
+          type: string
+          format: uri-template
+        avatar_url:
+          type: string
+          format: uri
+        description:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      title: Organization
+    user:
+      type: object
+      required:
+      - login
+      - id
+      - node_id
+      - avatar_url
+      - gravatar_id
+      - url
+      - html_url
+      - followers_url
+      - following_url
+      - gists_url
+      - starred_url
+      - subscriptions_url
+      - organizations_url
+      - repos_url
+      - events_url
+      - received_events_url
+      - type
+      - site_admin
+      properties:
+        login:
+          type: string
+        id:
+          type: integer
+        node_id:
+          type: string
+        name:
+          type: string
+        email:
+          type:
+          - string
+          - 'null'
+        avatar_url:
+          type: string
+          format: uri
+        gravatar_id:
+          type: string
+        url:
+          type: string
+          format: uri
+        html_url:
+          type: string
+          format: uri
+        followers_url:
+          type: string
+          format: uri
+        following_url:
+          type: string
+          format: uri-template
+        gists_url:
+          type: string
+          format: uri-template
+        starred_url:
+          type: string
+          format: uri-template
+        subscriptions_url:
+          type: string
+          format: uri
+        organizations_url:
+          type: string
+          format: uri
+        repos_url:
+          type: string
+          format: uri
+        events_url:
+          type: string
+          format: uri-template
+        received_events_url:
+          type: string
+          format: uri
+        type:
+          type: string
+          enum:
+          - Bot
+          - User
+          - Organization
+        site_admin:
+          type: boolean
+      additionalProperties: false
+      title: User
     commit:
       required:
       - id
@@ -184,105 +566,337 @@ components:
           description: An array of files removed in the commit.
       additionalProperties: false
       title: Commit
-    pull-request-opened:
-      type: object
+    milestone:
+      description: A collection of related issues and pull requests.
       required:
-      - action
+      - url
+      - html_url
+      - labels_url
+      - id
+      - node_id
       - number
-      - pull_request
-      - repository
-      - sender
+      - title
+      - description
+      - creator
+      - open_issues
+      - closed_issues
+      - state
+      - created_at
+      - updated_at
+      - due_on
+      - closed_at
+      type: object
       properties:
-        action:
+        url:
           type: string
-          enum:
-          - opened
+          format: uri
+        html_url:
+          type: string
+          format: uri
+        labels_url:
+          type: string
+          format: uri
+        id:
+          type: integer
+        node_id:
+          type: string
         number:
           type: integer
-          description: The pull request number.
-        pull_request:
-          allOf:
-          - $ref: '#/components/schemas/pull-request'
-          - type: object
-            required:
-            - state
-            - closed_at
-            - merged_at
-            - active_lock_reason
-            - merged_by
-            properties:
-              state:
-                type: string
-                enum:
-                - open
-              closed_at:
-                type: 'null'
-              merged_at:
-                type: 'null'
-              active_lock_reason:
-                type: 'null'
-              merged_by:
-                type: 'null'
-            additionalProperties: false
-        repository:
-          $ref: '#/components/schemas/repository'
-        installation:
-          $ref: '#/components/schemas/installation-lite'
-        organization:
-          $ref: '#/components/schemas/organization'
-        sender:
+          description: The number of the milestone.
+        title:
+          type: string
+          description: The title of the milestone.
+        description:
+          type:
+          - string
+          - 'null'
+        creator:
           $ref: '#/components/schemas/user'
-      additionalProperties: false
-      title: pull_request opened event
-    changes:
-      type: object
-      description: Object containing merge request change details.
-      required:
-      - updated_by_id
-      - updated_at
-      - labels
-      properties:
-        updated_by_id:
-          $ref: '#/components/schemas/updated-by-id'
-        updated_at:
-          $ref: '#/components/schemas/updated-at'
-        labels:
-          $ref: '#/components/schemas/labels'
-      additionalProperties: false
-      title: Change
-    merge-request-open:
-      type: object
-      required:
-      - object_kind
-      - user
-      - project
-      - repository
-      - object_attributes
-      - labels
-      - changes
-      properties:
-        object_kind:
+        open_issues:
+          type: integer
+        closed_issues:
+          type: integer
+        state:
           type: string
           enum:
           - open
-          description: Type of webhook event data.
-        user:
-          description: Merge request creator details.
-          $ref: '#/components/schemas/user-2'
-        project:
-          $ref: '#/components/schemas/project'
-        repository:
-          $ref: '#/components/schemas/repository-2'
-        object_attributes:
-          $ref: '#/components/schemas/merge-request-details'
-        labels:
-          type: array
-          items:
-            $ref: '#/components/schemas/label-2'
-        changes:
-          $ref: '#/components/schemas/changes'
+          - closed
+          description: The state of the milestone.
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        due_on:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        closed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
       additionalProperties: false
-      title: Merge request open event
+      title: Milestone
+    merge-request-details:
+      description: Merge request details.
+      type: object
+      required:
+      - id
+      - target_branch
+      - source_branch
+      - source_project_id
+      - author_id
+      - assignee_id
+      - title
+      - created_at
+      - updated_at
+      - milestone_id
+      - state
+      - merge_status
+      - target_project_id
+      - iid
+      - description
+      - source
+      - target
+      - last_commit
+      - work_in_progress
+      - url
+      - action
+      - assignee
+      properties:
+        id:
+          type: integer
+          description: Merge request id.
+          example: 324
+        target_branch:
+          type: string
+          description: Target branch name.
+          example: main
+        source_branch:
+          type: string
+          description: Source branch name.
+          example: feat/gitlab-implementation
+        source_project_id:
+          type: integer
+          description: Source project id.
+          example: 32
+        author_id:
+          type: integer
+          description: Author id.
+          example: 2
+        assignee_id:
+          type: integer
+          description: Assignee id.
+          example: 4
+        title:
+          type: string
+          description: Merge request title.
+          example: gitlab implementation
+        created_at:
+          type: string
+          description: Merge request created date.
+          format: date-time
+        updated_at:
+          type: string
+          description: Merge request updated date.
+          format: date-time
+        milestone_id:
+          type: integer
+          description: Milestone id.
+          example: 12
+        state:
+          type: string
+          description: Merge request current state.
+          enum:
+          - opened
+          - closed
+          - locked
+          - merged
+        merge_status:
+          type: string
+          description: Merge status.
+          enum:
+          - unchecked
+          - can_be_merged
+          - cannot_be_merged
+        target_project_id:
+          type: integer
+          description: Target project id.
+          example: 456
+        iid:
+          type: integer
+          description: Merge request id unique only in scope of a single project.
+          example: 254
+        description:
+          type: string
+          description: Merge request description.
+          example: GitLab implementation
+        source:
+          $ref: '#/components/schemas/source'
+        target:
+          $ref: '#/components/schemas/source'
+        last_commit:
+          $ref: '#/components/schemas/commit-flat'
+        work_in_progress:
+          type: boolean
+          description: Work in progress flag.
+        url:
+          type: string
+          description: Merge request url.
+          example: http://example.com/diaspora/merge_requests/324
+        action:
+          type: string
+          enum:
+          - open
+          - close
+          - reopen
+          - update
+          - approved
+          - unapproved
+          - approval
+          - unapproval
+          - merge
+        assignee:
+          $ref: '#/components/schemas/user-2'
+      additionalProperties: false
+      title: Merge request details
+    updated-at:
+      type: object
+      required:
+      - previous
+      - current
+      properties:
+        previous:
+          type: string
+          format: date-time
+        current:
+          type: string
+          format: date-time
+      additionalProperties: false
+      title: Updated at
+    project:
+      description: GitLab Project details.
+      type: object
+      required:
+      - id
+      - name
+      - description
+      - web_url
+      - avatar_url
+      - git_ssh_url
+      - git_http_url
+      - namespace
+      - visibility_level
+      - path_with_namespace
+      - default_branch
+      - homepage
+      - url
+      - ssh_url
+      - http_url
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of the project.
+        name:
+          type: string
+          description: The name of the project.
+        description:
+          type: string
+          description: The description of the project.
+        web_url:
+          type: string
+          description: The URL to view the repository.
+          format: uri
+          example: http://example.com/gitlabhq/gitlab-test
+        avatar_url:
+          type: string
+          description: Repository avatar url.
+          format: uri
+          example: https://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=40&d=identicon
+        git_ssh_url:
+          type: string
+          description: SSH url of a project.
+          format: uri
+          example: ssh://git@example.com/gitlabhq/gitlab-test.git
+        git_http_url:
+          type: string
+          description: Url of a project.
+          format: uri
+          example: http://example.com/gitlabhq/gitlab-test.git
+        namespace:
+          type: string
+          description: Project namespace.
+          example: GitlabHQ
+        visibility_level:
+          type: integer
+          description: Visibility level of a project.
+          example: 20
+        path_with_namespace:
+          type: string
+          description: Project path including namespace.
+          example: gitlabhq/gitlab-test
+        default_branch:
+          type: string
+          description: Project default branch.
+          example: develop
+        homepage:
+          type: string
+          description: Project homepage url.
+          format: uri
+          example: http://example.com/gitlabhq/gitlab-test
+        url:
+          type: string
+          description: Url of a project.
+          format: uri
+          example: http://example.com/gitlabhq/gitlab-test.git
+        ssh_url:
+          type: string
+          description: SSH url of a project.
+          format: uri
+          example: ssh://git@example.com/gitlabhq/gitlab-test.git
+        http_url:
+          type: string
+          description: Url of a project.
+          format: uri
+          example: http://example.com/gitlabhq/gitlab-test.git
+      additionalProperties: false
+      title: Project
+    label:
+      type: object
+      required:
+      - id
+      - node_id
+      - url
+      - name
+      - color
+      - default
+      - description
+      properties:
+        id:
+          type: integer
+        node_id:
+          type: string
+        url:
+          description: URL for the label.
+          type: string
+          format: uri
+        name:
+          description: The name of the label.
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        color:
+          description: '6-character hex code, without the leading #, identifying the color.'
+          type: string
+        default:
+          type: boolean
+      additionalProperties: false
+      title: Label
     repository:
       description: A git repository.
       type: object
@@ -696,154 +1310,6 @@ components:
           type: string
       additionalProperties: false
       title: Repository
-    updated-by-id:
-      type: object
-      required:
-      - previous
-      - current
-      properties:
-        previous:
-          type: integer
-          description: Id of a user that previously updated merge request.
-          example: 0
-        current:
-          type: integer
-          description: Id of the most recent user that updated merge request.
-          example: 1
-      additionalProperties: false
-      title: Updated by id
-    license:
-      type: object
-      required:
-      - key
-      - name
-      - spdx_id
-      - url
-      - node_id
-      properties:
-        key:
-          type: string
-        name:
-          type: string
-        spdx_id:
-          type: string
-        url:
-          type:
-          - string
-          - 'null'
-          format: uri
-        node_id:
-          type: string
-      additionalProperties: false
-      title: License
-    project:
-      description: GitLab Project details.
-      type: object
-      required:
-      - id
-      - name
-      - description
-      - web_url
-      - avatar_url
-      - git_ssh_url
-      - git_http_url
-      - namespace
-      - visibility_level
-      - path_with_namespace
-      - default_branch
-      - homepage
-      - url
-      - ssh_url
-      - http_url
-      properties:
-        id:
-          type: integer
-          description: Unique identifier of the project.
-        name:
-          type: string
-          description: The name of the project.
-        description:
-          type: string
-          description: The description of the project.
-        web_url:
-          type: string
-          description: The URL to view the repository.
-          format: uri
-          example: http://example.com/gitlabhq/gitlab-test
-        avatar_url:
-          type: string
-          description: Repository avatar url.
-          format: uri
-          example: https://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=40&d=identicon
-        git_ssh_url:
-          type: string
-          description: SSH url of a project.
-          format: uri
-          example: ssh://git@example.com/gitlabhq/gitlab-test.git
-        git_http_url:
-          type: string
-          description: Url of a project.
-          format: uri
-          example: http://example.com/gitlabhq/gitlab-test.git
-        namespace:
-          type: string
-          description: Project namespace.
-          example: GitlabHQ
-        visibility_level:
-          type: integer
-          description: Visibility level of a project.
-          example: 20
-        path_with_namespace:
-          type: string
-          description: Project path including namespace.
-          example: gitlabhq/gitlab-test
-        default_branch:
-          type: string
-          description: Project default branch.
-          example: develop
-        homepage:
-          type: string
-          description: Project homepage url.
-          format: uri
-          example: http://example.com/gitlabhq/gitlab-test
-        url:
-          type: string
-          description: Url of a project.
-          format: uri
-          example: http://example.com/gitlabhq/gitlab-test.git
-        ssh_url:
-          type: string
-          description: SSH url of a project.
-          format: uri
-          example: ssh://git@example.com/gitlabhq/gitlab-test.git
-        http_url:
-          type: string
-          description: Url of a project.
-          format: uri
-          example: http://example.com/gitlabhq/gitlab-test.git
-      additionalProperties: false
-      title: Project
-    user-2:
-      type: object
-      required:
-      - name
-      - username
-      - avatar_url
-      properties:
-        name:
-          type: string
-          description: User name.
-          example: John
-        username:
-          type: string
-          description: User nickname.
-          example: johnDoe47
-        avatar_url:
-          type: string
-          description: User avatar url.
-          example: https://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=40&d=identicon
-      additionalProperties: false
-      title: User
     repository-2:
       description: GitLab repository details.
       type: object
@@ -900,13 +1366,96 @@ components:
           example: 20
       additionalProperties: false
       title: Repository
-    pull-request-synchronize:
+    merge-request-reopen:
+      type: object
+      required:
+      - object_kind
+      - user
+      - project
+      - repository
+      - object_attributes
+      - labels
+      - changes
+      properties:
+        object_kind:
+          type: string
+          enum:
+          - reopen
+          description: Type of webhook event data.
+        user:
+          description: Merge request creator details.
+          $ref: '#/components/schemas/user-2'
+        project:
+          $ref: '#/components/schemas/project'
+        repository:
+          $ref: '#/components/schemas/repository-2'
+        object_attributes:
+          $ref: '#/components/schemas/merge-request-details'
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/label-2'
+        changes:
+          $ref: '#/components/schemas/changes'
+      additionalProperties: false
+      title: Merge request reopen event
+    committer:
+      description: Metaproperties for Git author/committer information.
+      required:
+      - email
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: The git author's name.
+        email:
+          description: The git author's email address.
+          oneOf:
+          - type: string
+            format: email
+          - type: 'null'
+        date:
+          type: string
+          format: date-time
+        username:
+          type: string
+      additionalProperties: false
+      title: Committer
+    changes:
+      type: object
+      description: Object containing merge request change details.
+      required:
+      - updated_by_id
+      - updated_at
+      - labels
+      properties:
+        updated_by_id:
+          $ref: '#/components/schemas/updated-by-id'
+        updated_at:
+          $ref: '#/components/schemas/updated-at'
+        labels:
+          $ref: '#/components/schemas/labels'
+      additionalProperties: false
+      title: Change
+    labels:
+      type: object
+      description: Object specifying labels changes.
+      required:
+      - previous
+      - current
+      properties:
+        previous:
+          $ref: '#/components/schemas/label-2'
+        current:
+          $ref: '#/components/schemas/label-2'
+      additionalProperties: false
+      title: Labels
+    pull-request-opened:
       type: object
       required:
       - action
       - number
-      - before
-      - after
       - pull_request
       - repository
       - sender
@@ -914,16 +1463,34 @@ components:
         action:
           type: string
           enum:
-          - synchronize
+          - opened
         number:
           type: integer
           description: The pull request number.
-        before:
-          type: string
-        after:
-          type: string
         pull_request:
-          $ref: '#/components/schemas/pull-request'
+          allOf:
+          - $ref: '#/components/schemas/pull-request'
+          - type: object
+            required:
+            - state
+            - closed_at
+            - merged_at
+            - active_lock_reason
+            - merged_by
+            properties:
+              state:
+                type: string
+                enum:
+                - open
+              closed_at:
+                type: 'null'
+              merged_at:
+                type: 'null'
+              active_lock_reason:
+                type: 'null'
+              merged_by:
+                type: 'null'
+            additionalProperties: false
         repository:
           $ref: '#/components/schemas/repository'
         installation:
@@ -933,7 +1500,221 @@ components:
         sender:
           $ref: '#/components/schemas/user'
       additionalProperties: false
-      title: pull_request synchronize event
+      title: pull_request opened event
+    source:
+      description: Merge request source details.
+      type: object
+      required:
+      - name
+      - description
+      - web_url
+      - avatar_url
+      - git_ssh_url
+      - git_http_url
+      - namespace
+      - visibility_level
+      - path_with_namespace
+      - default_branch
+      - homepage
+      - url
+      - ssh_url
+      - http_url
+      properties:
+        name:
+          type: string
+          description: The name of the project.
+        description:
+          type: string
+          description: The description of the project.
+        web_url:
+          type: string
+          description: The URL to view the repository.
+          format: uri
+          example: http://example.com/gitlabhq/gitlab-test
+        avatar_url:
+          type: string
+          description: Avatar url of the repository.
+          format: uri
+          example: https://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=40&d=identicon
+        git_ssh_url:
+          type: string
+          description: SSH url of a project.
+          format: uri
+          example: ssh://git@example.com/gitlabhq/gitlab-test.git
+        git_http_url:
+          type: string
+          description: Git url of a project.
+          format: uri
+          example: http://example.com/gitlabhq/gitlab-test.git
+        namespace:
+          type: string
+          description: Project namespace.
+          example: GitlabHQ
+        visibility_level:
+          type: integer
+          description: Visibility level of a project.
+          example: 20
+        path_with_namespace:
+          type: string
+          description: Project path including namespace.
+          example: gitlabhq/gitlab-test
+        default_branch:
+          type: string
+          description: Project default branch.
+          example: develop
+        homepage:
+          type: string
+          description: Project homepage url.
+          format: uri
+          example: http://example.com/gitlabhq/gitlab-test
+        url:
+          type: string
+          description: Url of a project.
+          format: uri
+          example: http://example.com/gitlabhq/gitlab-test.git
+        ssh_url:
+          type: string
+          description: SSH url of a project.
+          format: uri
+          example: ssh://git@example.com/gitlabhq/gitlab-test.git
+        http_url:
+          type: string
+          description: Url of a project.
+          format: uri
+          example: http://example.com/gitlabhq/gitlab-test.git
+      additionalProperties: false
+      title: Source
+    auto-merge:
+      type: object
+      required:
+      - enabled_by
+      - merge_method
+      - commit_title
+      - commit_message
+      properties:
+        enabled_by:
+          $ref: '#/components/schemas/user'
+        merge_method:
+          type: string
+          enum:
+          - merge
+          - squash
+          - rebase
+          description: The merge method to use.
+        commit_title:
+          type: string
+          description: Title for the merge commit message.
+        commit_message:
+          type: string
+          description: Commit message for the merge commit.
+      additionalProperties: false
+      title: PullRequestAutoMerge
+      description: The status of auto merging a pull request.
+    updated-by-id:
+      type: object
+      required:
+      - previous
+      - current
+      properties:
+        previous:
+          type: integer
+          description: Id of a user that previously updated merge request.
+          example: 0
+        current:
+          type: integer
+          description: Id of the most recent user that updated merge request.
+          example: 1
+      additionalProperties: false
+      title: Updated by id
+    commit-2:
+      description: Commit details.
+      type: object
+      required:
+      - id
+      - message
+      - title
+      - timestamp
+      - url
+      - author
+      - added
+      - modified
+      - removed
+      properties:
+        id:
+          type: string
+          description: Commit sha.
+          example: b6568db1bc1dcd7f8b4d5a946b0b91f9dacd7327
+        message:
+          type: string
+          description: The commit message.
+          example: fixed readme
+        timestamp:
+          type: string
+          format: date-time
+          description: The ISO 8601 timestamp of the commit.
+        url:
+          type: string
+          format: uri
+          description: URL that points to the commit API resource.
+          example: http://example.com/mike/diaspora/commit/da1560886d4f094c3e6c9ef40349f7d38b5d27d7
+        author:
+          $ref: '#/components/schemas/author'
+        added:
+          type: array
+          items:
+            type: string
+          description: An array of files added in the commit.
+          example:
+          - CHANGELOG
+        modified:
+          type: array
+          items:
+            type: string
+          description: An array of files modified by the commit.
+          example:
+          - app/controller/application.rb
+        removed:
+          type: array
+          items:
+            type: string
+          description: An array of files removed in the commit.
+          example:
+          - app/controller/product.rb
+      additionalProperties: false
+      title: Commit
+    merge-request-update:
+      type: object
+      required:
+      - object_kind
+      - user
+      - project
+      - repository
+      - object_attributes
+      - labels
+      - changes
+      properties:
+        object_kind:
+          type: string
+          enum:
+          - update
+          description: Type of webhook event data.
+        user:
+          description: Merge request creator details.
+          $ref: '#/components/schemas/user-2'
+        project:
+          $ref: '#/components/schemas/project'
+        repository:
+          $ref: '#/components/schemas/repository-2'
+        object_attributes:
+          $ref: '#/components/schemas/merge-request-details'
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/label-2'
+        changes:
+          $ref: '#/components/schemas/changes'
+      additionalProperties: false
+      title: Merge request update event
     team:
       description: Groups of organization members that gives permissions on specified. repositories.
       type: object
@@ -1044,672 +1825,6 @@ components:
           additionalProperties: false
       additionalProperties: false
       title: Team
-    pull-request-reopened:
-      type: object
-      required:
-      - action
-      - number
-      - pull_request
-      - repository
-      - sender
-      properties:
-        action:
-          type: string
-          enum:
-          - reopened
-        number:
-          type: integer
-          description: The pull request number.
-        pull_request:
-          allOf:
-          - $ref: '#/components/schemas/pull-request'
-          - type: object
-            required:
-            - state
-            - closed_at
-            - merged_at
-            - merged
-            - merged_by
-            properties:
-              state:
-                type: string
-                enum:
-                - open
-              closed_at:
-                type: 'null'
-              merged_at:
-                type: 'null'
-              merged:
-                type: boolean
-              merged_by:
-                type: 'null'
-            additionalProperties: false
-        repository:
-          $ref: '#/components/schemas/repository'
-        installation:
-          $ref: '#/components/schemas/installation-lite'
-        organization:
-          $ref: '#/components/schemas/organization'
-        sender:
-          $ref: '#/components/schemas/user'
-      additionalProperties: false
-      title: pull_request reopened event
-    commit-flat:
-      description: Flattened commit details.
-      type: object
-      required:
-      - id
-      - message
-      - title
-      - timestamp
-      - url
-      - author
-      properties:
-        id:
-          type: string
-          description: Commit SHA.
-          example: b6568db1bc1dcd7f8b4d5a946b0b91f9dacd7327
-        message:
-          type: string
-          description: The commit message.
-          example: fixed readme
-        title:
-          type: string
-          description: Commit title.
-          example: Update file README.md
-        timestamp:
-          type: string
-          format: date-time
-          description: The ISO 8601 timestamp of the commit.
-        url:
-          type: string
-          format: uri
-          description: URL that points to the commit API resource.
-        author:
-          $ref: '#/components/schemas/author'
-      additionalProperties: false
-      title: Commit
-    author:
-      required:
-      - name
-      - email
-      type: object
-      description: Author details.
-      properties:
-        name:
-          type: string
-          description: Author name.
-          example: John
-        email:
-          type: string
-          description: Author email.
-          example: john.doe@email.com
-      additionalProperties: false
-    auto-merge:
-      type: object
-      required:
-      - enabled_by
-      - merge_method
-      - commit_title
-      - commit_message
-      properties:
-        enabled_by:
-          $ref: '#/components/schemas/user'
-        merge_method:
-          type: string
-          enum:
-          - merge
-          - squash
-          - rebase
-          description: The merge method to use.
-        commit_title:
-          type: string
-          description: Title for the merge commit message.
-        commit_message:
-          type: string
-          description: Commit message for the merge commit.
-      additionalProperties: false
-      title: PullRequestAutoMerge
-      description: The status of auto merging a pull request.
-    author-association:
-      type: string
-      description: How the author is associated with the repository.
-      enum:
-      - COLLABORATOR
-      - CONTRIBUTOR
-      - FIRST_TIMER
-      - FIRST_TIME_CONTRIBUTOR
-      - MANNEQUIN
-      - MEMBER
-      - NONE
-      - OWNER
-      title: AuthorAssociation
-    merge-request-details:
-      description: Merge request details.
-      type: object
-      required:
-      - id
-      - target_branch
-      - source_branch
-      - source_project_id
-      - author_id
-      - assignee_id
-      - title
-      - created_at
-      - updated_at
-      - milestone_id
-      - state
-      - merge_status
-      - target_project_id
-      - iid
-      - description
-      - source
-      - target
-      - last_commit
-      - work_in_progress
-      - url
-      - action
-      - assignee
-      properties:
-        id:
-          type: integer
-          description: Merge request id.
-          example: 324
-        target_branch:
-          type: string
-          description: Target branch name.
-          example: main
-        source_branch:
-          type: string
-          description: Source branch name.
-          example: feat/gitlab-implementation
-        source_project_id:
-          type: integer
-          description: Source project id.
-          example: 32
-        author_id:
-          type: integer
-          description: Author id.
-          example: 2
-        assignee_id:
-          type: integer
-          description: Assignee id.
-          example: 4
-        title:
-          type: string
-          description: Merge request title.
-          example: gitlab implementation
-        created_at:
-          type: string
-          description: Merge request created date.
-          format: date-time
-        updated_at:
-          type: string
-          description: Merge request updated date.
-          format: date-time
-        milestone_id:
-          type: integer
-          description: Milestone id.
-          example: 12
-        state:
-          type: string
-          description: Merge request current state.
-          enum:
-          - opened
-          - closed
-          - locked
-          - merged
-        merge_status:
-          type: string
-          description: Merge status.
-          enum:
-          - unchecked
-          - can_be_merged
-          - cannot_be_merged
-        target_project_id:
-          type: integer
-          description: Target project id.
-          example: 456
-        iid:
-          type: integer
-          description: Merge request id unique only in scope of a single project.
-          example: 254
-        description:
-          type: string
-          description: Merge request description.
-          example: GitLab implementation
-        source:
-          $ref: '#/components/schemas/source'
-        target:
-          $ref: '#/components/schemas/source'
-        last_commit:
-          $ref: '#/components/schemas/commit-flat'
-        work_in_progress:
-          type: boolean
-          description: Work in progress flag.
-        url:
-          type: string
-          description: Merge request url.
-          example: http://example.com/diaspora/merge_requests/324
-        action:
-          type: string
-          enum:
-          - open
-          - close
-          - reopen
-          - update
-          - approved
-          - unapproved
-          - approval
-          - unapproval
-          - merge
-        assignee:
-          $ref: '#/components/schemas/user-2'
-      additionalProperties: false
-      title: Merge request details
-    push-2:
-      type: object
-      required:
-      - object_kind
-      - before
-      - after
-      - ref
-      - checkout_sha
-      - user_id
-      - user_name
-      - user_username
-      - user_email
-      - user_avatar
-      - project_id
-      - project
-      - repository
-      - commits
-      - total_commits_count
-      properties:
-        object_kind:
-          type: string
-          description: Type of webhook event data.
-          example: push
-        before:
-          type: string
-          description: The SHA of the most recent commit on `ref` before the push.
-          example: 95790bf891e76fee5e1747ab589903a6a1f80f22
-        after:
-          type: string
-          description: The SHA of the most recent commit on `ref` after the push.
-          example: da1560886d4f094c3e6c9ef40349f7d38b5d27d7
-        ref:
-          type: string
-          description: 'The full git ref that is pushed. Example: `refs/heads/main`.'
-          example: refs/heads/main
-        checkout_sha:
-          type: string
-          description: The SHA of the most recent commit on `ref` after the push.
-          example: da1560886d4f094c3e6c9ef40349f7d38b5d27d7
-        user_id:
-          type: integer
-          description: Id of a gitlab user.
-          example: 1
-        user_name:
-          type: string
-          description: Name of a gitlab user.
-          example: John
-        user_username:
-          type: string
-          description: Nickname of a gitlab user.
-          example: john87
-        user_email:
-          type: string
-          description: Email of a gitlab user.
-          example: john87@email.com
-        user_avatar:
-          type: string
-          description: User avatar url.
-          example: https://s.gravatar.com/avatar/d4c74594d841139328695756648b6bd6?s=8://s.gravatar.com/avatar/d4c74594d841139328695756648b6bd6?s=80
-        project_id:
-          type: integer
-          description: Project id.
-          example: 15
-        project:
-          $ref: '#/components/schemas/project'
-        repository:
-          $ref: '#/components/schemas/repository-2'
-        commits:
-          type: array
-          description: An array of commit objects describing the pushed commits. (Pushed commits are all commits that are included in the `compare` between the `before` commit and the `after` commit.) The array includes a maximum of 20 commits.
-          items:
-            $ref: '#/components/schemas/commit-2'
-        total_commits_count:
-          type: integer
-          description: Contains the actual number of commits.
-          example: 34
-      additionalProperties: false
-      title: Push event
-    source:
-      description: Merge request source details.
-      type: object
-      required:
-      - name
-      - description
-      - web_url
-      - avatar_url
-      - git_ssh_url
-      - git_http_url
-      - namespace
-      - visibility_level
-      - path_with_namespace
-      - default_branch
-      - homepage
-      - url
-      - ssh_url
-      - http_url
-      properties:
-        name:
-          type: string
-          description: The name of the project.
-        description:
-          type: string
-          description: The description of the project.
-        web_url:
-          type: string
-          description: The URL to view the repository.
-          format: uri
-          example: http://example.com/gitlabhq/gitlab-test
-        avatar_url:
-          type: string
-          description: Avatar url of the repository.
-          format: uri
-          example: https://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=40&d=identicon
-        git_ssh_url:
-          type: string
-          description: SSH url of a project.
-          format: uri
-          example: ssh://git@example.com/gitlabhq/gitlab-test.git
-        git_http_url:
-          type: string
-          description: Git url of a project.
-          format: uri
-          example: http://example.com/gitlabhq/gitlab-test.git
-        namespace:
-          type: string
-          description: Project namespace.
-          example: GitlabHQ
-        visibility_level:
-          type: integer
-          description: Visibility level of a project.
-          example: 20
-        path_with_namespace:
-          type: string
-          description: Project path including namespace.
-          example: gitlabhq/gitlab-test
-        default_branch:
-          type: string
-          description: Project default branch.
-          example: develop
-        homepage:
-          type: string
-          description: Project homepage url.
-          format: uri
-          example: http://example.com/gitlabhq/gitlab-test
-        url:
-          type: string
-          description: Url of a project.
-          format: uri
-          example: http://example.com/gitlabhq/gitlab-test.git
-        ssh_url:
-          type: string
-          description: SSH url of a project.
-          format: uri
-          example: ssh://git@example.com/gitlabhq/gitlab-test.git
-        http_url:
-          type: string
-          description: Url of a project.
-          format: uri
-          example: http://example.com/gitlabhq/gitlab-test.git
-      additionalProperties: false
-      title: Source
-    organization:
-      type: object
-      required:
-      - login
-      - id
-      - node_id
-      - url
-      - repos_url
-      - events_url
-      - hooks_url
-      - issues_url
-      - members_url
-      - public_members_url
-      - avatar_url
-      - description
-      properties:
-        login:
-          type: string
-        id:
-          type: integer
-        node_id:
-          type: string
-        url:
-          type: string
-          format: uri
-        html_url:
-          type: string
-          format: uri
-        repos_url:
-          type: string
-          format: uri
-        events_url:
-          type: string
-          format: uri
-        hooks_url:
-          type: string
-          format: uri
-        issues_url:
-          type: string
-          format: uri
-        members_url:
-          type: string
-          format: uri-template
-        public_members_url:
-          type: string
-          format: uri-template
-        avatar_url:
-          type: string
-          format: uri
-        description:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      title: Organization
-    merge-request-reopen:
-      type: object
-      required:
-      - object_kind
-      - user
-      - project
-      - repository
-      - object_attributes
-      - labels
-      - changes
-      properties:
-        object_kind:
-          type: string
-          enum:
-          - reopen
-          description: Type of webhook event data.
-        user:
-          description: Merge request creator details.
-          $ref: '#/components/schemas/user-2'
-        project:
-          $ref: '#/components/schemas/project'
-        repository:
-          $ref: '#/components/schemas/repository-2'
-        object_attributes:
-          $ref: '#/components/schemas/merge-request-details'
-        labels:
-          type: array
-          items:
-            $ref: '#/components/schemas/label-2'
-        changes:
-          $ref: '#/components/schemas/changes'
-      additionalProperties: false
-      title: Merge request reopen event
-    label-2:
-      description: GitLab label details.
-      type: object
-      required:
-      - id
-      - title
-      - color
-      - project_id
-      - created_at
-      - updated_at
-      - template
-      - description
-      - type
-      - group_id
-      properties:
-        id:
-          type: integer
-          description: Label id.
-          example: 202
-        title:
-          type: string
-          description: Label title.
-          example: transport-label
-        color:
-          type: string
-          description: Label color specified using hexadecimal value.
-          example: '#ffffff'
-        project_id:
-          type: integer
-          description: Project id.
-          example: 43
-        created_at:
-          type: string
-          description: Label creation date.
-          format: date-time
-        updated_at:
-          type: string
-          description: Label last update date.
-          format: date-time
-        description:
-          type: string
-          description: Label description.
-          example: Transport related issues
-        type:
-          type: string
-          description: Label type.
-          example: ProjectLabel
-        group_id:
-          type: integer
-          description: Group id the label is created for.
-          example: 41
-      additionalProperties: false
-      title: Label
-    link:
-      required:
-      - href
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri-template
-      additionalProperties: false
-      title: Link
-    milestone:
-      description: A collection of related issues and pull requests.
-      required:
-      - url
-      - html_url
-      - labels_url
-      - id
-      - node_id
-      - number
-      - title
-      - description
-      - creator
-      - open_issues
-      - closed_issues
-      - state
-      - created_at
-      - updated_at
-      - due_on
-      - closed_at
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-        html_url:
-          type: string
-          format: uri
-        labels_url:
-          type: string
-          format: uri
-        id:
-          type: integer
-        node_id:
-          type: string
-        number:
-          type: integer
-          description: The number of the milestone.
-        title:
-          type: string
-          description: The title of the milestone.
-        description:
-          type:
-          - string
-          - 'null'
-        creator:
-          $ref: '#/components/schemas/user'
-        open_issues:
-          type: integer
-        closed_issues:
-          type: integer
-        state:
-          type: string
-          enum:
-          - open
-          - closed
-          description: The state of the milestone.
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        due_on:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        closed_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      additionalProperties: false
-      title: Milestone
-    WebhookResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable message with more details.
-          example: Job created
-        event:
-          type: string
-          description: Type of incoming webhook event.
-          example: push
-        jobId:
-          type: string
-          description: Created Scout job ID.
-          example: sjob_01h4gev6h1j50ge5z3yn28ge5e
-      required:
-      - detail
     pull-request:
       required:
       - url
@@ -1985,72 +2100,25 @@ components:
           type: integer
       additionalProperties: false
       title: Pull Request
-    push:
+    WebhookResponse:
       type: object
-      required:
-      - ref
-      - before
-      - after
-      - created
-      - deleted
-      - forced
-      - base_ref
-      - compare
-      - commits
-      - head_commit
-      - repository
-      - pusher
-      - sender
       properties:
-        ref:
+        message:
           type: string
-          description: 'The full git ref that is pushed. Example: `refs/heads/main` or `refs/tags/v3.14.1`.'
-        before:
+          description: A human-readable message with more details.
+          example: Job created
+        event:
           type: string
-          description: The SHA of the most recent commit on `ref` before the push.
-        after:
+          description: Type of incoming webhook event.
+          example: push
+        jobId:
           type: string
-          description: The SHA of the most recent commit on `ref` after the push.
-        created:
-          type: boolean
-          description: Whether this push created the `ref`.
-        deleted:
-          type: boolean
-          description: Whether this push deleted the `ref`.
-        forced:
-          type: boolean
-          description: Whether this push is a force push of the `ref`.
-        base_ref:
-          type:
-          - string
-          - 'null'
-        compare:
-          type: string
-          description: URL that shows the changes in this `ref` update, from the `before` commit to the `after` commit. For a newly created `ref` that is directly based on the default branch, this is the comparison between the head of the default branch and the `after` commit. Otherwise, this shows all commits until the `after` commit.
-        commits:
-          type: array
-          description: An array of commit objects describing the pushed commits. (Pushed commits are all commits that are included in the `compare` between the `before` commit and the `after` commit.) The array includes a maximum of 20 commits. If necessary, you can use the [Commits API](https://docs.github.com/en/rest/reference/repos#commits) to fetch additional commits. This limit is applied to timeline events only and isn't applied to webhook deliveries.
-          items:
-            $ref: '#/components/schemas/commit'
-        head_commit:
-          oneOf:
-          - $ref: '#/components/schemas/commit'
-          - type: 'null'
-          description: For pushes where `after` is or points to a commit object, an expanded representation of that commit. For pushes where `after` refers to an annotated tag object, an expanded representation of the commit pointed to by the annotated tag.
-        repository:
-          $ref: '#/components/schemas/repository'
-        pusher:
-          $ref: '#/components/schemas/committer'
-        sender:
-          $ref: '#/components/schemas/user'
-        installation:
-          $ref: '#/components/schemas/installation-lite'
-        organization:
-          $ref: '#/components/schemas/organization'
-      additionalProperties: false
-      title: push event
-    commit-2:
-      description: Commit details.
+          description: Created Scout job ID.
+          example: sjob_01h4gev6h1j50ge5z3yn28ge5e
+      required:
+      - detail
+    commit-flat:
+      description: Flattened commit details.
       type: object
       required:
       - id
@@ -2059,18 +2127,19 @@ components:
       - timestamp
       - url
       - author
-      - added
-      - modified
-      - removed
       properties:
         id:
           type: string
-          description: Commit sha.
+          description: Commit SHA.
           example: b6568db1bc1dcd7f8b4d5a946b0b91f9dacd7327
         message:
           type: string
           description: The commit message.
           example: fixed readme
+        title:
+          type: string
+          description: Commit title.
+          example: Update file README.md
         timestamp:
           type: string
           format: date-time
@@ -2079,198 +2148,154 @@ components:
           type: string
           format: uri
           description: URL that points to the commit API resource.
-          example: http://example.com/mike/diaspora/commit/da1560886d4f094c3e6c9ef40349f7d38b5d27d7
         author:
           $ref: '#/components/schemas/author'
-        added:
-          type: array
-          items:
-            type: string
-          description: An array of files added in the commit.
-          example:
-          - CHANGELOG
-        modified:
-          type: array
-          items:
-            type: string
-          description: An array of files modified by the commit.
-          example:
-          - app/controller/application.rb
-        removed:
-          type: array
-          items:
-            type: string
-          description: An array of files removed in the commit.
-          example:
-          - app/controller/product.rb
       additionalProperties: false
       title: Commit
-    labels:
-      type: object
-      description: Object specifying labels changes.
-      required:
-      - previous
-      - current
-      properties:
-        previous:
-          $ref: '#/components/schemas/label-2'
-        current:
-          $ref: '#/components/schemas/label-2'
-      additionalProperties: false
-      title: Labels
-    installation-lite:
-      description: Installation.
+    push-2:
       type: object
       required:
-      - id
-      - node_id
+      - object_kind
+      - before
+      - after
+      - ref
+      - checkout_sha
+      - user_id
+      - user_name
+      - user_username
+      - user_email
+      - user_avatar
+      - project_id
+      - project
+      - repository
+      - commits
+      - total_commits_count
       properties:
-        id:
+        object_kind:
+          type: string
+          description: Type of webhook event data.
+          example: push
+        before:
+          type: string
+          description: The SHA of the most recent commit on `ref` before the push.
+          example: 95790bf891e76fee5e1747ab589903a6a1f80f22
+        after:
+          type: string
+          description: The SHA of the most recent commit on `ref` after the push.
+          example: da1560886d4f094c3e6c9ef40349f7d38b5d27d7
+        ref:
+          type: string
+          description: 'The full git ref that is pushed. Example: `refs/heads/main`.'
+          example: refs/heads/main
+        checkout_sha:
+          type: string
+          description: The SHA of the most recent commit on `ref` after the push.
+          example: da1560886d4f094c3e6c9ef40349f7d38b5d27d7
+        user_id:
           type: integer
-          description: The ID of the installation.
-        node_id:
+          description: Id of a gitlab user.
+          example: 1
+        user_name:
           type: string
-      additionalProperties: false
-      title: InstallationLite
-    user:
-      type: object
-      required:
-      - login
-      - id
-      - node_id
-      - avatar_url
-      - gravatar_id
-      - url
-      - html_url
-      - followers_url
-      - following_url
-      - gists_url
-      - starred_url
-      - subscriptions_url
-      - organizations_url
-      - repos_url
-      - events_url
-      - received_events_url
-      - type
-      - site_admin
-      properties:
-        login:
+          description: Name of a gitlab user.
+          example: John
+        user_username:
           type: string
-        id:
+          description: Nickname of a gitlab user.
+          example: john87
+        user_email:
+          type: string
+          description: Email of a gitlab user.
+          example: john87@email.com
+        user_avatar:
+          type: string
+          description: User avatar url.
+          example: https://s.gravatar.com/avatar/d4c74594d841139328695756648b6bd6?s=8://s.gravatar.com/avatar/d4c74594d841139328695756648b6bd6?s=80
+        project_id:
           type: integer
-        node_id:
-          type: string
-        name:
-          type: string
-        email:
-          type:
-          - string
-          - 'null'
-        avatar_url:
-          type: string
-          format: uri
-        gravatar_id:
-          type: string
-        url:
-          type: string
-          format: uri
-        html_url:
-          type: string
-          format: uri
-        followers_url:
-          type: string
-          format: uri
-        following_url:
-          type: string
-          format: uri-template
-        gists_url:
-          type: string
-          format: uri-template
-        starred_url:
-          type: string
-          format: uri-template
-        subscriptions_url:
-          type: string
-          format: uri
-        organizations_url:
-          type: string
-          format: uri
-        repos_url:
-          type: string
-          format: uri
-        events_url:
-          type: string
-          format: uri-template
-        received_events_url:
-          type: string
-          format: uri
-        type:
-          type: string
-          enum:
-          - Bot
-          - User
-          - Organization
-        site_admin:
-          type: boolean
+          description: Project id.
+          example: 15
+        project:
+          $ref: '#/components/schemas/project'
+        repository:
+          $ref: '#/components/schemas/repository-2'
+        commits:
+          type: array
+          description: An array of commit objects describing the pushed commits. (Pushed commits are all commits that are included in the `compare` between the `before` commit and the `after` commit.) The array includes a maximum of 20 commits.
+          items:
+            $ref: '#/components/schemas/commit-2'
+        total_commits_count:
+          type: integer
+          description: Contains the actual number of commits.
+          example: 34
       additionalProperties: false
-      title: User
-    committer:
-      description: Metaproperties for Git author/committer information.
+      title: Push event
+    author:
       required:
+      - name
       - email
-      - name
       type: object
+      description: Author details.
       properties:
         name:
           type: string
-          description: The git author's name.
+          description: Author name.
+          example: John
         email:
-          description: The git author's email address.
-          oneOf:
-          - type: string
-            format: email
-          - type: 'null'
-        date:
           type: string
-          format: date-time
-        username:
-          type: string
+          description: Author email.
+          example: john.doe@email.com
       additionalProperties: false
-      title: Committer
-    label:
+    license:
       type: object
       required:
-      - id
-      - node_id
-      - url
+      - key
       - name
-      - color
-      - default
-      - description
+      - spdx_id
+      - url
+      - node_id
       properties:
-        id:
-          type: integer
-        node_id:
+        key:
+          type: string
+        name:
+          type: string
+        spdx_id:
           type: string
         url:
-          description: URL for the label.
-          type: string
-          format: uri
-        name:
-          description: The name of the label.
-          type: string
-        description:
           type:
           - string
           - 'null'
-        color:
-          description: '6-character hex code, without the leading #, identifying the color.'
+          format: uri
+        node_id:
           type: string
-        default:
-          type: boolean
       additionalProperties: false
-      title: Label
+      title: License
   responses:
+    Unauthorized:
+      description: Unauthorized.
+      content:
+        application/problem+json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Error type.
+                example: about:blank
+              title:
+                type: string
+                description: Error title.
+                example: Unauthorized
+              status:
+                type: integer
+                description: HTTP status code generated by the origin server for this occurrence of the problem.
+                example: 401
+              detail:
+                type: string
+                description: A human-readable message with more details.
+                example: The request doesn't contain a GitHub signature
+            required:
+            - detail
     InternalServerError:
       description: Internal Server Error.
       content:
@@ -2298,31 +2323,6 @@ components:
                 type: string
                 description: Type of incoming webhook event.
                 example: push
-            required:
-            - detail
-    Unauthorized:
-      description: Unauthorized.
-      content:
-        application/problem+json:
-          schema:
-            type: object
-            properties:
-              type:
-                type: string
-                description: Error type.
-                example: about:blank
-              title:
-                type: string
-                description: Error title.
-                example: Unauthorized
-              status:
-                type: integer
-                description: HTTP status code generated by the origin server for this occurrence of the problem.
-                example: 401
-              detail:
-                type: string
-                description: A human-readable message with more details.
-                example: The request doesn't contain a GitHub signature
             required:
             - detail
   securitySchemes:

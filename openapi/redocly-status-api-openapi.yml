@@ -47,31 +47,14 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequestError'
 components:
-  parameters:
-    ProjectId:
-      name: projectId
-      description: Project ID.
-      required: true
-      in: path
-      schema:
-        type: string
-        example: my-project
-    OrgId:
-      name: orgId
-      description: Organization ID.
-      required: true
-      in: path
-      schema:
-        type: string
-        example: acme-inc
-    X-Redocly-Scout-Version:
-      name: x-redocly-scout-version
-      description: Scout version.
-      required: false
-      in: header
-      schema:
-        type: string
-        example: 1.0.0
+  responses:
+    BadRequestError:
+      description: Bad Request.
+      content:
+        application/problem+json:
+          schema:
+            description: Invalid credentials.
+            $ref: '#/components/schemas/Problem'
   schemas:
     Problem:
       type: object
@@ -180,14 +163,31 @@ components:
       - version
       - disk
       - jobs
-  responses:
-    BadRequestError:
-      description: Bad Request.
-      content:
-        application/problem+json:
-          schema:
-            description: Invalid credentials.
-            $ref: '#/components/schemas/Problem'
+  parameters:
+    OrgId:
+      name: orgId
+      description: Organization ID.
+      required: true
+      in: path
+      schema:
+        type: string
+        example: acme-inc
+    X-Redocly-Scout-Version:
+      name: x-redocly-scout-version
+      description: Scout version.
+      required: false
+      in: header
+      schema:
+        type: string
+        example: 1.0.0
+    ProjectId:
+      name: projectId
+      description: Project ID.
+      required: true
+      in: path
+      schema:
+        type: string
+        example: my-project
   securitySchemes:
     UserCookie:
       type: apiKey
