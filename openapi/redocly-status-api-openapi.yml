@@ -47,23 +47,7 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequestError'
 components:
-  responses:
-    BadRequestError:
-      description: Bad Request.
-      content:
-        application/problem+json:
-          schema:
-            description: Invalid credentials.
-            $ref: '#/components/schemas/Problem'
   parameters:
-    OrgId:
-      name: orgId
-      description: Organization ID.
-      required: true
-      in: path
-      schema:
-        type: string
-        example: acme-inc
     ProjectId:
       name: projectId
       description: Project ID.
@@ -80,6 +64,14 @@ components:
       schema:
         type: string
         example: 1.0.0
+    OrgId:
+      name: orgId
+      description: Organization ID.
+      required: true
+      in: path
+      schema:
+        type: string
+        example: acme-inc
   schemas:
     Problem:
       type: object
@@ -188,6 +180,14 @@ components:
       - version
       - disk
       - jobs
+  responses:
+    BadRequestError:
+      description: Bad Request.
+      content:
+        application/problem+json:
+          schema:
+            description: Invalid credentials.
+            $ref: '#/components/schemas/Problem'
   securitySchemes:
     UserCookie:
       type: apiKey

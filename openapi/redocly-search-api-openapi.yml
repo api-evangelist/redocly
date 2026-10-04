@@ -140,39 +140,6 @@ components:
           description: Available facet values with their result counts.
           items:
             $ref: '#/components/schemas/FacetValueCount'
-    SearchItem:
-      type: object
-      properties:
-        document:
-          type: object
-          description: The indexed document (metadata and content fields).
-          $ref: '#/components/schemas/SearchDocument'
-        highlight:
-          type: object
-          description: Highlighted snippets for this result.
-          $ref: '#/components/schemas/SearchHighlight'
-    SearchFacetsRequest:
-      type: object
-      required:
-      - locale
-      properties:
-        locale:
-          type: string
-          description: Locale code (same as search).
-        field:
-          type: string
-          description: If set, returns only the facet for this field (with values and counts). If omitted, returns all configured facets.
-        query:
-          type: string
-          description: Search query; facet counts are computed in the context of this query.
-        filter:
-          type: array
-          items:
-            $ref: '#/components/schemas/FacetFilter'
-          description: Counts are computed with these filters applied.
-        facetQuery:
-          type: string
-          description: Filter facet values using this string (for type-ahead in facet controls).
     SearchHighlight:
       description: Highlighted snippets; matched terms are wrapped in `<mark>` tags.
       properties:
@@ -199,22 +166,6 @@ components:
         parameters:
           type: array
           description: Present in API reference items.
-    FacetFilter:
-      type: object
-      required:
-      - field
-      - values
-      properties:
-        field:
-          type: string
-          description: 'Facet field name (for example: `redocly_category`, `redocly_version`).
-
-            '
-        values:
-          type: array
-          items:
-            type: string
-          description: Selected facet values.
     SearchDocument:
       description: Indexed document returned in search results.
       properties:
@@ -273,13 +224,28 @@ components:
         apiVersion:
           type: string
           description: API version for API reference items.
-    SearchFacetsResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/FacetObject'
-      description: 'If the request includes `field`: array with a single facet. Otherwise all facet objects with their values.
+    FacetValueCount:
+      type: object
+      properties:
+        value:
+          type: string
+          description: 'Facet value (for example: a category or product name).
 
-        '
+            '
+        count:
+          type: integer
+          description: Number of search results that match this facet value.
+    SearchItem:
+      type: object
+      properties:
+        document:
+          type: object
+          description: The indexed document (metadata and content fields).
+          $ref: '#/components/schemas/SearchDocument'
+        highlight:
+          type: object
+          description: Highlighted snippets for this result.
+          $ref: '#/components/schemas/SearchHighlight'
     SearchResponse:
       type: object
       properties:
@@ -299,17 +265,35 @@ components:
             items:
               $ref: '#/components/schemas/SearchItem'
           description: Category names (e.g. Documentation, API Reference) to arrays of search items.
-    FacetValueCount:
-      type: object
-      properties:
-        value:
-          type: string
-          description: 'Facet value (for example: a category or product name).
+    SearchFacetsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/FacetObject'
+      description: 'If the request includes `field`: array with a single facet. Otherwise all facet objects with their values.
 
-            '
-        count:
-          type: integer
-          description: Number of search results that match this facet value.
+        '
+    SearchFacetsRequest:
+      type: object
+      required:
+      - locale
+      properties:
+        locale:
+          type: string
+          description: Locale code (same as search).
+        field:
+          type: string
+          description: If set, returns only the facet for this field (with values and counts). If omitted, returns all configured facets.
+        query:
+          type: string
+          description: Search query; facet counts are computed in the context of this query.
+        filter:
+          type: array
+          items:
+            $ref: '#/components/schemas/FacetFilter'
+          description: Counts are computed with these filters applied.
+        facetQuery:
+          type: string
+          description: Filter facet values using this string (for type-ahead in facet controls).
     SearchRequest:
       type: object
       required:
@@ -341,6 +325,22 @@ components:
             offset:
               type: integer
               description: Offset for pagination within the group.
+    FacetFilter:
+      type: object
+      required:
+      - field
+      - values
+      properties:
+        field:
+          type: string
+          description: 'Facet field name (for example: `redocly_category`, `redocly_version`).
+
+            '
+        values:
+          type: array
+          items:
+            type: string
+          description: Selected facet values.
   responses:
     BadRequest:
       description: 'Facet field name (for example: `redocly_category`, `redocly_version`).

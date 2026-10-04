@@ -1,14 +1,16 @@
 aid: redocly
+
 url: https://raw.githubusercontent.com/api-evangelist/redocly/refs/heads/main/apis.yml
+
 name: Redocly
-description: Redocly is a company that specializes in API documentation and governance tooling. Their
-  platform helps organizations create, manage, and publish API documentation through Realm (the integrated
-  lifecycle platform that unifies Redoc, Revel, and Reef), Reunite (Git-connected collaboration and deployment
-  for docs/APIs), Revel (developer portal), Reef (internal API catalog and scorecard), and Redoc (open-source
-  OpenAPI renderer). The Redocly CLI provides linting, bundling, splitting, decoration, and documentation
-  generation for OpenAPI, AsyncAPI, and Arazzo specifications. Respect Monitoring adds continuous, Arazzo-powered
-  API monitoring, and the Enterprise tier exposes MCP Servers and AI search for Realm portals — positioning
-  Redocly's catalog as an AI substrate for agentic software.
+
+description: Redocly is a company that specializes in API documentation and governance tooling. Their platform helps organizations create, manage,
+  and publish API documentation through Realm (the integrated lifecycle platform that unifies Redoc, Revel, and Reef), Reunite (Git-connected
+  collaboration and deployment for docs/APIs), Revel (developer portal), Reef (internal API catalog and scorecard), and Redoc (open-source OpenAPI
+  renderer). The Redocly CLI provides linting, bundling, splitting, decoration, and documentation generation for OpenAPI, AsyncAPI, and Arazzo
+  specifications. Respect Monitoring adds continuous, Arazzo-powered API monitoring, and the Enterprise tier exposes MCP Servers and AI search
+  for Realm portals — positioning Redocly's catalog as an AI substrate for agentic software.
+
 tags:
 - Artificial Intelligence
 - API Catalog
@@ -21,6 +23,7 @@ tags:
 - Monitoring
 - OpenAPI
 - A2A
+
 tags_raw:
 - AI
 - API Catalog
@@ -33,7 +36,9 @@ tags_raw:
 - Monitoring
 - OpenAPI
 - A2A
+
 type: Index
+
 deliveryModel:
   model: saas
   open_source: false
@@ -45,6 +50,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: freemium
   onboarding: unknown
@@ -57,14 +63,223 @@ accessModel:
   - plans
   generated: '2026-07-22'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/redocly.png
+
 access: 3rd-Party
+
 created: '2026-01-05'
+
 modified: '2026-09-16'
+
 position: Consuming
+
 segments:
 - Documentation
+
 specificationVersion: '0.23'
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
+common:
+- type: AgenticAccess
+  url: agentic-access/redocly-agentic-access.yml
+- type: Spectral
+  url: rules/redocly-rules.yml
+- type: Spectral
+  url: rules/redocly-jsonschema-spectral-rules.yml
+- type: Deprecation
+  url: lifecycle/redocly-lifecycle.yml
+- type: Hosts
+  url: hosts/redocly-hosts.yml
+- type: Vendors
+  url: vendors/redocly-vendors.yml
+- type: SDKs
+  url: https://redocly.com/blog/category/api-lifecycle/sdks
+- type: VendorFacets
+  url: vendor-facets/redocly-vendor-facets.yml
+- type: Website
+  url: https://redocly.com
+- type: Overlay
+  url: overlays/redocly-search-api-overlay.yaml
+- type: Overlay
+  url: overlays/redocly-docs-mcp-overlay.yaml
+- type: Overlay
+  url: overlays/redocly-scout-overlay.yaml
+- type: Overlay
+  url: overlays/redocly-scout-agent-overlay.yaml
+- type: OAuthScopes
+  url: scopes/redocly-scopes.yml
+- type: Authentication
+  url: authentication/redocly-authentication.yml
+- type: DomainSecurity
+  url: security/redocly-domain-security.yml
+- name: About Redocly Documentation
+  url: https://redocly.com/docs
+  type: Documentation
+- name: Redocly Developer Portal (built on Realm)
+  url: https://redocly.com/docs
+  type: Portal
+- name: Customers
+  url: https://redocly.com/customers
+  type: Customers
+- name: Pricing
+  url: https://redocly.com/pricing
+  type: Pricing
+- name: Redocly Blog
+  url: https://redocly.com/blog
+  type: Blog
+- name: Webinars
+  url: https://redocly.com/webinars
+  type: Webinars
+- name: Security at Redocly
+  url: https://redocly.com/security
+  type: Security
+- name: Redocly Status Page
+  url: https://status.redocly.com/
+  type: StatusPage
+- name: Service Level Agreement
+  url: https://redocly.com/sla
+  type: ServiceLevelAgreement
+- name: Redocly CLI
+  url: https://redocly.com/redocly-cli
+  type: CLI
+- name: About Redocly
+  url: https://redocly.com/about
+  type: About
+- name: Contact Redocly
+  url: https://redocly.com/contact-us
+  type: Support
+- name: Redocly Products
+  url: https://redocly.com/products
+  type: Products
+- name: Redocly Login
+  url: https://auth.cloud.redocly.com/login
+  type: Login
+- name: Redocly Sign Up
+  url: https://redocly.com/billing/signup
+  type: Signup
+- name: Redocly Privacy Notice
+  url: https://redocly.com/privacy-notice
+  type: PrivacyPolicy
+- name: Redocly Subscription Agreement
+  url: https://redocly.com/subscription-agreement
+  type: TermsOfService
+- name: Redocly Careers
+  url: https://redocly.com/careers
+  type: Careers
+- name: Redocly on GitHub
+  url: https://github.com/Redocly
+  type: GitHubOrg
+- name: Redocly on X
+  url: https://twitter.com/Redocly
+  type: X
+- name: Redocly on LinkedIn
+  url: https://www.linkedin.com/company/redocly
+  type: LinkedIn
+- name: Redocly API Governance
+  url: https://redocly.com/api-governance
+  type: Governance
+- name: Redocly Changelog
+  url: https://redocly.com/docs/realm/changelog
+  type: ChangeLog
+- name: Redocly Vulnerability Disclosure Policy
+  url: https://redocly.com/vulnerability-disclosure-policy
+  type: VulnerabilityDisclosure
+- name: Redocly Data Processing Addendum
+  url: https://redocly.com/dpa
+  type: DataProcessingAddendum
+- name: Redocly OpenAPI Reference Docs
+  url: https://redocly.com/reference
+  type: Reference
+- name: Plans and Pricing (API Commons)
+  url: plans/redocly-plans-pricing.yml
+  type: Plans
+- name: Rate Limits (API Commons)
+  url: rate-limits/redocly-rate-limits.yml
+  type: RateLimits
+- name: FinOps (FOCUS-aligned)
+  url: finops/redocly-finops.yml
+  type: FinOps
+- type: LlmsText
+  url: https://redocly.com/llms.txt
+- name: Client and tooling packages (npm, Docker)
+  url: packages/redocly-packages.yml
+  type: Packages
+- name: /.well-known probe index
+  url: well-known/redocly-well-known.yml
+  type: WellKnown
+- name: Redocly Docs MCP server
+  url: mcp/redocly-mcp.yml
+  type: MCPServer
+- name: MCP tool to OpenAPI operation crosswalk
+  url: mcp/redocly-tool-crosswalk.yml
+  type: ToolCrosswalk
+- name: A2A agent card (served by Redocly)
+  url: a2a/redocly-a2a.yml
+  type: AgentCard
+- name: Agent Skills published by Redocly
+  url: skills/_index.yml
+  type: AgentSkill
+- name: llms.txt (saved verbatim)
+  url: llms/redocly-llms.txt
+  type: LLMsTxt
+- name: Standards conformance
+  url: conformance/redocly-conformance.yml
+  type: Conformance
+- name: Published certifications (SOC 2 Type II, CSA STAR)
+  url: security/redocly-trust-center.yml
+  type: Compliance
+- name: Security at Redocly
+  url: security/redocly-trust-center.yml
+  type: TrustCenter
+- name: Vulnerability disclosure programme
+  url: security/redocly-vulnerability-disclosure.yml
+  type: VulnerabilityDisclosure
+- name: RFC 9457 problem types
+  url: errors/redocly-problem-types.yml
+  type: ErrorCatalog
+- name: Versioning, SLA and status
+  url: lifecycle/redocly-lifecycle.yml
+  type: Lifecycle
+- name: Runtime conventions and reversibility
+  url: conventions/redocly-conventions.yml
+  type: Conventions
+- name: Structured changelog
+  url: changelog/redocly-changelog.yml
+  type: ChangeLog
+- name: Redocly CLI command surface
+  url: cli/redocly-cli.yml
+  type: CLI
+- name: Embeddable and client-side components
+  url: components/redocly-components.yml
+  type: Components
+- name: Entity graph derived from the OpenAPIs
+  url: data-model/redocly-data-model.yml
+  type: DataModel
+- name: Webhook surface (inbound Scout receivers)
+  url: asyncapi/redocly-webhooks.yml
+  type: Webhooks
+- name: Feature requests and roadmap
+  url: https://redocly.com/roadmap
+  type: Roadmap
+- name: Get started with Realm
+  url: https://redocly.com/docs/realm/get-started
+  type: GettingStarted
+- name: Redocly CLI quickstart
+  url: https://redocly.com/docs/cli/quickstart
+  type: Quickstart
+- name: Redocly Learn
+  url: https://redocly.com/learn
+  type: Learn
+- name: List of sub-processors
+  url: https://redocly.com/sub-processors
+  type: SubProcessors
+- type: Contact
+  url: mailto:team@redocly.com
+
 apis:
 - aid: redocly:redocly-realm
   name: Redocly Realm
@@ -265,6 +480,8 @@ apis:
     url: data-model/redocly-data-model.yml
   - type: Webhooks
     url: asyncapi/redocly-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/redocly-health-schema.json
 - aid: redocly:redocly-metadata-api
   name: Redocly Metadata API
   description: Operations related to metadata.
@@ -292,6 +509,10 @@ apis:
     url: data-model/redocly-data-model.yml
   - type: Webhooks
     url: asyncapi/redocly-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/redocly-metadata-validation-result-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-metadata-schema.json
 - aid: redocly:redocly-remotes-api
   name: Redocly Remotes API
   description: Operations related to remotes.
@@ -319,6 +540,14 @@ apis:
     url: data-model/redocly-data-model.yml
   - type: Webhooks
     url: asyncapi/redocly-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/redocly-pull-request-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-remote-push-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-create-remote-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-remote-schema.json
 - aid: redocly:redocly-search-api
   name: Redocly Search API
   description: Full-text search and facet operations.
@@ -346,6 +575,14 @@ apis:
     url: data-model/redocly-data-model.yml
   - type: Webhooks
     url: asyncapi/redocly-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/redocly-search-request-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-search-facets-request-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-search-response-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-search-facets-response-schema.json
 - aid: redocly:redocly-status-api
   name: Redocly Status API
   description: Operations related to status.
@@ -373,6 +610,8 @@ apis:
     url: data-model/redocly-data-model.yml
   - type: Webhooks
     url: asyncapi/redocly-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/redocly-status-schema.json
 - aid: redocly:redocly-tasks-api
   name: Redocly Tasks API
   description: Operations related to tasks.
@@ -402,6 +641,12 @@ apis:
     url: data-model/redocly-data-model.yml
   - type: Webhooks
     url: asyncapi/redocly-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/redocly-job-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-job-list-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-patch-job-schema.json
 - aid: redocly:redocly-webhooks-api
   name: Redocly Webhooks API
   description: Operations related to incoming git webhooks.
@@ -431,6 +676,18 @@ apis:
     url: data-model/redocly-data-model.yml
   - type: Webhooks
     url: asyncapi/redocly-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/redocly-push-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-push-2-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-pull-request-opened-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-pull-request-reopened-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-merge-request-reopen-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-merge-request-update-schema.json
 - aid: redocly:redocly-to-dos-api
   name: Redocly To Dos API
   description: Operations related to todos.
@@ -458,207 +715,27 @@ apis:
     url: data-model/redocly-data-model.yml
   - type: Webhooks
     url: asyncapi/redocly-webhooks.yml
-common:
-- type: VendorFacets
-  url: vendor-facets/redocly-vendor-facets.yml
-- type: Website
-  url: https://redocly.com
-- type: Overlay
-  url: overlays/redocly-search-api-overlay.yaml
-- type: Overlay
-  url: overlays/redocly-docs-mcp-overlay.yaml
-- type: Overlay
-  url: overlays/redocly-scout-overlay.yaml
-- type: Overlay
-  url: overlays/redocly-scout-agent-overlay.yaml
-- type: OAuthScopes
-  url: scopes/redocly-scopes.yml
-- type: Authentication
-  url: authentication/redocly-authentication.yml
-- type: DomainSecurity
-  url: security/redocly-domain-security.yml
-- name: About Redocly Documentation
-  url: https://redocly.com/docs
-  type: Documentation
-- name: Redocly Developer Portal (built on Realm)
-  url: https://redocly.com/docs
-  type: Portal
-- name: Customers
-  url: https://redocly.com/customers
-  type: Customers
-- name: Pricing
-  url: https://redocly.com/pricing
-  type: Pricing
-- name: Redocly Blog
-  url: https://redocly.com/blog
-  type: Blog
-- name: Webinars
-  url: https://redocly.com/webinars
-  type: Webinars
-- name: Security at Redocly
-  url: https://redocly.com/security
-  type: Security
-- name: Redocly Status Page
-  url: https://status.redocly.com/
-  type: StatusPage
-- name: Service Level Agreement
-  url: https://redocly.com/sla
-  type: ServiceLevelAgreement
-- name: Redocly CLI
-  url: https://redocly.com/redocly-cli
-  type: CLI
-- name: About Redocly
-  url: https://redocly.com/about
-  type: About
-- name: Contact Redocly
-  url: https://redocly.com/contact-us
-  type: Support
-- name: Redocly Products
-  url: https://redocly.com/products
-  type: Products
-- name: Redocly Login
-  url: https://auth.cloud.redocly.com/login
-  type: Login
-- name: Redocly Sign Up
-  url: https://redocly.com/billing/signup
-  type: Signup
-- name: Redocly Privacy Notice
-  url: https://redocly.com/privacy-notice
-  type: PrivacyPolicy
-- name: Redocly Subscription Agreement
-  url: https://redocly.com/subscription-agreement
-  type: TermsOfService
-- name: Redocly Careers
-  url: https://redocly.com/careers
-  type: Careers
-- name: Redocly on GitHub
-  url: https://github.com/Redocly
-  type: GitHubOrg
-- name: Redocly on X
-  url: https://twitter.com/Redocly
-  type: X
-- name: Redocly on LinkedIn
-  url: https://www.linkedin.com/company/redocly
-  type: LinkedIn
-- name: Redocly API Governance
-  url: https://redocly.com/api-governance
-  type: Governance
-- name: Redocly Changelog
-  url: https://redocly.com/docs/realm/changelog
-  type: ChangeLog
-- name: Redocly Vulnerability Disclosure Policy
-  url: https://redocly.com/vulnerability-disclosure-policy
-  type: VulnerabilityDisclosure
-- name: Redocly Data Processing Addendum
-  url: https://redocly.com/dpa
-  type: DataProcessingAddendum
-- name: Redocly OpenAPI Reference Docs
-  url: https://redocly.com/reference
-  type: Reference
-- name: Plans and Pricing (API Commons)
-  url: plans/redocly-plans-pricing.yml
-  type: Plans
-- name: Rate Limits (API Commons)
-  url: rate-limits/redocly-rate-limits.yml
-  type: RateLimits
-- name: FinOps (FOCUS-aligned)
-  url: finops/redocly-finops.yml
-  type: FinOps
-- type: LlmsText
-  url: https://redocly.com/llms.txt
-- name: Client and tooling packages (npm, Docker)
-  url: packages/redocly-packages.yml
-  type: Packages
-- name: /.well-known probe index
-  url: well-known/redocly-well-known.yml
-  type: WellKnown
-- name: Redocly Docs MCP server
-  url: mcp/redocly-mcp.yml
-  type: MCPServer
-- name: MCP tool to OpenAPI operation crosswalk
-  url: mcp/redocly-tool-crosswalk.yml
-  type: ToolCrosswalk
-- name: A2A agent card (served by Redocly)
-  url: a2a/redocly-a2a.yml
-  type: AgentCard
-- name: Agent Skills published by Redocly
-  url: skills/_index.yml
-  type: AgentSkill
-- name: llms.txt (saved verbatim)
-  url: llms/redocly-llms.txt
-  type: LLMsTxt
-- name: Standards conformance
-  url: conformance/redocly-conformance.yml
-  type: Conformance
-- name: Published certifications (SOC 2 Type II, CSA STAR)
-  url: security/redocly-trust-center.yml
-  type: Compliance
-- name: Security at Redocly
-  url: security/redocly-trust-center.yml
-  type: TrustCenter
-- name: Vulnerability disclosure programme
-  url: security/redocly-vulnerability-disclosure.yml
-  type: VulnerabilityDisclosure
-- name: RFC 9457 problem types
-  url: errors/redocly-problem-types.yml
-  type: ErrorCatalog
-- name: Versioning, SLA and status
-  url: lifecycle/redocly-lifecycle.yml
-  type: Lifecycle
-- name: Runtime conventions and reversibility
-  url: conventions/redocly-conventions.yml
-  type: Conventions
-- name: Structured changelog
-  url: changelog/redocly-changelog.yml
-  type: ChangeLog
-- name: Redocly CLI command surface
-  url: cli/redocly-cli.yml
-  type: CLI
-- name: Embeddable and client-side components
-  url: components/redocly-components.yml
-  type: Components
-- name: Entity graph derived from the OpenAPIs
-  url: data-model/redocly-data-model.yml
-  type: DataModel
-- name: Webhook surface (inbound Scout receivers)
-  url: asyncapi/redocly-webhooks.yml
-  type: Webhooks
-- name: Feature requests and roadmap
-  url: https://redocly.com/roadmap
-  type: Roadmap
-- name: Get started with Realm
-  url: https://redocly.com/docs/realm/get-started
-  type: GettingStarted
-- name: Redocly CLI quickstart
-  url: https://redocly.com/docs/cli/quickstart
-  type: Quickstart
-- name: Redocly Learn
-  url: https://redocly.com/learn
-  type: Learn
-- name: List of sub-processors
-  url: https://redocly.com/sub-processors
-  type: SubProcessors
-- type: Contact
-  url: mailto:team@redocly.com
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - type: JSONSchema
+    url: json-schema/redocly-job-schema.json
+  - type: JSONSchema
+    url: json-schema/redocly-job-list-schema.json
 x-enrichment:
   date: '2026-08-27'
   status: enriched
   artifacts_added: 31
   pass: local-v1
+
 x-a2a:
   verified: true
   probed: '2026-09-26'
-  url: "https://redocly.com/.well-known/agent-card.json"
-  grade: "conformant"
-  protocol_version: "0.3.0"
+  url: https://redocly.com/.well-known/agent-card.json
+  grade: conformant
+  protocol_version: 0.3.0
   control: 404
+
 x-correction-request:
   requested: '2026-10-03'
   source:
   - apis.io Influence-tier request queue (kinlane-test-influence)
-  request: 'Influence-tier artifact submission 7f9ba58b (2026-09-23): Portal at https://redocly.com/docs. Verify
-    it is live and real (MCP: initialize/tools/list or server card; OpenAPI: paths), then record it as a pointer
-    and harvest it.'
+  request: 'Influence-tier artifact submission 7f9ba58b (2026-09-23): Portal at https://redocly.com/docs. Verify it is live and real (MCP: initialize/tools/list
+    or server card; OpenAPI: paths), then record it as a pointer and harvest it.'
