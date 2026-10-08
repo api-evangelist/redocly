@@ -466,3 +466,142 @@ notes:
   100 to 500.
 - A budget cap can be set on metered items to prevent over-spending.
 - 30-day free trial on Pro and Enterprise; a startup discount is published at https://redocly.com/startup-discount.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - hybrid
+  - metered
+  - seat
+  - subscription
+  units:
+  - negotiated
+  - object
+  - request
+  - seat
+  plans:
+  - name: Pro
+    access: paid
+    model: seat
+    model_how: derived
+    units:
+    - object
+    - seat
+    periods:
+    - month
+    - term
+  - name: Enterprise
+    access: paid
+    model: seat
+    model_how: derived
+    units:
+    - object
+    - seat
+    periods:
+    - month
+    - term
+  - name: Enterprise+
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - year
+  - name: Revel Add-On (Pro)
+    access: addon
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Revel Add-On (Enterprise)
+    access: addon
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Reef Add-On (Pro)
+    access: addon
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Reef Add-On (Enterprise)
+    access: addon
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Realm Add-On (Pro)
+    access: addon
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Realm Add-On (Enterprise)
+    access: addon
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Respect Monitoring (Free)
+    access: freemium
+    model: free
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+  - name: Respect Monitoring (Metered)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - month
+  - name: Respect Monitoring (20k Commitment)
+    access: paid
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+  - name: Respect Monitoring (50k Commitment)
+    access: paid
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+  - name: Respect Monitoring (200k Commitment)
+    access: paid
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+  - name: Respect Monitoring (500k Commitment)
+    access: paid
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
