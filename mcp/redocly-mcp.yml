@@ -37,7 +37,7 @@ server_card:
   - tools
   - resources
   - completions
-openapi: openapi/redocly-docs-mcp-openapi.yaml
+openapi: openapi/_original/redocly-docs-mcp-openapi.yaml
 docs: https://redocly.com/docs/realm/customization/mcp-server
 configuration_reference: https://redocly.com/docs/realm/config/mcp
 tools:
