@@ -1,0 +1,159 @@
+generated: '2026-10-04'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 11
+  own: 5
+  other_domain: 2
+  platform: 4
+  roles:
+  - api
+  - identity
+  - other
+  - status
+  - website
+hosts:
+- host: api.redocly.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: redocly.com
+  role: api
+  relation: own
+- host: app.redocly.com
+  found_by:
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: redocly.com
+  role: other
+  relation: own
+- host: auth.cloud.redocly.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types:
+  - Login
+  serves: []
+  registrable_domain: redocly.com
+  role: identity
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  - docs-index
+  types:
+  - GitHubOrg
+  serves:
+  - docs
+  registrable_domain: github.com
+  role: other
+  relation: platform
+- host: petstore.swagger.io:443
+  found_by:
+  - spec-found
+  types: []
+  serves:
+  - spec
+  registrable_domain: swagger.io:443
+  role: other
+  relation: other-domain
+- host: redocly.com
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - contract-discovery
+  - well-known
+  types:
+  - Website
+  - Documentation
+  - Portal
+  - Customers
+  - Pricing
+  - Blog
+  - Webinars
+  - Security
+  - ServiceLevelAgreement
+  - CLI
+  - About
+  - Support
+  - Products
+  - Signup
+  - PrivacyPolicy
+  - TermsOfService
+  - Careers
+  - Governance
+  - ChangeLog
+  - VulnerabilityDisclosure
+  - DataProcessingAddendum
+  - Reference
+  - LlmsText
+  - Roadmap
+  - GettingStarted
+  - Quickstart
+  - Learn
+  - SubProcessors
+  serves:
+  - docs
+  registrable_domain: redocly.com
+  role: website
+  relation: own
+- host: status.redocly.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: redocly.com
+  role: status
+  relation: own
+- host: twitter.com
+  found_by:
+  - pointer
+  types:
+  - X
+  serves: []
+  registrable_domain: twitter.com
+  role: other
+  relation: platform
+- host: u5ephr4vei5b44lde7rj3dkgpe0lsken.lambda-url.us-east-1.on.aws
+  found_by:
+  - docs-index
+  types: []
+  serves:
+  - docs
+  registrable_domain: on.aws
+  role: other
+  relation: other-domain
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: x.com
+  found_by:
+  - docs-index
+  types: []
+  serves:
+  - docs
+  registrable_domain: x.com
+  role: other
+  relation: platform

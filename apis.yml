@@ -11,6 +11,9 @@ description: Redocly is a company that specializes in API documentation and gove
   specifications. Respect Monitoring adds continuous, Arazzo-powered API monitoring, and the Enterprise tier exposes MCP Servers and AI search
   for Realm portals — positioning Redocly's catalog as an AI substrate for agentic software.
 
+x-docs-platform: redocly
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-04
 tags:
 - Artificial Intelligence
 - API Catalog
@@ -693,6 +696,8 @@ apis:
   description: Operations related to todos.
   humanURL: https://redocly.com/realm
   tags:
+  - To-Dos
+  tags_raw:
   - To Dos
   properties:
   - type: OpenAPI

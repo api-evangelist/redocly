@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/redocly/main/json-schema/redocly-search-facets-response-schema.json",
+  "title": "SearchFacetsResponse",
+  "description": "If the request includes `field`: array with a single facet. Otherwise all facet objects with their values.\n",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/redocly-search-api-openapi.yml#/components/schemas/SearchFacetsResponse",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/FacetObject"
+  },
+  "$defs": {
+    "FacetObject": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the facet as shown in the UI."
+        },
+        "field": {
+          "type": "string",
+          "description": "Facet field name (for example: `redocly_category`, `redocly_product`).\n"
+        },
+        "type": {
+          "type": "string",
+          "description": "Facet type (for example: multi-select, select, tags) as configured in search filters.\n"
+        },
+        "values": {
+          "type": "array",
+          "description": "Available facet values with their result counts.",
+          "items": {
+            "$ref": "#/$defs/FacetValueCount"
+          }
+        }
+      }
+    },
+    "FacetValueCount": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Facet value (for example: a category or product name).\n"
+        },
+        "count": {
+          "type": "integer",
+          "description": "Number of search results that match this facet value."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,652 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/redocly/main/json-schema/redocly-merge-request-update-schema.json",
+  "title": "Merge request update event",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/redocly-webhooks-api-openapi.yml#/components/schemas/merge-request-update",
+  "type": "object",
+  "required": [
+    "object_kind",
+    "user",
+    "project",
+    "repository",
+    "object_attributes",
+    "labels",
+    "changes"
+  ],
+  "properties": {
+    "object_kind": {
+      "type": "string",
+      "enum": [
+        "update"
+      ],
+      "description": "Type of webhook event data."
+    },
+    "user": {
+      "description": "Merge request creator details.",
+      "$ref": "#/$defs/user-2"
+    },
+    "project": {
+      "$ref": "#/$defs/project"
+    },
+    "repository": {
+      "$ref": "#/$defs/repository-2"
+    },
+    "object_attributes": {
+      "$ref": "#/$defs/merge-request-details"
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/label-2"
+      }
+    },
+    "changes": {
+      "$ref": "#/$defs/changes"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "author": {
+      "required": [
+        "name",
+        "email"
+      ],
+      "type": "object",
+      "description": "Author details.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Author name."
+        },
+        "email": {
+          "type": "string",
+          "description": "Author email."
+        }
+      },
+      "additionalProperties": false
+    },
+    "changes": {
+      "type": "object",
+      "description": "Object containing merge request change details.",
+      "required": [
+        "updated_by_id",
+        "updated_at",
+        "labels"
+      ],
+      "properties": {
+        "updated_by_id": {
+          "$ref": "#/$defs/updated-by-id"
+        },
+        "updated_at": {
+          "$ref": "#/$defs/updated-at"
+        },
+        "labels": {
+          "$ref": "#/$defs/labels"
+        }
+      },
+      "additionalProperties": false,
+      "title": "Change"
+    },
+    "commit-flat": {
+      "description": "Flattened commit details.",
+      "type": "object",
+      "required": [
+        "id",
+        "message",
+        "title",
+        "timestamp",
+        "url",
+        "author"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Commit SHA."
+        },
+        "message": {
+          "type": "string",
+          "description": "The commit message."
+        },
+        "title": {
+          "type": "string",
+          "description": "Commit title."
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The ISO 8601 timestamp of the commit."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL that points to the commit API resource."
+        },
+        "author": {
+          "$ref": "#/$defs/author"
+        }
+      },
+      "additionalProperties": false,
+      "title": "Commit"
+    },
+    "label-2": {
+      "description": "GitLab label details.",
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "color",
+        "project_id",
+        "created_at",
+        "updated_at",
+        "template",
+        "description",
+        "type",
+        "group_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Label id."
+        },
+        "title": {
+          "type": "string",
+          "description": "Label title."
+        },
+        "color": {
+          "type": "string",
+          "description": "Label color specified using hexadecimal value."
+        },
+        "project_id": {
+          "type": "integer",
+          "description": "Project id."
+        },
+        "created_at": {
+          "type": "string",
+          "description": "Label creation date.",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "description": "Label last update date.",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string",
+          "description": "Label description."
+        },
+        "type": {
+          "type": "string",
+          "description": "Label type."
+        },
+        "group_id": {
+          "type": "integer",
+          "description": "Group id the label is created for."
+        }
+      },
+      "additionalProperties": false,
+      "title": "Label"
+    },
+    "labels": {
+      "type": "object",
+      "description": "Object specifying labels changes.",
+      "required": [
+        "previous",
+        "current"
+      ],
+      "properties": {
+        "previous": {
+          "$ref": "#/$defs/label-2"
+        },
+        "current": {
+          "$ref": "#/$defs/label-2"
+        }
+      },
+      "additionalProperties": false,
+      "title": "Labels"
+    },
+    "merge-request-details": {
+      "description": "Merge request details.",
+      "type": "object",
+      "required": [
+        "id",
+        "target_branch",
+        "source_branch",
+        "source_project_id",
+        "author_id",
+        "assignee_id",
+        "title",
+        "created_at",
+        "updated_at",
+        "milestone_id",
+        "state",
+        "merge_status",
+        "target_project_id",
+        "iid",
+        "description",
+        "source",
+        "target",
+        "last_commit",
+        "work_in_progress",
+        "url",
+        "action",
+        "assignee"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Merge request id."
+        },
+        "target_branch": {
+          "type": "string",
+          "description": "Target branch name."
+        },
+        "source_branch": {
+          "type": "string",
+          "description": "Source branch name."
+        },
+        "source_project_id": {
+          "type": "integer",
+          "description": "Source project id."
+        },
+        "author_id": {
+          "type": "integer",
+          "description": "Author id."
+        },
+        "assignee_id": {
+          "type": "integer",
+          "description": "Assignee id."
+        },
+        "title": {
+          "type": "string",
+          "description": "Merge request title."
+        },
+        "created_at": {
+          "type": "string",
+          "description": "Merge request created date.",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "description": "Merge request updated date.",
+          "format": "date-time"
+        },
+        "milestone_id": {
+          "type": "integer",
+          "description": "Milestone id."
+        },
+        "state": {
+          "type": "string",
+          "description": "Merge request current state.",
+          "enum": [
+            "opened",
+            "closed",
+            "locked",
+            "merged"
+          ]
+        },
+        "merge_status": {
+          "type": "string",
+          "description": "Merge status.",
+          "enum": [
+            "unchecked",
+            "can_be_merged",
+            "cannot_be_merged"
+          ]
+        },
+        "target_project_id": {
+          "type": "integer",
+          "description": "Target project id."
+        },
+        "iid": {
+          "type": "integer",
+          "description": "Merge request id unique only in scope of a single project."
+        },
+        "description": {
+          "type": "string",
+          "description": "Merge request description."
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "target": {
+          "$ref": "#/$defs/source"
+        },
+        "last_commit": {
+          "$ref": "#/$defs/commit-flat"
+        },
+        "work_in_progress": {
+          "type": "boolean",
+          "description": "Work in progress flag."
+        },
+        "url": {
+          "type": "string",
+          "description": "Merge request url."
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "open",
+            "close",
+            "reopen",
+            "update",
+            "approved",
+            "unapproved",
+            "approval",
+            "unapproval",
+            "merge"
+          ]
+        },
+        "assignee": {
+          "$ref": "#/$defs/user-2"
+        }
+      },
+      "additionalProperties": false,
+      "title": "Merge request details"
+    },
+    "project": {
+      "description": "GitLab Project details.",
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "description",
+        "web_url",
+        "avatar_url",
+        "git_ssh_url",
+        "git_http_url",
+        "namespace",
+        "visibility_level",
+        "path_with_namespace",
+        "default_branch",
+        "homepage",
+        "url",
+        "ssh_url",
+        "http_url"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Unique identifier of the project."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the project."
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the project."
+        },
+        "web_url": {
+          "type": "string",
+          "description": "The URL to view the repository.",
+          "format": "uri"
+        },
+        "avatar_url": {
+          "type": "string",
+          "description": "Repository avatar url.",
+          "format": "uri"
+        },
+        "git_ssh_url": {
+          "type": "string",
+          "description": "SSH url of a project.",
+          "format": "uri"
+        },
+        "git_http_url": {
+          "type": "string",
+          "description": "Url of a project.",
+          "format": "uri"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Project namespace."
+        },
+        "visibility_level": {
+          "type": "integer",
+          "description": "Visibility level of a project."
+        },
+        "path_with_namespace": {
+          "type": "string",
+          "description": "Project path including namespace."
+        },
+        "default_branch": {
+          "type": "string",
+          "description": "Project default branch."
+        },
+        "homepage": {
+          "type": "string",
+          "description": "Project homepage url.",
+          "format": "uri"
+        },
+        "url": {
+          "type": "string",
+          "description": "Url of a project.",
+          "format": "uri"
+        },
+        "ssh_url": {
+          "type": "string",
+          "description": "SSH url of a project.",
+          "format": "uri"
+        },
+        "http_url": {
+          "type": "string",
+          "description": "Url of a project.",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false,
+      "title": "Project"
+    },
+    "repository-2": {
+      "description": "GitLab repository details.",
+      "type": "object",
+      "required": [
+        "name",
+        "url",
+        "description",
+        "homepage",
+        "git_http_url",
+        "git_ssh_url",
+        "visibility_level"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the project."
+        },
+        "url": {
+          "type": "string",
+          "description": "Repository git url.",
+          "format": "uri"
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the project."
+        },
+        "homepage": {
+          "type": "string",
+          "description": "Project homepage url.",
+          "format": "uri"
+        },
+        "git_http_url": {
+          "type": "string",
+          "description": "Git url of a project.",
+          "format": "uri"
+        },
+        "git_ssh_url": {
+          "type": "string",
+          "description": "SSH url of a project.",
+          "format": "uri"
+        },
+        "web_url": {
+          "type": "string",
+          "description": "The URL to view the repository.",
+          "format": "uri"
+        },
+        "avatar_url": {
+          "type": "string",
+          "description": "Avatar url of the repository.",
+          "format": "uri"
+        },
+        "visibility_level": {
+          "type": "integer",
+          "description": "Visibility level of a project."
+        }
+      },
+      "additionalProperties": false,
+      "title": "Repository"
+    },
+    "source": {
+      "description": "Merge request source details.",
+      "type": "object",
+      "required": [
+        "name",
+        "description",
+        "web_url",
+        "avatar_url",
+        "git_ssh_url",
+        "git_http_url",
+        "namespace",
+        "visibility_level",
+        "path_with_namespace",
+        "default_branch",
+        "homepage",
+        "url",
+        "ssh_url",
+        "http_url"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the project."
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the project."
+        },
+        "web_url": {
+          "type": "string",
+          "description": "The URL to view the repository.",
+          "format": "uri"
+        },
+        "avatar_url": {
+          "type": "string",
+          "description": "Avatar url of the repository.",
+          "format": "uri"
+        },
+        "git_ssh_url": {
+          "type": "string",
+          "description": "SSH url of a project.",
+          "format": "uri"
+        },
+        "git_http_url": {
+          "type": "string",
+          "description": "Git url of a project.",
+          "format": "uri"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Project namespace."
+        },
+        "visibility_level": {
+          "type": "integer",
+          "description": "Visibility level of a project."
+        },
+        "path_with_namespace": {
+          "type": "string",
+          "description": "Project path including namespace."
+        },
+        "default_branch": {
+          "type": "string",
+          "description": "Project default branch."
+        },
+        "homepage": {
+          "type": "string",
+          "description": "Project homepage url.",
+          "format": "uri"
+        },
+        "url": {
+          "type": "string",
+          "description": "Url of a project.",
+          "format": "uri"
+        },
+        "ssh_url": {
+          "type": "string",
+          "description": "SSH url of a project.",
+          "format": "uri"
+        },
+        "http_url": {
+          "type": "string",
+          "description": "Url of a project.",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false,
+      "title": "Source"
+    },
+    "updated-at": {
+      "type": "object",
+      "required": [
+        "previous",
+        "current"
+      ],
+      "properties": {
+        "previous": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "current": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "title": "Updated at"
+    },
+    "updated-by-id": {
+      "type": "object",
+      "required": [
+        "previous",
+        "current"
+      ],
+      "properties": {
+        "previous": {
+          "type": "integer",
+          "description": "Id of a user that previously updated merge request."
+        },
+        "current": {
+          "type": "integer",
+          "description": "Id of the most recent user that updated merge request."
+        }
+      },
+      "additionalProperties": false,
+      "title": "Updated by id"
+    },
+    "user-2": {
+      "type": "object",
+      "required": [
+        "name",
+        "username",
+        "avatar_url"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "User name."
+        },
+        "username": {
+          "type": "string",
+          "description": "User nickname."
+        },
+        "avatar_url": {
+          "type": "string",
+          "description": "User avatar url."
+        }
+      },
+      "additionalProperties": false,
+      "title": "User"
+    }
+  }
+}

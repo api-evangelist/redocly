@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/redocly/main/json-schema/redocly-remote-push-schema.json",
+  "title": "RemotePush",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/redocly-remotes-api-openapi.yml#/components/schemas/RemotePush",
+  "type": "object",
+  "required": [
+    "commit",
+    "jobId"
+  ],
+  "properties": {
+    "commit": {
+      "type": "object",
+      "description": "Commit details.",
+      "required": [
+        "message",
+        "author"
+      ],
+      "properties": {
+        "namespace": {
+          "type": "string",
+          "description": "Git repo namespace (organization login for GitHub)."
+        },
+        "repository": {
+          "type": "string",
+          "description": "Git repo name."
+        },
+        "message": {
+          "type": "string",
+          "description": "Commit message."
+        },
+        "author": {
+          "type": "object",
+          "required": [
+            "email",
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "description": "Commit author name."
+            },
+            "email": {
+              "type": "string",
+              "description": "Commit author email.",
+              "format": "email"
+            },
+            "image": {
+              "type": "string",
+              "description": "Commit author image URL.\nIf not provided, the default image is used.\nIf the image may not accessible, [data url](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs) can be used."
+            }
+          }
+        }
+      }
+    },
+    "jobId": {
+      "type": "string",
+      "format": "ulid",
+      "description": "ID of the `PROCESS_GIT_REPO` job, if any."
+    },
+    "replace": {
+      "type": "boolean",
+      "description": "Whether to replace the existing files.\nIf provided, all files from the remote are removed and the new files are added.\nIf not provided, the existing files are kept and the new files are added, overwriting the existing files where they overlap.",
+      "default": false
+    },
+    "files": {
+      "type": "object",
+      "description": "Map of files to upload.",
+      "additionalProperties": {
+        "description": "Files to push.",
+        "type": "string",
+        "format": "binary"
+      }
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/redocly/main/json-schema/redocly-search-response-schema.json",
+  "title": "SearchResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/redocly-search-api-openapi.yml#/components/schemas/SearchResponse",
+  "type": "object",
+  "properties": {
+    "facets": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/FacetValueCount"
+        }
+      },
+      "description": "Facet field names to arrays of value and count. Keys may include: `redocly_category`, `redocly_product`, `redocly_version`, `redocly_teams`, `httpMethod`, `httpPath`, `apiTitle`, `apiVersion`, and any custom facet fields.\n"
+    },
+    "documents": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/SearchItem"
+        }
+      },
+      "description": "Category names (e.g. Documentation, API Reference) to arrays of search items."
+    }
+  },
+  "$defs": {
+    "FacetValueCount": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Facet value (for example: a category or product name).\n"
+        },
+        "count": {
+          "type": "integer",
+          "description": "Number of search results that match this facet value."
+        }
+      }
+    },
+    "SearchDocument": {
+      "description": "Indexed document returned in search results.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the indexed document."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL of the document or API operation."
+        },
+        "title": {
+          "type": "string",
+          "description": "Document or page title."
+        },
+        "text": {
+          "type": "string",
+          "description": "Indexed text content used for search matching."
+        },
+        "path": {
+          "type": "array",
+          "description": "Breadcrumb path (for example: section titles) leading to this document.\n",
+          "items": {
+            "type": "string"
+          }
+        },
+        "redocly_category": {
+          "type": "string",
+          "description": "Documentation category (for example: Documentation, API Reference).\n"
+        },
+        "redocly_product": {
+          "type": "string",
+          "description": "Product name when content is scoped by product."
+        },
+        "redocly_teams": {
+          "type": "array",
+          "description": "Team names when content is scoped by team.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "redocly_version": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "isDefault": {
+                  "type": "boolean",
+                  "description": "Whether this is the default version."
+                }
+              }
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "Version label or version object for versioned content."
+        },
+        "httpMethod": {
+          "type": "string",
+          "description": "HTTP method (for example: GET, POST) for API reference items.\n"
+        },
+        "httpPath": {
+          "type": "string",
+          "description": "HTTP path pattern for API reference items."
+        },
+        "apiTitle": {
+          "type": "string",
+          "description": "Title of the API for API reference items."
+        },
+        "apiVersion": {
+          "type": "string",
+          "description": "API version for API reference items."
+        }
+      }
+    },
+    "SearchHighlight": {
+      "description": "Highlighted snippets; matched terms are wrapped in `<mark>` tags.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Document ID matching the result document."
+        },
+        "title": {
+          "type": "string",
+          "description": "Highlighted title snippet with matched terms in `<mark>` tags."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL of the result (no highlighting)."
+        },
+        "text": {
+          "type": "string",
+          "description": "Highlighted content snippet with matched terms in `<mark>` tags."
+        },
+        "redocly_category": {
+          "type": "string",
+          "description": "Category value for this result (for example: Documentation, API Reference).\n"
+        },
+        "redocly_product": {
+          "type": "string",
+          "description": "Product value for this result when applicable."
+        },
+        "parameters": {
+          "type": "array",
+          "description": "Present in API reference items."
+        }
+      }
+    },
+    "SearchItem": {
+      "type": "object",
+      "properties": {
+        "document": {
+          "type": "object",
+          "description": "The indexed document (metadata and content fields).",
+          "$ref": "#/$defs/SearchDocument"
+        },
+        "highlight": {
+          "type": "object",
+          "description": "Highlighted snippets for this result.",
+          "$ref": "#/$defs/SearchHighlight"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/redocly/main/json-schema/redocly-search-request-schema.json",
+  "title": "SearchRequest",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/redocly-search-api-openapi.yml#/components/schemas/SearchRequest",
+  "type": "object",
+  "required": [
+    "query",
+    "locale"
+  ],
+  "properties": {
+    "query": {
+      "type": "string",
+      "description": "Full-text search query."
+    },
+    "locale": {
+      "type": "string",
+      "description": "Locale code for the content to search (for example, `en`, `default_locale`).\nMust match a locale configured in your project. Locales are set in `redocly.yaml` under the [l10n](../../config/l10n.md) option.\n"
+    },
+    "filter": {
+      "type": "array",
+      "description": "List of facet filters. Omit or use [] for no filters.",
+      "items": {
+        "$ref": "#/$defs/FacetFilter"
+      }
+    },
+    "loadMore": {
+      "type": "object",
+      "description": "For pagination within a result group.",
+      "properties": {
+        "groupKey": {
+          "type": "string",
+          "description": "Category key to load more results for."
+        },
+        "offset": {
+          "type": "integer",
+          "description": "Offset for pagination within the group."
+        }
+      }
+    }
+  },
+  "$defs": {
+    "FacetFilter": {
+      "type": "object",
+      "required": [
+        "field",
+        "values"
+      ],
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "Facet field name (for example: `redocly_category`, `redocly_version`).\n"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Selected facet values."
+        }
+      }
+    }
+  }
+}

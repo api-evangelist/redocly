@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/redocly/main/json-schema/redocly-patch-job-schema.json",
+  "title": "PatchJob",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/redocly-tasks-api-openapi.yml#/components/schemas/PatchJob",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "COMPLETED",
+        "FAILED"
+      ],
+      "description": "Job status."
+    },
+    "metadata": {
+      "$ref": "#/$defs/JobMetadata"
+    }
+  },
+  "required": [
+    "status"
+  ],
+  "$defs": {
+    "JobMetadata": {
+      "type": "object",
+      "description": "Additional information about job.",
+      "properties": {
+        "scoutVersion": {
+          "type": "string",
+          "description": "Scout version.",
+          "readOnly": true
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": "Error message, if any."
+        },
+        "errorStack": {
+          "type": "string",
+          "description": "Error stack trace, if any."
+        }
+      }
+    }
+  }
+}

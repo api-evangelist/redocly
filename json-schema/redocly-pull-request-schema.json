@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/redocly/main/json-schema/redocly-pull-request-schema.json",
+  "title": "PullRequest",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/redocly-remotes-api-openapi.yml#/components/schemas/PullRequest",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "ulid",
+      "description": "Pull request Id.",
+      "readOnly": true
+    },
+    "number": {
+      "description": "Pull request number.",
+      "type": "integer",
+      "readOnly": true
+    },
+    "branchName": {
+      "description": "Branch name.",
+      "type": "string",
+      "maxLength": 512
+    },
+    "title": {
+      "description": "PR title.",
+      "type": "string",
+      "maxLength": 512
+    },
+    "description": {
+      "description": "PR description.",
+      "type": "string"
+    },
+    "status": {
+      "description": "PR status.",
+      "type": "string",
+      "default": "OPEN",
+      "enum": [
+        "OPEN",
+        "CLOSED",
+        "MERGED"
+      ]
+    },
+    "isDraft": {
+      "description": "Indicates whether or not the pull request is a draft.",
+      "type": "boolean"
+    },
+    "reviewers": {
+      "description": "List of reviewers.",
+      "type": "array",
+      "readOnly": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "ulid",
+            "description": "User id.",
+            "readOnly": true
+          },
+          "firstName": {
+            "description": "User first name.",
+            "type": "string",
+            "readOnly": true
+          },
+          "lastName": {
+            "description": "User last name.",
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName"
+        ]
+      },
+      "default": []
+    },
+    "createdBy": {
+      "description": "User who create PR.",
+      "type": "object",
+      "readOnly": true,
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "ulid",
+          "description": "User id.",
+          "readOnly": true
+        },
+        "firstName": {
+          "description": "User first name.",
+          "type": "string",
+          "readOnly": true
+        },
+        "lastName": {
+          "description": "User last name.",
+          "type": "string",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "id",
+        "firstName",
+        "lastName"
+      ]
+    },
+    "closedById": {
+      "type": "string",
+      "format": "ulid",
+      "description": "User id who close PR.",
+      "readOnly": true
+    },
+    "mergedById": {
+      "type": "string",
+      "format": "ulid",
+      "description": "User id who merged PR.",
+      "readOnly": true
+    },
+    "organizationId": {
+      "description": "Organization ID.",
+      "type": "string",
+      "readOnly": true
+    },
+    "organization": {
+      "description": "Organization.",
+      "properties": {
+        "name": {
+          "description": "Organization name.",
+          "type": "string"
+        }
+      }
+    },
+    "projectId": {
+      "description": "Project ID.",
+      "type": "string",
+      "readOnly": true
+    },
+    "project": {
+      "description": "Project.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Project name.",
+          "type": "string"
+        }
+      }
+    },
+    "reviews": {
+      "description": "list of reviews.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "ulid"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "APPROVED",
+              "REQUESTED_CHANGES",
+              "COMMENTED"
+            ]
+          },
+          "userId": {
+            "type": "string",
+            "format": "ulid"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "ulid",
+                "description": "User id."
+              },
+              "firstName": {
+                "description": "User first name.",
+                "type": "string"
+              },
+              "lastName": {
+                "description": "User last name.",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "createdAt": {
+      "description": "Created date.",
+      "type": "string",
+      "readOnly": true,
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "description": "Updated date.",
+      "type": "string",
+      "readOnly": true,
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "id",
+    "number",
+    "branchName",
+    "commitHash",
+    "title",
+    "status",
+    "reviewers",
+    "createdAt",
+    "updatedAt",
+    "createdBy"
+  ]
+}

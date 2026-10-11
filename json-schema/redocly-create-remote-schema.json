@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/redocly/main/json-schema/redocly-create-remote-schema.json",
+  "title": "CreateRemote",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/redocly-remotes-api-openapi.yml#/components/schemas/CreateRemote",
+  "type": "object",
+  "required": [
+    "mountPath",
+    "type"
+  ],
+  "properties": {
+    "mountPath": {
+      "type": "string",
+      "description": "Remote target path."
+    },
+    "type": {
+      "type": "string",
+      "description": "Remote type. TODO: Add discriminator by type and add other fields for GIT and URL remote types.",
+      "enum": [
+        "CICD",
+        "GIT",
+        "URL"
+      ]
+    },
+    "autoSync": {
+      "type": "boolean",
+      "description": "Auto sync changes to remote."
+    },
+    "autoMerge": {
+      "type": "boolean",
+      "description": "Auto merge changes from remote."
+    },
+    "createdAt": {
+      "type": "string",
+      "readOnly": true,
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "readOnly": true,
+      "format": "date-time"
+    },
+    "providerType": {
+      "$ref": "#/$defs/GitProviderType"
+    },
+    "namespaceId": {
+      "type": "string",
+      "readOnly": true
+    },
+    "repositoryId": {
+      "type": "string",
+      "readOnly": true
+    },
+    "projectId": {
+      "readOnly": true,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "mountBranchName": {
+      "type": "string",
+      "readOnly": true
+    },
+    "contentPath": {
+      "type": "string",
+      "readOnly": true
+    },
+    "credentialId": {
+      "type": "string",
+      "readOnly": true
+    },
+    "branchName": {
+      "type": "string",
+      "readOnly": true
+    },
+    "contentType": {
+      "type": "string",
+      "readOnly": true,
+      "enum": [
+        "FOLDER",
+        "FILE"
+      ]
+    }
+  },
+  "$defs": {
+    "GitProviderType": {
+      "type": "string",
+      "format": "enum",
+      "description": "Git provider type.",
+      "enum": [
+        "GITHUB_CLOUD",
+        "GITHUB_SERVER",
+        "GITLAB_CLOUD",
+        "GITLAB_SELF_MANAGED",
+        "BITBUCKET_CLOUD",
+        "BITBUCKET_DATACENTER",
+        "AZURE"
+      ]
+    }
+  }
+}

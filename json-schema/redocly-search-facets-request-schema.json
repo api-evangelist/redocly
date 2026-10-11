@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/redocly/main/json-schema/redocly-search-facets-request-schema.json",
+  "title": "SearchFacetsRequest",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/redocly-search-api-openapi.yml#/components/schemas/SearchFacetsRequest",
+  "type": "object",
+  "required": [
+    "locale"
+  ],
+  "properties": {
+    "locale": {
+      "type": "string",
+      "description": "Locale code (same as search)."
+    },
+    "field": {
+      "type": "string",
+      "description": "If set, returns only the facet for this field (with values and counts). If omitted, returns all configured facets."
+    },
+    "query": {
+      "type": "string",
+      "description": "Search query; facet counts are computed in the context of this query."
+    },
+    "filter": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/FacetFilter"
+      },
+      "description": "Counts are computed with these filters applied."
+    },
+    "facetQuery": {
+      "type": "string",
+      "description": "Filter facet values using this string (for type-ahead in facet controls)."
+    }
+  },
+  "$defs": {
+    "FacetFilter": {
+      "type": "object",
+      "required": [
+        "field",
+        "values"
+      ],
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "Facet field name (for example: `redocly_category`, `redocly_version`).\n"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Selected facet values."
+        }
+      }
+    }
+  }
+}
