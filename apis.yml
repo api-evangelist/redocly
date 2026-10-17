@@ -696,8 +696,6 @@ apis:
   description: Operations related to todos.
   humanURL: https://redocly.com/realm
   tags:
-  - To-Dos
-  tags_raw:
   - To Dos
   properties:
   - type: OpenAPI
