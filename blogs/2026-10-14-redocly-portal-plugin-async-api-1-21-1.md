@@ -1,0 +1,7 @@
+---
+title: "@redocly/portal-plugin-async-api 1.21.1"
+url: "https://redocly.com/docs/realm/changelog#%40redocly%2Fportal-plugin-async-api%401.21.1"
+date: "2026-10-14"
+feed_url: "https://redocly.com/docs/changelog/feed.xml"
+---
+New release: @redocly/portal-plugin-async-api@1.21.1 · Date: 2026-10-14 · 0 features · 3 fixes Fixes: • Fixed an issue where page content jumped to the side while long pages were loading. • Fixed an issue where the sign-in to the authenticated Docs MCP server failed with `Invalid MCP callback` or `invalid_grant`. • Fixed security vulnerability `CVE-2026-93687` by removing the `braces` dependency.

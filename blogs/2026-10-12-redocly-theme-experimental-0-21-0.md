@@ -1,0 +1,7 @@
+---
+title: "@redocly/theme-experimental 0.21.0"
+url: "https://redocly.com/docs/realm/changelog#%40redocly%2Ftheme-experimental%400.21.0"
+date: "2026-10-12"
+feed_url: "https://redocly.com/docs/changelog/feed.xml"
+---
+New release: @redocly/theme-experimental@0.21.0 · Date: 2026-10-12 · 11 features · 17 fixes Features: • Improved the AI assistant's progress display to keep generated answers stable. • Added a tooltip to the link icon next to headings and properties in API docs. • Added support for ordering options in the Markdoc `connect-mcp` tag.
