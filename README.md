@@ -1,4 +1,4 @@
-# Redocly (redocly)
+# Redocly
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,167 +64,234 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Redocly is a company that specializes in API documentation and governance tooling. Their platform helps organizations create, manage, and publish API documentation through Realm (the integrated lifecycle platform unifying Redoc, Revel, and Reef), Reunite (Git-connected collaboration and deployment for docs/APIs), Revel (developer portal), Reef (internal API catalog and scorecard), and Redoc (open-source OpenAPI renderer). The Redocly CLI provides linting, bundling, splitting, decoration, and documentation generation for OpenAPI, AsyncAPI, and Arazzo specifications. Respect Monitoring adds continuous, Arazzo-powered API monitoring, and the Enterprise tier exposes MCP Servers and AI search for Realm portals.
+Redocly is a company that specializes in API documentation and governance tooling. Their platform helps organizations create, manage, and publish API documentation through Realm (the integrated lifecycle platform that unifies Redoc, Revel, and Reef), Reunite (Git-connected collaboration and deployment for docs/APIs), Revel (developer portal), Reef (internal API catalog and scorecard), and Redoc (open-source OpenAPI renderer). The Redocly CLI provides linting, bundling, splitting, decoration, and documentation generation for OpenAPI, AsyncAPI, and Arazzo specifications. Respect Monitoring adds continuous, Arazzo-powered API monitoring, and the Enterprise tier exposes MCP Servers and AI search for Realm portals — positioning Redocly's catalog as an AI substrate for agentic software.
 
-**URL:** [https://raw.githubusercontent.com/api-evangelist/redocly/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/redocly/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · API Catalog · API Documentation · Arazzo · Developer Portal · Governance · Linting · MCP · Monitoring · OpenAPI · A2A
 
-## Scope
+## Redocly on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Redocly is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/redocly/](https://apis.io/providers/redocly/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (16)
 
-AI, API Catalog, API Documentation, Arazzo, Developer Portal, Governance, Linting, MCP, Monitoring, OpenAPI
+- [Redocly Realm](https://apis.io/apis/redocly/redocly-realm/) — Redocly Realm is the comprehensive API lifecycle management platform that unifies Redoc, Revel, and Reef into a single integrated product. Realm includes…
+- [Redocly Reunite](https://apis.io/apis/redocly/redocly-reunite/) — Redocly Reunite is the Git-connected collaboration and deployment surface for Realm. It prepares, deploys, and hosts documentation projects and mock servers…
+- [Redocly Revel](https://apis.io/apis/redocly/redocly-revel/) — Redocly Revel is the external developer hub product. It renders Markdown, Markdoc, and React pages with multi-product and localization capabilities,…
+- [Redocly Reef](https://apis.io/apis/redocly/redocly-reef/) — Redocly Reef is the internal API platform — a service catalog and governance product that organizes, aids discovery, and monitors APIs throughout their…
+- [Redocly Redoc](https://apis.io/apis/redocly/redocly-redoc/) — Redoc is the open-source engine that renders API reference documentation from OpenAPI definitions with a three-panel layout known for clarity and usability.…
+- [Redocly CLI](https://apis.io/apis/redocly/redocly-cli/) — Redocly CLI is an open-source command-line tool for working with OpenAPI descriptions, developer portals, and other API lifecycle operations. Supports…
+- [Redocly Respect Monitoring](https://apis.io/apis/redocly/redocly-respect/) — Respect Monitoring is Redocly's continuous, API-aware monitoring product powered by OpenAPI Arazzo workflows. Rather than uptime checking, it validates that…
+- [Arazzo Specification (Redocly Tooling)](https://apis.io/apis/redocly/redocly-arazzo/) — Arazzo is the OpenAPI Initiative's specification for describing multi-step API workflows; Redocly is a primary tooling vendor with first-class Arazzo…
+- [Redocly Health API](https://apis.io/apis/redocly/redocly-health-api/) — Operations related to health checks.
+- [Redocly Metadata API](https://apis.io/apis/redocly/redocly-metadata-api/) — Operations related to metadata.
+- [Redocly Remotes API](https://apis.io/apis/redocly/redocly-remotes-api/) — Operations related to remotes.
+- [Redocly Search API](https://apis.io/apis/redocly/redocly-search-api/) — Full-text search and facet operations.
+- [Redocly Status API](https://apis.io/apis/redocly/redocly-status-api/) — Operations related to status.
+- [Redocly Tasks API](https://apis.io/apis/redocly/redocly-tasks-api/) — Operations related to tasks.
+- [Redocly Webhooks API](https://apis.io/apis/redocly/redocly-webhooks-api/) — Operations related to incoming git webhooks.
+- [Redocly To Dos API](https://apis.io/apis/redocly/redocly-to-dos-api/) — Operations related to todos.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-01-05
-- **Modified:** 2026-05-22
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### Redocly Realm
+Event-driven and webhook contracts.
 
-Comprehensive API lifecycle management platform unifying Redoc, Revel, and Reef. Includes API documentation, mock servers, linting, catalog, scorecard, API functions, Markdown/Markdoc/React docs, API Scout for hidden-API discovery, dynamic client registration, MCP Servers (Enterprise) with OAuth and CIMD support, plus AI search and Typesense search.
+- [Redocly Webhooks](https://apis.io/asyncapis/redocly/redocly-webhooks/)
 
-**Human URL:** [https://redocly.com/realm](https://redocly.com/realm)
+#### MCP servers (1)
 
-#### Tags
+Model Context Protocol servers that expose the API to agents.
 
-AI, API Catalog, Developer Portal, Documentation, MCP
+- [Redocly Docs MCP server](https://apis.io/servers/redocly/redocly-docs-mcp-server/)
 
----
+#### Agentic access (1)
 
-### Redocly Reunite
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Git-connected collaboration and deployment surface for Realm. Ships a content editor, pull requests and reviews, deployments, scorecards, feedback, Respect Monitoring integration, and compliance reports. Provides Webview previews, Branch Previews, and GitOps releases. Integrates with GitHub, GitLab, Bitbucket, and Azure DevOps.
+- [Redocly Agentic Access](https://apis.io/agentic-access/redocly/redocly-agentic-access/)
 
-**Human URL:** [https://redocly.com/reunite](https://redocly.com/reunite)
+#### JSON Schema (23)
 
-#### Tags
+The data models the API reads and writes.
 
-Collaboration, Deployment, Documentation, GitOps
+- [Redocly Configuration](https://apis.io/schemas/redocly/redocly-config/)
+- [CreateRemote](https://apis.io/schemas/redocly/redocly-create-remote/)
+- [Health](https://apis.io/schemas/redocly/redocly-health/)
+- [Job](https://apis.io/schemas/redocly/redocly-job/)
+- [JobList](https://apis.io/schemas/redocly/redocly-job-list/)
+- [Redocly Lint Result](https://apis.io/schemas/redocly/redocly-lint-result/)
+- [Merge request reopen event](https://apis.io/schemas/redocly/redocly-merge-request-reopen/)
+- [Merge request update event](https://apis.io/schemas/redocly/redocly-merge-request-update/)
+- [Metadata](https://apis.io/schemas/redocly/redocly-metadata/)
+- [MetadataValidationResult](https://apis.io/schemas/redocly/redocly-metadata-validation-result/)
+- [PatchJob](https://apis.io/schemas/redocly/redocly-patch-job/)
+- [PullRequest](https://apis.io/schemas/redocly/redocly-pull-request/)
+- [pull_request opened event](https://apis.io/schemas/redocly/redocly-pull-request-opened/)
+- [pull_request reopened event](https://apis.io/schemas/redocly/redocly-pull-request-reopened/)
+- [push event](https://apis.io/schemas/redocly/redocly-push/)
+- [Push event](https://apis.io/schemas/redocly/redocly-push-2/)
+- [Remote](https://apis.io/schemas/redocly/redocly-remote/)
+- [RemotePush](https://apis.io/schemas/redocly/redocly-remote-push/)
+- [SearchFacetsRequest](https://apis.io/schemas/redocly/redocly-search-facets-request/)
+- [SearchFacetsResponse](https://apis.io/schemas/redocly/redocly-search-facets-response/)
+- [SearchRequest](https://apis.io/schemas/redocly/redocly-search-request/)
+- [SearchResponse](https://apis.io/schemas/redocly/redocly-search-response/)
+- [Status](https://apis.io/schemas/redocly/redocly-status/)
 
----
+#### JSON Structure (2)
 
-### Redocly Revel
+Data models expressed in JSON Structure.
 
-External developer hub rendering Markdown, Markdoc, and React pages with multi-product and localization support. Creates polished, public-facing developer portals and onboarding experiences.
+- [Redocly Config Structure](https://apis.io/json-structure/redocly/redocly-config-structure/)
+- [Redocly Lint Result Structure](https://apis.io/json-structure/redocly/redocly-lint-result-structure/)
 
-**Human URL:** [https://redocly.com/revel](https://redocly.com/revel)
+#### JSON-LD (1)
 
-#### Tags
+Linked-data contexts for the provider's vocabulary.
 
-Developer Portal, Documentation, Localization
+- [Redocly Context](https://apis.io/jsonld/redocly/redocly-context/)
 
----
+#### Vocabulary (1)
 
-### Redocly Reef
+The provider's domain terms, defined.
 
-Internal API platform — service catalog and governance product with catalog organization, Scorecard linting rules, API Scout for hidden-API discovery, API functions, and developer onboarding with dynamic client registration.
+- [Redocly Vocabulary](https://apis.io/vocabularies/redocly/redocly-vocabulary/)
 
-**Human URL:** [https://redocly.com/reef](https://redocly.com/reef)
+#### Examples (3)
 
-#### Tags
+Example requests and responses.
 
-API Catalog, Governance, Scorecard
+- [Redocly Cli Commands Example](https://apis.io/examples/redocly/redocly-cli-commands-example/)
+- [Redocly Config Example](https://apis.io/examples/redocly/redocly-config-example/)
+- [Redocly Lint Result Example](https://apis.io/examples/redocly/redocly-lint-result-example/)
 
----
+#### Overlays (12)
 
-### Redocly Redoc
+OpenAPI overlays, including conversational phrasing for each operation.
 
-Open-source OpenAPI documentation renderer with a three-panel layout. Supports OpenAPI 3.2, 3.1, 3.0, and Swagger 2.0. Available as React component, HTML tag, CLI, and Docker image with over 25,000 GitHub stars.
+- [Redocly Docs Mcp Overlay](https://apis.io/overlays/redocly/redocly-docs-mcp-overlay/)
+- [Redocly Health Api Phrasing Overlay](https://apis.io/overlays/redocly/redocly-health-api-phrasing-overlay/)
+- [Redocly Metadata Api Phrasing Overlay](https://apis.io/overlays/redocly/redocly-metadata-api-phrasing-overlay/)
+- [Redocly Remotes Api Phrasing Overlay](https://apis.io/overlays/redocly/redocly-remotes-api-phrasing-overlay/)
+- [Redocly Scout Agent Overlay](https://apis.io/overlays/redocly/redocly-scout-agent-overlay/)
+- [Redocly Scout Overlay](https://apis.io/overlays/redocly/redocly-scout-overlay/)
+- [Redocly Search Api Overlay](https://apis.io/overlays/redocly/redocly-search-api-overlay/)
+- [Redocly Search Api Phrasing Overlay](https://apis.io/overlays/redocly/redocly-search-api-phrasing-overlay/)
+- [Redocly Status Api Phrasing Overlay](https://apis.io/overlays/redocly/redocly-status-api-phrasing-overlay/)
+- [Redocly Tasks Api Phrasing Overlay](https://apis.io/overlays/redocly/redocly-tasks-api-phrasing-overlay/)
+- [Redocly To Dos Api Phrasing Overlay](https://apis.io/overlays/redocly/redocly-to-dos-api-phrasing-overlay/)
+- [Redocly Webhooks Api Phrasing Overlay](https://apis.io/overlays/redocly/redocly-webhooks-api-phrasing-overlay/)
 
-**Human URL:** [https://redocly.com/redoc](https://redocly.com/redoc)
+#### Governance rules (2)
 
-#### Tags
+Spectral rulesets for the provider's contracts.
 
-Documentation, OpenAPI, Reference
+- [Redocly — jsonschema rules](https://apis.io/rules/redocly/redocly-jsonschema-spectral-rules/)
+- [Redocly API Rules](https://apis.io/rules/redocly/redocly-rules/)
 
----
+#### Security (4)
 
-### Redocly CLI
+Authentication, trust centre, and vulnerability disclosure.
 
-Open-source CLI for linting, bundling, splitting, decorating, and building documentation from OpenAPI, AsyncAPI, and Arazzo definitions. Supports OpenAPI 3.2/3.1/3.0/2.0, AsyncAPI 3.0/2.6, and Arazzo 1.0/1.1. Built-in rulesets: spec, recommended, recommended-strict, minimal.
+- [Redocly Authentication](https://apis.io/security/redocly/redocly-authentication/)
+- [Redocly Domain Security](https://apis.io/security/redocly/redocly-domain-security/)
+- [Redocly Trust Center](https://apis.io/security/redocly/redocly-trust-center/)
+- [Redocly Vulnerability Disclosure](https://apis.io/security/redocly/redocly-vulnerability-disclosure/)
 
-**Human URL:** [https://redocly.com/redocly-cli](https://redocly.com/redocly-cli)
+#### OAuth scopes (1)
 
-#### Tags
+The permissions the API asks for.
 
-Arazzo, CLI, Governance, Linting, OpenAPI
+- [Redocly Scopes](https://apis.io/scopes/redocly/redocly-scopes/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://redocly.com/docs/cli)
-- [Reference](https://redocly.com/docs/cli/commands/lint)
-- [Changelog](https://redocly.com/docs/cli/changelog)
-- [GitHubOrg](https://github.com/Redocly/redocly-cli)
-- [JSONSchema](json-schema/redocly-config-schema.json)
-- [JSONSchema](json-schema/redocly-lint-result-schema.json)
-- [JSONStructure](json-structure/redocly-config-structure.json)
-- [JSONStructure](json-structure/redocly-lint-result-structure.json)
-- [JSON-LD](json-ld/redocly-context.jsonld)
-- [Vocabulary](vocabulary/redocly-vocabulary.yml)
+Published plans, tiers and prices.
 
----
+- [Redocly Plans Pricing](https://apis.io/plans/redocly/redocly-plans-pricing/)
 
-### Redocly Respect Monitoring
+#### Rate limits (1)
 
-Continuous API-aware monitoring powered by OpenAPI Arazzo workflows. Validates that API responses conform to specifications (status codes, content types, headers, schemas) and detects schema drift, missing status codes, and performance issues. Slack/email alerts, multi-environment support, and CI/CD integration with GitHub, GitLab, and Jenkins. Usage-based: 1,000 free monthly requests; commitment plans $100/month (20k) to $1,000/month (500k).
+Published request limits.
 
-**Human URL:** [https://redocly.com/respect](https://redocly.com/respect)
+- [Redocly Rate Limits](https://apis.io/rate-limits/redocly/redocly-rate-limits/)
 
-#### Tags
+#### FinOps (1)
 
-Arazzo, Monitoring, Observability, Testing
+What the API costs to run, by operation.
 
----
+- [Redocly Finops](https://apis.io/finops/redocly/redocly-finops/)
 
-### Arazzo Specification (Redocly Tooling)
+## Where to find this API
 
-Redocly is a primary tooling vendor for the OpenAPI Initiative's Arazzo specification (multi-step API workflows). Arazzo 1.1 (May 2026) adds AsyncAPI support, workflow composition, selectors, identity-based references, and clearer runtime behavior.
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-**Human URL:** [https://redocly.com/blog/arazzo-specification-1-1-release](https://redocly.com/blog/arazzo-specification-1-1-release)
-
-#### Tags
-
-Arazzo, OpenAPI, Specification, Workflows
-
----
-
-## Examples
-
-| File | Description |
-|---|---|
-| [examples/redocly-config-example.json](examples/redocly-config-example.json) | Example redocly.yaml configuration with multi-API setup |
-| [examples/redocly-lint-result-example.json](examples/redocly-lint-result-example.json) | Example lint output with errors and warnings |
-| [examples/redocly-cli-commands-example.json](examples/redocly-cli-commands-example.json) | Common CLI commands: lint, bundle, build-docs, split, push |
-
-## Plans, Rate Limits, and FinOps
-
-- [plans/redocly-plans-pricing.yml](plans/redocly-plans-pricing.yml) — API Commons Plans 0.1 capturing published Pro ($10/seat), Enterprise ($24/seat), Enterprise+, Revel/Reef/Realm add-ons, and Respect Monitoring usage tiers.
-- [rate-limits/redocly-rate-limits.yml](rate-limits/redocly-rate-limits.yml) — API Commons Rate Limits 0.1 documenting project/page subscription quotas and Respect Monitoring monthly request quotas.
-- [finops/redocly-finops.yml](finops/redocly-finops.yml) — FOCUS-aligned FinOps mapping for the hybrid subscription + metered billing surface.
-
-## Common Properties
-
+- [Website](https://redocly.com)
 - [Documentation](https://redocly.com/docs)
-- [Blog](https://redocly.com/blog)
+- [Getting started](https://redocly.com/docs/realm/get-started)
 - [Pricing](https://redocly.com/pricing)
-- [Status](https://status.redocly.com/)
 - [Support](https://redocly.com/contact-us)
-- [Login](https://auth.cloud.redocly.com/login)
-- [PrivacyPolicy](https://redocly.com/privacy-notice)
-- [TermsOfService](https://redocly.com/subscription-agreement)
-- [GitHubOrg](https://github.com/Redocly)
-- [X](https://twitter.com/Redocly)
-- [LinkedIn](https://www.linkedin.com/company/redocly)
-- [Governance](https://redocly.com/api-governance)
 - [Changelog](https://redocly.com/docs/realm/changelog)
+- [Blog](https://redocly.com/blog)
+- [Security](https://redocly.com/security)
+- [Terms of service](https://redocly.com/subscription-agreement)
+- [Privacy policy](https://redocly.com/privacy-notice)
+- [Status](https://status.redocly.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 81.1** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.7 |
+| Contract quality | 63.3 |
+| Contract governance | 45.5 |
+| Operational transparency | 100.0 |
+| Developer ergonomics | 78.6 |
+| Access clarity | 92.1 |
+
+**Agent readiness 36.4** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | yes |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 41.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/redocly/](https://apis.io/providers/redocly/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Redocly: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/redocly/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
