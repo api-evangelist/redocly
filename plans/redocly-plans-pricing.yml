@@ -1,0 +1,80 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://redocly.com/pricing
+sources:
+- https://redocly.com/pricing
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T120612
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+  managed_tier: Pro
+published: true
+note: Flat per-plan docs platform pricing; no per-seat charges. AI features included in beta with usage
+  limits, usage-based pricing promised at GA with 60 days notice.
+plan_count: 3
+currency: USD
+plans:
+- name: Pro
+  price_text: $249 per month billed annually as $2,988
+  currency: USD
+  period: month
+  unit: plan
+  included_quota: 3 projects, unlimited seats, readers, Git contributors, unlimited pages
+  overage: Add more projects for $390 a year each
+- name: Scale
+  price_text: $729 per month billed annually as $8,748
+  currency: USD
+  period: month
+  unit: plan
+  included_quota: 10 projects, everything in Pro plus SSO, RBAC, analytics
+  overage: Add more projects for $390 a year each
+- name: Enterprise
+  price_text: Custom annual contract, priced for your organization
+  period: year
+  unit: contract
+  included_quota: Unlimited projects, everything in Scale plus security/compliance features
+rate_limit_statements:
+- 'Fair use: build and hosting rate limits apply.'
+- Unlimited pages, readers and AI beta usage carry per-minute and per-day rate limits that normal use
+  never touches. Hitting one slows requests. It never creates a charge. Enterprise plans can raise them.
+- Yes, per API key. Over the limit you get a 429 and a Retry-After header.
+- API monitoring is part of Enterprise, with the monthly request limit set in the contract.
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - metered
+  units:
+  - negotiated
+  plans:
+  - name: Pro
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Scale
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - year
